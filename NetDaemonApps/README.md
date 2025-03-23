@@ -19,3 +19,14 @@ See https://netdaemon.xyz/docs/hass_model/hass_model_codegen
 ## Discuss the NetDaemon
 
 Please [join the Discord server](https://discord.gg/K3xwfcX) to get support or if you want to contribute and help others.
+
+## Installing and using the code gen tool as local
+```
+dotnet new tool-manifest
+```
+```
+dotnet tool install --local NetDaemon.HassModel.CodeGen
+```
+```
+dotnet tool run nd-codegen
+```
