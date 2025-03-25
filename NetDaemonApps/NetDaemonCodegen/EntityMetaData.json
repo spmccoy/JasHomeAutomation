@@ -573,7 +573,7 @@
         {
           "jsonName": "rgbw_color",
           "cSharpName": "RgbwColor",
-          "clrType": null
+          "clrType": "System.Collections.Generic.IReadOnlyList\u00601[System.Double]"
         },
         {
           "jsonName": "is_hue_group",
@@ -895,7 +895,7 @@
         {
           "jsonName": "bluetooth_list",
           "cSharpName": "BluetoothList",
-          "clrType": "System.Collections.Generic.IReadOnlyList\u00601[System.String]"
+          "clrType": "System.Object"
         },
         {
           "jsonName": "previous_volume",
@@ -906,6 +906,11 @@
           "jsonName": "restored",
           "cSharpName": "Restored",
           "clrType": "System.Boolean"
+        },
+        {
+          "jsonName": "media_playlist",
+          "cSharpName": "MediaPlaylist",
+          "clrType": "System.String"
         }
       ]
     },
@@ -1183,42 +1188,42 @@
         },
         {
           "id": "binary_sensor.desktop_tcfukdg_desktop_tcfukdg_namedwindow_diablo_open",
-          "friendlyName": "DESKTOP-TCFUKDG_namedwindow_diablo_open",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_namedwindow_diablo_open",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgNamedwindowDiabloOpen"
         },
         {
           "id": "binary_sensor.desktop_tcfukdg_desktop_tcfukdg_namedwindow_hell_let_loose",
-          "friendlyName": "DESKTOP-TCFUKDG_namedwindow_hell_let_loose",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_namedwindow_hell_let_loose",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgNamedwindowHellLetLoose"
         },
         {
           "id": "binary_sensor.desktop_tcfukdg_desktop_tcfukdg_namedwindow_helldivers",
-          "friendlyName": "DESKTOP-TCFUKDG_namedwindow_helldivers",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_namedwindow_helldivers",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgNamedwindowHelldivers"
         },
         {
           "id": "binary_sensor.desktop_tcfukdg_desktop_tcfukdg_namedwindow_league",
-          "friendlyName": "DESKTOP-TCFUKDG_namedwindow_league",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_namedwindow_league",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgNamedwindowLeague"
         },
         {
           "id": "binary_sensor.desktop_tcfukdg_desktop_tcfukdg_namedwindow_lethal_company",
-          "friendlyName": "DESKTOP-TCFUKDG_namedwindow_Lethal_company",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_namedwindow_Lethal_company",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgNamedwindowLethalCompany"
         },
         {
           "id": "binary_sensor.desktop_tcfukdg_desktop_tcfukdg_namedwindow_marvel_rivals",
-          "friendlyName": "DESKTOP-TCFUKDG_namedwindow_marvel_rivals",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_namedwindow_marvel_rivals",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgNamedwindowMarvelRivals"
         },
         {
           "id": "binary_sensor.desktop_tcfukdg_desktop_tcfukdg_namedwindow_path_of_exile",
-          "friendlyName": "DESKTOP-TCFUKDG_namedwindow_path_of_exile",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_namedwindow_path_of_exile",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgNamedwindowPathOfExile"
         },
         {
           "id": "binary_sensor.desktop_tcfukdg_desktop_tcfukdg_namedwindow_warhammer",
-          "friendlyName": "DESKTOP-TCFUKDG_namedwindow_warhammer",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_namedwindow_warhammer",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgNamedwindowWarhammer"
         },
         {
@@ -1595,17 +1600,17 @@
         },
         {
           "id": "button.desktop_tcfukdg_desktop_tcfukdg_hibernate",
-          "friendlyName": "DESKTOP-TCFUKDG_hibernate",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_hibernate",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgHibernate"
         },
         {
           "id": "button.desktop_tcfukdg_desktop_tcfukdg_hyperion_resume",
-          "friendlyName": "DESKTOP-TCFUKDG_hyperion_resume",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_hyperion_resume",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgHyperionResume"
         },
         {
           "id": "button.desktop_tcfukdg_desktop_tcfukdg_hyperion_suspend",
-          "friendlyName": "DESKTOP-TCFUKDG_hyperion_suspend",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_hyperion_suspend",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgHyperionSuspend"
         },
         {
@@ -2079,12 +2084,12 @@
         {
           "jsonName": "target_temp_high",
           "cSharpName": "TargetTempHigh",
-          "clrType": null
+          "clrType": "System.Double"
         },
         {
           "jsonName": "target_temp_low",
           "cSharpName": "TargetTempLow",
-          "clrType": null
+          "clrType": "System.Double"
         },
         {
           "jsonName": "current_humidity",
@@ -2975,6 +2980,16 @@
           "cSharpName": "MainNight"
         },
         {
+          "id": "scene.netdaemon_shawnroom_day",
+          "friendlyName": "Shawn\u0027s room day",
+          "cSharpName": "NetdaemonShawnroomDay"
+        },
+        {
+          "id": "scene.netdaemon_shawnroom_night",
+          "friendlyName": "Shawn\u0027s room night",
+          "cSharpName": "NetdaemonShawnroomNight"
+        },
+        {
           "id": "scene.new_scene",
           "friendlyName": "New scene",
           "cSharpName": "NewScene"
@@ -3296,6 +3311,11 @@
           "cSharpName": "MainDayNightMode"
         },
         {
+          "id": "select.netdaemon_shawnroom_state",
+          "friendlyName": "Shawn\u0027s Room State",
+          "cSharpName": "NetdaemonShawnroomState"
+        },
+        {
           "id": "select.reolink_chime_motion_ringtone",
           "friendlyName": "Reolink Chime Motion ringtone",
           "cSharpName": "ReolinkChimeMotionRingtone"
@@ -3429,7 +3449,7 @@
         },
         {
           "id": "sensor.desktop_tcfukdg_desktop_tcfukdg_lastsystemstatechange",
-          "friendlyName": "DESKTOP-TCFUKDG_lastsystemstatechange",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_lastsystemstatechange",
           "cSharpName": "DesktopTcfukdgDesktopTcfukdgLastsystemstatechange"
         },
         {
@@ -4483,6 +4503,11 @@
           "jsonName": "supported_features",
           "cSharpName": "SupportedFeatures",
           "clrType": "System.Double"
+        },
+        {
+          "jsonName": "Is Charged",
+          "cSharpName": "IsCharged",
+          "clrType": "System.Boolean"
         }
       ]
     },
@@ -4981,6 +5006,11 @@
           "jsonName": "supported_features",
           "cSharpName": "SupportedFeatures",
           "clrType": "System.Double"
+        },
+        {
+          "jsonName": "Is Charged",
+          "cSharpName": "IsCharged",
+          "clrType": "System.Boolean"
         }
       ]
     },
@@ -5619,6 +5649,11 @@
           "cSharpName": "MasterBathShuffleSwitch"
         },
         {
+          "id": "switch.netdaemon_shawnroom_main",
+          "friendlyName": "Shawn\u0027s Room Switch",
+          "cSharpName": "NetdaemonShawnroomMain"
+        },
+        {
           "id": "switch.office_crossfade",
           "friendlyName": "Crossfade",
           "cSharpName": "OfficeCrossfade"
@@ -6050,9 +6085,19 @@
           "cSharpName": "MushroomUpdate"
         },
         {
+          "id": "update.netdaemon_v5_net_9_update",
+          "friendlyName": "NetDaemon V5 (.NET 9) Update",
+          "cSharpName": "NetdaemonV5Net9Update"
+        },
+        {
           "id": "update.reolink_nvr_firmware",
           "friendlyName": "Reolink NVR Firmware",
           "cSharpName": "ReolinkNvrFirmware"
+        },
+        {
+          "id": "update.samba_share_update",
+          "friendlyName": "Samba share Update",
+          "cSharpName": "SambaShareUpdate"
         },
         {
           "id": "update.shawn_monitor_leds_firmware",
@@ -6361,6 +6406,88 @@
           "jsonName": "icon",
           "cSharpName": "Icon",
           "clrType": "System.String"
+        },
+        {
+          "jsonName": "friendly_name",
+          "cSharpName": "FriendlyName",
+          "clrType": "System.String"
+        }
+      ]
+    },
+    {
+      "domain": "input_boolean",
+      "entities": [
+        {
+          "id": "input_boolean.dev_netdaemon_app_model_hello_yaml_app",
+          "friendlyName": "dev_netdaemon_app_model_hello_yaml_app",
+          "cSharpName": "DevNetdaemonAppModelHelloYamlApp"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_extensions_scheduling_scheduling_app",
+          "friendlyName": "dev_netdaemon_extensions_scheduling_scheduling_app",
+          "cSharpName": "DevNetdaemonExtensionsSchedulingSchedulingApp"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_general_mqtt_manager",
+          "friendlyName": "dev_netdaemon_general_mqtt_manager",
+          "cSharpName": "DevNetdaemonGeneralMqttManager"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_hass_model_hello_world_app",
+          "friendlyName": "dev_netdaemon_hass_model_hello_world_app",
+          "cSharpName": "DevNetdaemonHassModelHelloWorldApp"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_hass_model_light_on_movement",
+          "friendlyName": "dev_netdaemon_hass_model_light_on_movement",
+          "cSharpName": "DevNetdaemonHassModelLightOnMovement"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_home_assistant_generated_apps_test",
+          "friendlyName": "dev_netdaemon_home_assistant_generated_apps_test",
+          "cSharpName": "DevNetdaemonHomeAssistantGeneratedAppsTest"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_mqtt_entity_subscriber",
+          "friendlyName": "dev_netdaemon_mqtt_entity_subscriber",
+          "cSharpName": "DevNetdaemonMqttEntitySubscriber"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_shawn_room_mqtt_subscriber",
+          "friendlyName": "dev_netdaemon_shawn_room_mqtt_subscriber",
+          "cSharpName": "DevNetdaemonShawnRoomMqttSubscriber"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_shawn_room_state_manager",
+          "friendlyName": "dev_netdaemon_shawn_room_state_manager",
+          "cSharpName": "DevNetdaemonShawnRoomStateManager"
+        },
+        {
+          "id": "input_boolean.netdaemon_app_model_hello_yaml_app",
+          "friendlyName": "netdaemon_app_model_hello_yaml_app",
+          "cSharpName": "NetdaemonAppModelHelloYamlApp"
+        },
+        {
+          "id": "input_boolean.netdaemon_extensions_scheduling_scheduling_app",
+          "friendlyName": "netdaemon_extensions_scheduling_scheduling_app",
+          "cSharpName": "NetdaemonExtensionsSchedulingSchedulingApp"
+        },
+        {
+          "id": "input_boolean.netdaemon_hass_model_hello_world_app",
+          "friendlyName": "netdaemon_hass_model_hello_world_app",
+          "cSharpName": "NetdaemonHassModelHelloWorldApp"
+        },
+        {
+          "id": "input_boolean.netdaemon_hass_model_light_on_movement",
+          "friendlyName": "netdaemon_hass_model_light_on_movement",
+          "cSharpName": "NetdaemonHassModelLightOnMovement"
+        }
+      ],
+      "attributes": [
+        {
+          "jsonName": "editable",
+          "cSharpName": "Editable",
+          "clrType": "System.Boolean"
         },
         {
           "jsonName": "friendly_name",

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="20d0abba-9807-4f4c-a47b-4eecbc4779c2" name="NetDaemon" url="">
+        <fileTransfer mountedRoot="/Volumes/config/netdaemon5" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -5,6 +5,10 @@ using NetDaemon.Extensions.Scheduler;
 using NetDaemon.Extensions.Tts;
 using NetDaemon.Runtime;
 using HomeAssistantGenerated;
+using Microsoft.Extensions.DependencyInjection;
+using NetDaemon.Extensions.MqttEntityManager;
+using NetDaemonApps.Interfaces;
+using NetDaemonApps.Services;
 
 #pragma warning disable CA1812
 
@@ -15,8 +19,13 @@ try
         .UseNetDaemonDefaultLogging()
         .UseNetDaemonRuntime()
         .UseNetDaemonTextToSpeech()
+        .UseNetDaemonMqttEntityManagement()
         .ConfigureServices((_, services) =>
             services
+                .AddScoped<INotificationService, NotificationService>()
+                .AddScoped<IMqttSceneService, MqttSceneService>()
+                .AddScoped<IMqttSwitchService, MqttSwitchService>()
+                .AddScoped<IMqttSelectService, MqttSelectService>()
                 .AddAppsFromAssembly(Assembly.GetExecutingAssembly())
                 .AddNetDaemonStateManager()
                 .AddNetDaemonScheduler()

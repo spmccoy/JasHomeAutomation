@@ -30,6 +30,7 @@
         
     <ItemGroup>
         <PackageReference Include="NetDaemon.AppModel" Version="25.10.0" />
+        <PackageReference Include="NetDaemon.Extensions.Mqtt" Version="25.10.0" />
         <PackageReference Include="NetDaemon.Runtime" Version="25.10.0" />
         <PackageReference Include="NetDaemon.HassModel" Version="25.10.0" />
         <PackageReference Include="NetDaemon.Client" Version="25.10.0" />
