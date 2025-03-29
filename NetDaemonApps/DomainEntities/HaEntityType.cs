@@ -14,6 +14,7 @@ public class HaEntityType
     public static readonly HaEntityType Switch = new("switch");
     public static readonly HaEntityType Select = new("select");
     public static readonly HaEntityType Scene = new("scene");
+    public static readonly HaEntityType Light = new("light");
 
     public string Value { get; }
 

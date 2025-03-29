@@ -23,7 +23,6 @@ var host = Host.CreateDefaultBuilder()
         // Register your services here
         services.AddScoped<IMqttSwitchService, MqttSwitchService>();
         services.AddScoped<IMqttSelectService, MqttSelectService>();
-        services.AddScoped<IMqttSceneService, MqttSceneService>();
         services.AddHomeAssistantGenerated();
     })
     .Build();
