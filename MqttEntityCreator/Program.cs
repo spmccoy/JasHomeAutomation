@@ -1,16 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
-
 using HomeAssistantGenerated;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetDaemon.Extensions.MqttEntityManager;
 using NetDaemon.Runtime;
-using NetDaemonApps.Interfaces;
-using NetDaemonApps.Services;
+using NetDaemonApps.DomainEntities;
+
+const string containingNamespace = $"{nameof(NetDaemonApps)}.{nameof(NetDaemonApps.apps)}";
 
 var host = Host.CreateDefaultBuilder()
-    
     .ConfigureAppConfiguration((config) =>
     {
         config.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
@@ -20,18 +19,41 @@ var host = Host.CreateDefaultBuilder()
     .UseNetDaemonMqttEntityManagement()
     .ConfigureServices(services =>
     {
-        // Register your services here
-        services.AddScoped<IMqttSwitchService, MqttSwitchService>();
-        services.AddScoped<IMqttSelectService, MqttSelectService>();
         services.AddHomeAssistantGenerated();
+        services.AddMqttEntities();
     })
     .Build();
 
-var mqttSwitchService = host.Services.GetRequiredService<IMqttSwitchService>();
-await mqttSwitchService.CreateAllAsync();
+var mqttEntityManager = host.Services.GetService<IMqttEntityManager>();
 
-var mqttSelectService = host.Services.GetRequiredService<IMqttSelectService>();
-await mqttSelectService.CreateAllAsync();
+if (mqttEntityManager is null)
+{
+    throw new NullReferenceException($"{nameof(IMqttEntityManager)} is null");
+}
 
-var mqttSceneService = host.Services.GetRequiredService<IMqttSceneService>();
-await mqttSceneService.CreateAllAsync();
+var entities = host.Services.GetServices<MqttEntity>();
+foreach (var e in entities)
+{
+    await CreateMqttEntityAsync(mqttEntityManager, e);
+}
+
+return;
+
+async Task CreateMqttEntityAsync(IMqttEntityManager entityManager, MqttEntity entity)
+{
+    switch (entity)
+    {
+        case MqttSwitch mqttSwitch:
+            await entityManager.CreateAsync(
+                mqttSwitch.Id,
+                new EntityCreationOptions(Name: mqttSwitch.DisplayName));
+            break;
+
+        case MqttSelect mqttSelect:
+            await entityManager.CreateAsync(
+                mqttSelect.Id,
+                new EntityCreationOptions(Name: mqttSelect.DisplayName),
+                new { options = mqttSelect.Options.Select(option => option.Key).ToArray() });
+            break;
+    }
+}

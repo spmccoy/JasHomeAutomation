@@ -16,7 +16,7 @@ public class StateSelect : MqttSelect
     public const string SimRacing = "Sim Racing";
     
     public StateSelect(Entities entities) 
-        : base(entities, "ShawnRoom", "state", "Shawn's Room State")
+        : base("ShawnRoom", "state", "Shawn's Room State")
     {
         _entities = entities;
         AddOption(Off, HandleOff);
