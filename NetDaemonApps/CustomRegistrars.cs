@@ -2,6 +2,8 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
+namespace NetDaemonApps;
+
 public static class CustomRegistrars
 {
     public static IServiceCollection AddMqttEntities(this IServiceCollection services)

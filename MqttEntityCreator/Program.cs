@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetDaemon.Extensions.MqttEntityManager;
 using NetDaemon.Runtime;
+using NetDaemonApps;
 using NetDaemonApps.DomainEntities;
 
 const string containingNamespace = $"{nameof(NetDaemonApps)}.{nameof(NetDaemonApps.apps)}";
