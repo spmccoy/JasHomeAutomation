@@ -7,6 +7,7 @@ using NetDaemon.Runtime;
 using HomeAssistantGenerated;
 using Microsoft.Extensions.DependencyInjection;
 using NetDaemon.Extensions.MqttEntityManager;
+using NetDaemonApps;
 using NetDaemonApps.Interfaces;
 using NetDaemonApps.Services;
 
@@ -23,6 +24,7 @@ try
         .ConfigureServices((_, services) =>
             services
                 .AddScoped<INotificationService, NotificationService>()
+                .AddScoped<ILightService, LightService>()
                 .AddAppsFromAssembly(Assembly.GetExecutingAssembly())
                 .AddNetDaemonStateManager()
                 .AddNetDaemonScheduler()

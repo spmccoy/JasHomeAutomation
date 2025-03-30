@@ -2,7 +2,7 @@ namespace NetDaemonApps.DomainEntities;
 
 public class HaArea
 {
-    public static readonly HaArea ShawnRoom = new("shawn_room");
+    public static readonly HaArea ShawnRoom = new("shawns_office");
     
     private string Value { get; }
 

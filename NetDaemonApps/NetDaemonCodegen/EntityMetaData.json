@@ -2980,19 +2980,14 @@
           "cSharpName": "MainNight"
         },
         {
-          "id": "scene.netdaemon_shawnroom_day",
-          "friendlyName": "Shawn\u0027s room day",
-          "cSharpName": "NetdaemonShawnroomDay"
-        },
-        {
-          "id": "scene.netdaemon_shawnroom_night",
-          "friendlyName": "Shawn\u0027s room night",
-          "cSharpName": "NetdaemonShawnroomNight"
-        },
-        {
           "id": "scene.new_scene",
           "friendlyName": "New scene",
           "cSharpName": "NewScene"
+        },
+        {
+          "id": "scene.shawn_s_office_day",
+          "friendlyName": "Shawn\u0027s office Day",
+          "cSharpName": "ShawnSOfficeDay"
         },
         {
           "id": "scene.shawns_office_calming",
@@ -3003,6 +2998,11 @@
           "id": "scene.shawns_office_concentrate",
           "friendlyName": "Shawn - Concentrate",
           "cSharpName": "ShawnsOfficeConcentrate"
+        },
+        {
+          "id": "scene.shawns_office_night",
+          "friendlyName": "Shawns office night",
+          "cSharpName": "ShawnsOfficeNight"
         }
       ],
       "attributes": [
@@ -6448,9 +6448,24 @@
           "cSharpName": "DevNetdaemonHomeAssistantGeneratedAppsTest"
         },
         {
+          "id": "input_boolean.dev_netdaemon_mqtt_entity_handler",
+          "friendlyName": "dev_netdaemon_mqtt_entity_handler",
+          "cSharpName": "DevNetdaemonMqttEntityHandler"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_mqtt_entity_state_manager",
+          "friendlyName": "dev_netdaemon_mqtt_entity_state_manager",
+          "cSharpName": "DevNetdaemonMqttEntityStateManager"
+        },
+        {
           "id": "input_boolean.dev_netdaemon_mqtt_entity_subscriber",
           "friendlyName": "dev_netdaemon_mqtt_entity_subscriber",
           "cSharpName": "DevNetdaemonMqttEntitySubscriber"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_shawn_room_motion_sensor",
+          "friendlyName": "dev_netdaemon_shawn_room_motion_sensor",
+          "cSharpName": "DevNetdaemonShawnRoomMotionSensor"
         },
         {
           "id": "input_boolean.dev_netdaemon_shawn_room_mqtt_subscriber",

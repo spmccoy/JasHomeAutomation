@@ -1,4 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using NetDaemonApps.Services;
 
 namespace NetDaemonApps.apps.ShawnRoom;
 
@@ -9,16 +11,18 @@ namespace NetDaemonApps.apps.ShawnRoom;
 public class StateSelect : MqttSelect
 {
     private readonly Entities _entities;
+    private readonly ILightService _lightService;
     public const string Off = "Off";
     public const string Day = "Day";
     public const string Night = "Night";
     public const string Gaming = "Gaming";
     public const string SimRacing = "Sim Racing";
     
-    public StateSelect(Entities entities) 
+    public StateSelect(Entities entities, ILightService lightService) 
         : base("ShawnRoom", "state", "Shawn's Room State")
     {
         _entities = entities;
+        _lightService = lightService;
         AddOption(Off, HandleOff);
         AddOption(Day, HandleDay);
         AddOption(Night, HandleNight);
@@ -29,27 +33,30 @@ public class StateSelect : MqttSelect
     private void HandleOff()
     {
         _entities.Fan.ShawnPurifier.SetPercentage(100);
+        _lightService.TurnOffAreaLights(HaArea.ShawnRoom);
+        Thread.Sleep(2000);
+        _entities.Switch.ShawnOfficeHueMotionSensorMotionSensorEnabled.TurnOn();
     }
     
     private void HandleDay()
     {
-        _entities.Scene.NetdaemonShawnroomDay.TurnOn();
         _entities.Fan.ShawnPurifier.SetPercentage(33);
+        _entities.Scene.ShawnSOfficeDay.TurnOn();
     }
     
     private void HandleNight()
     {
-        _entities.Scene.NetdaemonShawnroomDay.TurnOn();
         _entities.Fan.ShawnPurifier.SetPercentage(33);
+        _entities.Scene.ShawnsOfficeNight.TurnOn();
     }
     
     private void HandleSimRacing()
     {
-        _entities.Fan.ShawnPurifier.SetPercentage(33);
+        _entities.Switch.NetdaemonShawnroomMain.TurnOn();
     }
 
     private void HandleGaming()
     {
-        _entities.Fan.ShawnPurifier.SetPercentage(33);
+        _entities.Switch.NetdaemonShawnroomMain.TurnOn();
     }
 }
