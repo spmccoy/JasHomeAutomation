@@ -6,16 +6,14 @@ namespace NetDaemonApps.apps.ShawnRoom;
 public class MainSwitch(Entities entities)
     : MqttSwitch("ShawnRoom", "main", "Shawn's Room Switch")
 {
-    private readonly Entities _entities = entities;
-
     protected override void HandleOff()
     {
-        _entities.Select.NetdaemonShawnroomState.SelectOption(StateSelect.Off);
+        entities.Select.NetdaemonShawnroomState.SelectOption(StateSelect.Off);
     }
 
     protected override void HandleOn()
     {
-        _entities.Select.NetdaemonShawnroomState.SelectOption(_entities.Sun.Sun.State == HaSun.AboveHorizon.ToString()
+        entities.Select.NetdaemonShawnroomState.SelectOption(entities.Sun.Sun.State == HaSun.AboveHorizon.ToString()
             ? StateSelect.Day
             : StateSelect.Night);
     }
