@@ -7,13 +7,23 @@ namespace NetDaemonApps.DomainEntities;
 /// This class provides functionality to manage selectable options for an MQTT select entity
 /// and associates specific actions to be executed when an option is selected.
 /// </summary>
-public class MqttSelect(Entities entities, string groupName, string entityName, string displayName)
+public class MqttSelect(string groupName, string entityName, string displayName)
+    : MqttEntity(HaEntityType.Select, groupName, entityName, displayName)
 {
-    public readonly string DisplayName = displayName;
-    public readonly string Id = HaMqtt.GenerateId(HaEntityType.Select, groupName, entityName);
-    
-    public readonly Dictionary<string, Action> StateHandlers = new();
+    public readonly Dictionary<string, Action> Options = new();
 
+    public override void HandleStateChange(string? state)
+    {
+        if (state != null && Options.TryGetValue(state, out var handler))
+        {
+            handler();
+        }
+        else
+        {
+            throw new InvalidOperationException($"{state} is not a valid state");
+        }
+    }
+    
     protected void AddOption(string optionName, Action stateHandler)
     {
         ArgumentNullException.ThrowIfNull(stateHandler);
@@ -23,6 +33,6 @@ public class MqttSelect(Entities entities, string groupName, string entityName, 
             throw new ArgumentNullException(optionName);
         }
         
-        StateHandlers.Add(optionName, stateHandler);
+        Options.Add(optionName, stateHandler);
     }
 }

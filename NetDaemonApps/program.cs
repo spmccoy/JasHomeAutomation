@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.Hosting;
 using NetDaemon.Extensions.Logging;
@@ -24,12 +23,11 @@ try
         .ConfigureServices((_, services) =>
             services
                 .AddScoped<INotificationService, NotificationService>()
-                .AddScoped<IMqttSwitchService, MqttSwitchService>()
-                .AddScoped<IMqttSelectService, MqttSelectService>()
                 .AddAppsFromAssembly(Assembly.GetExecutingAssembly())
                 .AddNetDaemonStateManager()
                 .AddNetDaemonScheduler()
-                .AddHomeAssistantGenerated())
+                .AddHomeAssistantGenerated()
+                .AddMqttEntities())
         .Build()
         .RunAsync()
         .ConfigureAwait(false);
