@@ -3733,6 +3733,11 @@
           "cSharpName": "NetdaemonHouseIsAnyoneHome"
         },
         {
+          "id": "sensor.netdaemon_house_is_shawn_home",
+          "friendlyName": "Is shawn home",
+          "cSharpName": "NetdaemonHouseIsShawnHome"
+        },
+        {
           "id": "sensor.node_2_last_seen",
           "friendlyName": "T6 Pro Z-Wave Programmable Thermostat Last seen",
           "cSharpName": "Node2LastSeen"
@@ -4513,6 +4518,11 @@
           "jsonName": "Is Charged",
           "cSharpName": "IsCharged",
           "clrType": "System.Boolean"
+        },
+        {
+          "jsonName": "Is Finishing Charge",
+          "cSharpName": "IsFinishingCharge",
+          "clrType": "System.Boolean"
         }
       ]
     },
@@ -5015,6 +5025,11 @@
         {
           "jsonName": "Is Charged",
           "cSharpName": "IsCharged",
+          "clrType": "System.Boolean"
+        },
+        {
+          "jsonName": "Is Finishing Charge",
+          "cSharpName": "IsFinishingCharge",
           "clrType": "System.Boolean"
         }
       ]
@@ -6466,6 +6481,21 @@
           "id": "input_boolean.dev_netdaemon_mqtt_entity_subscriber",
           "friendlyName": "dev_netdaemon_mqtt_entity_subscriber",
           "cSharpName": "DevNetdaemonMqttEntitySubscriber"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_people",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_people",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHousePeople"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_mac_book_audio_input",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_mac_book_audio_input",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomMacBookAudioInput"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_motion_sensor",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_motion_sensor",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomMotionSensor"
         },
         {
           "id": "input_boolean.dev_netdaemon_shawn_room_mac_audio_input",

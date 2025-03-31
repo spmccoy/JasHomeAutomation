@@ -23,8 +23,7 @@ try
         .UseNetDaemonMqttEntityManagement()
         .ConfigureServices((_, services) =>
             services
-                .AddScoped<INotificationService, NotificationService>()
-                .AddScoped<ILightService, LightService>()
+                .AddServices()
                 .AddAppsFromAssembly(Assembly.GetExecutingAssembly())
                 .AddNetDaemonStateManager()
                 .AddNetDaemonScheduler()

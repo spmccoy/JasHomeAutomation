@@ -7,6 +7,7 @@ using NetDaemon.Extensions.MqttEntityManager;
 using NetDaemon.Runtime;
 using NetDaemonApps;
 using NetDaemonApps.DomainEntities;
+using NetDaemonApps.Interfaces;
 using NetDaemonApps.Services;
 
 const string containingNamespace = $"{nameof(NetDaemonApps)}.{nameof(NetDaemonApps.apps)}";
@@ -21,7 +22,7 @@ var host = Host.CreateDefaultBuilder()
     .UseNetDaemonMqttEntityManagement()
     .ConfigureServices(services =>
     {
-        services.AddTransient<ILightService, LightService>();
+        services.AddServices();
         services.AddHomeAssistantGenerated();
         services.AddMqttEntities();
     })

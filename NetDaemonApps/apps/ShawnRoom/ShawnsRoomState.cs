@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
+using NetDaemonApps.Interfaces;
 using NetDaemonApps.Services;
 
 namespace NetDaemonApps.apps.ShawnRoom;
@@ -12,6 +13,7 @@ public class ShawnsRoomState : MqttSelect
 {
     private readonly Entities _entities;
     private readonly ILightService _lightService;
+    
     public const string Off = "Off";
     public const string Day = "Day";
     public const string Night = "Night";

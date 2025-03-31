@@ -15,17 +15,24 @@ public class MacBookAudioInput
 
         entities.Sensor.ShawnsMacbookProActiveAudioInput
             .StateChanges()
-            .Subscribe(ProcessState);
+            .Subscribe(ProcessStateChange);
     }
 
     private LightAttributes? LastKnownLightAttributes { get; set; }
 
-    private void ProcessState(StateChange<SensorEntity, EntityState<SensorAttributes>> stateChange)
+    private void ProcessStateChange(StateChange<SensorEntity, EntityState<SensorAttributes>> stateChange)
     {
         var newState = stateChange.New?.State;
         var oldState = stateChange.Old?.State;
+        var shawn = new HaPerson(_entities.Person.Shawn.State);
         
         _logger.LogInformation("State changed from {oldState} to {newState}", oldState, newState);
+
+        if (!shawn.IsHome)
+        {
+            _logger.LogDebug("Short circuit, shawn is not home");
+            return;
+        }
         
         if (newState == HaCommonState.Active.ToString())
         {
