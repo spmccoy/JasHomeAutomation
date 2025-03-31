@@ -1242,6 +1242,16 @@
           "cSharpName": "DoorbellPerson"
         },
         {
+          "id": "binary_sensor.doorbell_pet",
+          "friendlyName": "Doorbell Pet",
+          "cSharpName": "DoorbellPet"
+        },
+        {
+          "id": "binary_sensor.doorbell_vehicle",
+          "friendlyName": "Doorbell Vehicle",
+          "cSharpName": "DoorbellVehicle"
+        },
+        {
           "id": "binary_sensor.doorbell_visitor",
           "friendlyName": "Doorbell Visitor",
           "cSharpName": "DoorbellVisitor"
@@ -1368,7 +1378,7 @@
         },
         {
           "id": "binary_sensor.lumi_lumi_sensor_wleak_aq1_moisture",
-          "friendlyName": "LUMI lumi.sensor_wleak.aq1 Moisture",
+          "friendlyName": "LUMI lumi.sensor_wleak.aq1",
           "cSharpName": "LumiLumiSensorWleakAq1Moisture"
         },
         {
@@ -2514,6 +2524,16 @@
           "cSharpName": "DoorbellAiPersonSensitivity"
         },
         {
+          "id": "number.doorbell_ai_pet_sensitivity",
+          "friendlyName": "Doorbell AI pet sensitivity",
+          "cSharpName": "DoorbellAiPetSensitivity"
+        },
+        {
+          "id": "number.doorbell_ai_vehicle_sensitivity",
+          "friendlyName": "Doorbell AI vehicle sensitivity",
+          "cSharpName": "DoorbellAiVehicleSensitivity"
+        },
+        {
           "id": "number.doorbell_auto_quick_reply_time",
           "friendlyName": "Doorbell Auto quick reply time",
           "cSharpName": "DoorbellAutoQuickReplyTime"
@@ -3301,6 +3321,16 @@
           "cSharpName": "HomeConnect620ConnectedSmartLockCurrentLockMode"
         },
         {
+          "id": "select.house_state_netdaemon",
+          "friendlyName": "House State",
+          "cSharpName": "HouseStateNetdaemon"
+        },
+        {
+          "id": "select.justin_purifier_night_light_level",
+          "friendlyName": "Justin Purifier Night light level",
+          "cSharpName": "JustinPurifierNightLightLevel"
+        },
+        {
           "id": "select.lanai_day_night_mode",
           "friendlyName": "Lanai Day night mode",
           "cSharpName": "LanaiDayNightMode"
@@ -3311,9 +3341,9 @@
           "cSharpName": "MainDayNightMode"
         },
         {
-          "id": "select.netdaemon_shawnroom_state",
-          "friendlyName": "Shawn\u0027s Room State",
-          "cSharpName": "NetdaemonShawnroomState"
+          "id": "select.main_purifier_night_light_level",
+          "friendlyName": "Main Purifier Night light level",
+          "cSharpName": "MainPurifierNightLightLevel"
         },
         {
           "id": "select.reolink_chime_motion_ringtone",
@@ -3324,6 +3354,11 @@
           "id": "select.reolink_chime_person_ringtone",
           "friendlyName": "Reolink Chime Person ringtone",
           "cSharpName": "ReolinkChimePersonRingtone"
+        },
+        {
+          "id": "select.reolink_chime_vehicle_ringtone",
+          "friendlyName": "Reolink Chime Vehicle ringtone",
+          "cSharpName": "ReolinkChimeVehicleRingtone"
         },
         {
           "id": "select.reolink_chime_visitor_ringtone",
@@ -3351,6 +3386,16 @@
           "cSharpName": "ShawnMonitorLedsPreset"
         },
         {
+          "id": "select.shawn_purifier_night_light_level",
+          "friendlyName": "Shawn Purifier Night light level",
+          "cSharpName": "ShawnPurifierNightLightLevel"
+        },
+        {
+          "id": "select.shawnroom_state_netdaemon",
+          "friendlyName": "Shawn\u0027s Room State",
+          "cSharpName": "ShawnroomStateNetdaemon"
+        },
+        {
           "id": "select.west_side_day_night_mode",
           "friendlyName": "West Side Day night mode",
           "cSharpName": "WestSideDayNightMode"
@@ -3365,6 +3410,11 @@
         {
           "jsonName": "friendly_name",
           "cSharpName": "FriendlyName",
+          "clrType": "System.String"
+        },
+        {
+          "jsonName": "icon",
+          "cSharpName": "Icon",
           "clrType": "System.String"
         }
       ]
@@ -4717,12 +4767,12 @@
         },
         {
           "id": "sensor.shawn_monitor_leds_estimated_current",
-          "friendlyName": "Estimated current",
+          "friendlyName": "Shawn monitor LEDs Estimated current",
           "cSharpName": "ShawnMonitorLedsEstimatedCurrent"
         },
         {
           "id": "sensor.shawn_monitor_leds_max_current",
-          "friendlyName": "Max current",
+          "friendlyName": "Shawn monitor LEDs Max current",
           "cSharpName": "ShawnMonitorLedsMaxCurrent"
         },
         {
@@ -5509,6 +5559,11 @@
           "cSharpName": "GarageSirenOnEvent"
         },
         {
+          "id": "switch.house_water_leak_detected_netdaemon",
+          "friendlyName": "Water Leak detected",
+          "cSharpName": "HouseWaterLeakDetectedNetdaemon"
+        },
+        {
           "id": "switch.inside_cameras_push_notifications",
           "friendlyName": "Inside cameras push notifications",
           "cSharpName": "InsideCamerasPushNotifications"
@@ -5659,16 +5714,6 @@
           "cSharpName": "MasterBathShuffleSwitch"
         },
         {
-          "id": "switch.netdaemon_shawnroom_dnd_switch",
-          "friendlyName": "Do not disturb button",
-          "cSharpName": "NetdaemonShawnroomDndSwitch"
-        },
-        {
-          "id": "switch.netdaemon_shawnroom_main",
-          "friendlyName": "Shawn\u0027s Room Switch",
-          "cSharpName": "NetdaemonShawnroomMain"
-        },
-        {
           "id": "switch.office_crossfade",
           "friendlyName": "Crossfade",
           "cSharpName": "OfficeCrossfade"
@@ -5787,6 +5832,16 @@
           "id": "switch.shawn_s_fire_tv_stick_do_not_disturb_switch",
           "friendlyName": "Shawn\u0027s Fire TV Stick do not disturb switch",
           "cSharpName": "ShawnSFireTvStickDoNotDisturbSwitch"
+        },
+        {
+          "id": "switch.shawnroom_dnd_netdaemon",
+          "friendlyName": "Shawn\u0027s not disturb switch",
+          "cSharpName": "ShawnroomDndNetdaemon"
+        },
+        {
+          "id": "switch.shawnroom_main_netdaemon",
+          "friendlyName": "Shawn\u0027s Room Switch",
+          "cSharpName": "ShawnroomMainNetdaemon"
         },
         {
           "id": "switch.this_device_do_not_disturb_switch",
@@ -6432,91 +6487,6 @@
     {
       "domain": "input_boolean",
       "entities": [
-        {
-          "id": "input_boolean.dev_netdaemon_app_model_hello_yaml_app",
-          "friendlyName": "dev_netdaemon_app_model_hello_yaml_app",
-          "cSharpName": "DevNetdaemonAppModelHelloYamlApp"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_extensions_scheduling_scheduling_app",
-          "friendlyName": "dev_netdaemon_extensions_scheduling_scheduling_app",
-          "cSharpName": "DevNetdaemonExtensionsSchedulingSchedulingApp"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_general_mqtt_manager",
-          "friendlyName": "dev_netdaemon_general_mqtt_manager",
-          "cSharpName": "DevNetdaemonGeneralMqttManager"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_hass_model_hello_world_app",
-          "friendlyName": "dev_netdaemon_hass_model_hello_world_app",
-          "cSharpName": "DevNetdaemonHassModelHelloWorldApp"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_hass_model_light_on_movement",
-          "friendlyName": "dev_netdaemon_hass_model_light_on_movement",
-          "cSharpName": "DevNetdaemonHassModelLightOnMovement"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_home_assistant_generated_apps_test",
-          "friendlyName": "dev_netdaemon_home_assistant_generated_apps_test",
-          "cSharpName": "DevNetdaemonHomeAssistantGeneratedAppsTest"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_mqtt_entity_handler",
-          "friendlyName": "dev_netdaemon_mqtt_entity_handler",
-          "cSharpName": "DevNetdaemonMqttEntityHandler"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_mqtt_entity_state_manager",
-          "friendlyName": "dev_netdaemon_mqtt_entity_state_manager",
-          "cSharpName": "DevNetdaemonMqttEntityStateManager"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_mqtt_entity_subscriber",
-          "friendlyName": "dev_netdaemon_mqtt_entity_subscriber",
-          "cSharpName": "DevNetdaemonMqttEntitySubscriber"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_people",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_people",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHousePeople"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_mac_book_audio_input",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_mac_book_audio_input",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomMacBookAudioInput"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_motion_sensor",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_motion_sensor",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomMotionSensor"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_shawn_room_mac_audio_input",
-          "friendlyName": "dev_netdaemon_shawn_room_mac_audio_input",
-          "cSharpName": "DevNetdaemonShawnRoomMacAudioInput"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_shawn_room_mac_input_active",
-          "friendlyName": "dev_netdaemon_shawn_room_mac_input_active",
-          "cSharpName": "DevNetdaemonShawnRoomMacInputActive"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_shawn_room_motion_sensor",
-          "friendlyName": "dev_netdaemon_shawn_room_motion_sensor",
-          "cSharpName": "DevNetdaemonShawnRoomMotionSensor"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_shawn_room_mqtt_subscriber",
-          "friendlyName": "dev_netdaemon_shawn_room_mqtt_subscriber",
-          "cSharpName": "DevNetdaemonShawnRoomMqttSubscriber"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_shawn_room_state_manager",
-          "friendlyName": "dev_netdaemon_shawn_room_state_manager",
-          "cSharpName": "DevNetdaemonShawnRoomStateManager"
-        },
         {
           "id": "input_boolean.netdaemon_app_model_hello_yaml_app",
           "friendlyName": "netdaemon_app_model_hello_yaml_app",

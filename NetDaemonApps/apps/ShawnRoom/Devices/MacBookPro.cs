@@ -1,14 +1,14 @@
 using NetDaemon.HassModel.Entities;
 
-namespace NetDaemonApps.apps.ShawnRoom;
+namespace NetDaemonApps.apps.ShawnRoom.Devices;
 
 [NetDaemonApp]
-public class MacBookAudioInput
+public class MacBookPro
 {
     private readonly Entities _entities;
     private readonly ILogger _logger;
 
-    public MacBookAudioInput(Entities entities, ILogger<MacBookAudioInput> logger)
+    public MacBookPro(Entities entities, ILogger<MacBookPro> logger)
     {
         _entities = entities;
         _logger = logger;
@@ -36,11 +36,11 @@ public class MacBookAudioInput
         
         if (newState == HaCommonState.Active.ToString())
         {
-            _entities.Switch.NetdaemonShawnroomDndSwitch.TurnOn();
+            _entities.Switch.ShawnroomDndNetdaemon.TurnOn();
         }
         else if (newState == HaCommonState.InActive.ToString())
         {
-            _entities.Switch.NetdaemonShawnroomDndSwitch.TurnOff();
+            _entities.Switch.ShawnroomDndNetdaemon.TurnOff();
         }
     }
 }

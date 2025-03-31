@@ -1,9 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using NetDaemonApps.Interfaces;
-using NetDaemonApps.Services;
 
-namespace NetDaemonApps.apps.ShawnRoom;
+namespace NetDaemonApps.apps.ShawnRoom.Controls;
 
 /// <summary>
 /// Applies room settings for a given state.
@@ -55,11 +54,11 @@ public class ShawnsRoomState : MqttSelect
     
     private void HandleSimRacing()
     {
-        _entities.Switch.NetdaemonShawnroomMain.TurnOn();
+        _entities.Switch.ShawnroomMainNetdaemon.TurnOn();
     }
 
     private void HandleGaming()
     {
-        _entities.Switch.NetdaemonShawnroomMain.TurnOn();
+        _entities.Switch.ShawnroomMainNetdaemon.TurnOn();
     }
 }
