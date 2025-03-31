@@ -6,8 +6,8 @@ public class PersonService(Entities entities) : IPersonService
 {
     public bool IsAnyoneHome()
     {
-        var shawn = new HaPerson(entities.Person.Shawn.State);
-        var justin = new HaPerson(entities.Person.Justin.State);
+        var shawn = new Person(entities.Person.Shawn.State);
+        var justin = new Person(entities.Person.Justin.State);
 
         return shawn.IsHome || justin.IsHome;
     }

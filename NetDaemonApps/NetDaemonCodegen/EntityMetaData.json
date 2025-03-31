@@ -3728,16 +3728,6 @@
           "cSharpName": "MasterBathNextTimer"
         },
         {
-          "id": "sensor.netdaemon_house_is_anyone_home",
-          "friendlyName": "Is anyone home",
-          "cSharpName": "NetdaemonHouseIsAnyoneHome"
-        },
-        {
-          "id": "sensor.netdaemon_house_is_shawn_home",
-          "friendlyName": "Is shawn home",
-          "cSharpName": "NetdaemonHouseIsShawnHome"
-        },
-        {
           "id": "sensor.node_2_last_seen",
           "friendlyName": "T6 Pro Z-Wave Programmable Thermostat Last seen",
           "cSharpName": "Node2LastSeen"
@@ -5667,6 +5657,11 @@
           "id": "switch.master_bath_shuffle_switch",
           "friendlyName": "Master Bath shuffle switch",
           "cSharpName": "MasterBathShuffleSwitch"
+        },
+        {
+          "id": "switch.netdaemon_shawnroom_dnd_switch",
+          "friendlyName": "Do not disturb button",
+          "cSharpName": "NetdaemonShawnroomDndSwitch"
         },
         {
           "id": "switch.netdaemon_shawnroom_main",

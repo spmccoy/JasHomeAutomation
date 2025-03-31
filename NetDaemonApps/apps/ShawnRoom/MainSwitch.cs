@@ -13,7 +13,8 @@ public class MainSwitch(Entities entities)
 
     protected override void HandleOn()
     {
-        entities.Select.NetdaemonShawnroomState.SelectOption(entities.Sun.Sun.State == HaSun.AboveHorizon.ToString()
+        var sun = new Sun(entities.Sun.Sun.State);
+        entities.Select.NetdaemonShawnroomState.SelectOption(sun.CurrentState == Sun.State.Day
             ? ShawnsRoomState.Day
             : ShawnsRoomState.Night);
     }

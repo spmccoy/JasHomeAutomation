@@ -20,14 +20,7 @@ public abstract class MqttSensor(string groupName, string entityName, string dis
 
     public static string StringValueFromBool(bool value)
     {
-        if (value)
-        {
-            return On;
-        }
-        else
-        {
-            return Off;
-        }
+        return value ? On : Off;
     }
     
     protected abstract void HandleOff();
