@@ -7,6 +7,7 @@ using NetDaemon.Extensions.MqttEntityManager;
 using NetDaemon.Runtime;
 using NetDaemonApps;
 using NetDaemonApps.DomainEntities;
+using NetDaemonApps.Services;
 
 const string containingNamespace = $"{nameof(NetDaemonApps)}.{nameof(NetDaemonApps.apps)}";
 
@@ -20,6 +21,7 @@ var host = Host.CreateDefaultBuilder()
     .UseNetDaemonMqttEntityManagement()
     .ConfigureServices(services =>
     {
+        services.AddTransient<ILightService, LightService>();
         services.AddHomeAssistantGenerated();
         services.AddMqttEntities();
     })
@@ -56,5 +58,14 @@ async Task CreateMqttEntityAsync(IMqttEntityManager entityManager, MqttEntity en
                 new EntityCreationOptions(Name: mqttSelect.DisplayName),
                 new { options = mqttSelect.Options.Select(option => option.Key).ToArray() });
             break;
+        
+        case MqttSensor mqttSensor:
+            await entityManager.CreateAsync(
+                mqttSensor.Id,
+                new EntityCreationOptions(Name: mqttSensor.DisplayName));
+            break;
+        
+        default:
+            throw new InvalidOperationException("Unknown entity type");
     }
 }

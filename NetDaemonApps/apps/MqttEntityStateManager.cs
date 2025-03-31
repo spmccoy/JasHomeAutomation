@@ -18,6 +18,7 @@ public class MqttEntityStateManager : IAsyncInitializable
 {
     private readonly IMqttEntityManager _mqttEntityManager;
     private readonly IEnumerable<MqttEntity> _mqttEntities;
+    private readonly ILogger<MqttEntityStateManager> _logger;
 
     /// <summary>
     /// Represents an application-level subscriber for managing MQTT entity services, including
@@ -25,10 +26,12 @@ public class MqttEntityStateManager : IAsyncInitializable
     /// </summary>
     public MqttEntityStateManager(
         IMqttEntityManager mqttEntityManager,
-        IEnumerable<MqttEntity> mqttEntities)
+        IEnumerable<MqttEntity> mqttEntities,
+        ILogger<MqttEntityStateManager> logger)
     {
         _mqttEntityManager = mqttEntityManager;
         _mqttEntities = mqttEntities;
+        _logger = logger;
     }
     
     public async Task InitializeAsync(CancellationToken cancellationToken)
@@ -45,6 +48,7 @@ public class MqttEntityStateManager : IAsyncInitializable
             // ReSharper disable once AsyncVoidLambda
             .Subscribe(async state =>
             {
+                _logger.LogInformation("{Name} has changed state to {State}", mqttEntity.DisplayName, state);
                 await _mqttEntityManager.SetStateAsync(mqttEntity.Id, state).ConfigureAwait(false);
                 mqttEntity.HandleStateChange(state);
             });

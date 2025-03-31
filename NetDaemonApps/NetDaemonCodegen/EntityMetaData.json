@@ -3728,6 +3728,11 @@
           "cSharpName": "MasterBathNextTimer"
         },
         {
+          "id": "sensor.netdaemon_house_is_anyone_home",
+          "friendlyName": "Is anyone home",
+          "cSharpName": "NetdaemonHouseIsAnyoneHome"
+        },
+        {
           "id": "sensor.node_2_last_seen",
           "friendlyName": "T6 Pro Z-Wave Programmable Thermostat Last seen",
           "cSharpName": "Node2LastSeen"
@@ -6461,6 +6466,16 @@
           "id": "input_boolean.dev_netdaemon_mqtt_entity_subscriber",
           "friendlyName": "dev_netdaemon_mqtt_entity_subscriber",
           "cSharpName": "DevNetdaemonMqttEntitySubscriber"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_shawn_room_mac_audio_input",
+          "friendlyName": "dev_netdaemon_shawn_room_mac_audio_input",
+          "cSharpName": "DevNetdaemonShawnRoomMacAudioInput"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_shawn_room_mac_input_active",
+          "friendlyName": "dev_netdaemon_shawn_room_mac_input_active",
+          "cSharpName": "DevNetdaemonShawnRoomMacInputActive"
         },
         {
           "id": "input_boolean.dev_netdaemon_shawn_room_motion_sensor",

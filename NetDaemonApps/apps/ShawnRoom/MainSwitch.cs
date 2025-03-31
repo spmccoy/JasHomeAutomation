@@ -8,13 +8,13 @@ public class MainSwitch(Entities entities)
 {
     protected override void HandleOff()
     {
-        entities.Select.NetdaemonShawnroomState.SelectOption(StateSelect.Off);
+        entities.Select.NetdaemonShawnroomState.SelectOption(ShawnsRoomState.Off);
     }
 
     protected override void HandleOn()
     {
         entities.Select.NetdaemonShawnroomState.SelectOption(entities.Sun.Sun.State == HaSun.AboveHorizon.ToString()
-            ? StateSelect.Day
-            : StateSelect.Night);
+            ? ShawnsRoomState.Day
+            : ShawnsRoomState.Night);
     }
 }

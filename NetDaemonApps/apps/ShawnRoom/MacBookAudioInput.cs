@@ -2,20 +2,20 @@ using NetDaemon.HassModel.Entities;
 
 namespace NetDaemonApps.apps.ShawnRoom;
 
-[NetDaemonApp(Id = $"{nameof(ShawnRoom)}_{nameof(MacAudioInput)}")]
-public class MacAudioInput
+[NetDaemonApp]
+public class MacBookAudioInput
 {
     private readonly Entities _entities;
     private readonly ILogger _logger;
 
-    public MacAudioInput(Entities entities, ILogger<MacAudioInput> logger)
+    public MacBookAudioInput(Entities entities, ILogger<MacBookAudioInput> logger)
     {
         _entities = entities;
         _logger = logger;
 
         entities.Sensor.ShawnsMacbookProActiveAudioInput
             .StateChanges()
-            .Subscribe(s => ProcessState(s));
+            .Subscribe(ProcessState);
     }
 
     private LightAttributes? LastKnownLightAttributes { get; set; }
