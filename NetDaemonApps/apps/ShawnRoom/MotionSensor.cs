@@ -2,7 +2,7 @@ using NetDaemon.HassModel.Entities;
 
 namespace NetDaemonApps.apps.ShawnRoom;
 
-[NetDaemonApp(Id = $"{nameof(ShawnRoom)}_{nameof(MotionSensor)}")]
+[NetDaemonApp]
 public class MotionSensor
 {
     private readonly Entities _entities;

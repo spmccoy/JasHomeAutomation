@@ -20,7 +20,7 @@ public class MqttSelect(string groupName, string entityName, string displayName)
         }
         else
         {
-            throw new InvalidOperationException($"{state} is not a valid state");
+            throw new InvalidOperationException($"Could not find an action for state {state}");
         }
     }
     
