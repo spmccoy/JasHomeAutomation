@@ -1,4 +1,4 @@
-namespace NetDaemonApps.Services;
+namespace NetDaemonApps.Interfaces;
 
 public interface ILightService
 {
