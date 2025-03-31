@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace NetDaemonApps.DomainEntities
 {
-    public class HaPerson
+    public class Person
     {
         private readonly Dictionary<string, State> _stateMappings = new Dictionary<string, State>
         {
@@ -20,7 +20,7 @@ namespace NetDaemonApps.DomainEntities
             NotHome
         }
 
-        public HaPerson(string? personsState)
+        public Person(string? personsState)
         {
             if (!_stateMappings.TryGetValue(personsState ?? string.Empty, out var currentState))
             {

@@ -19,7 +19,7 @@ public class Shawn
 
     private void ProcessStateChange(string? newState)
     {
-        var shawn = new HaPerson(newState);
+        var shawn = new Person(newState);
 
         if (!shawn.IsHome)
         {

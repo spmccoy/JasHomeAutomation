@@ -24,7 +24,7 @@ public class MacBookAudioInput
     {
         var newState = stateChange.New?.State;
         var oldState = stateChange.Old?.State;
-        var shawn = new HaPerson(_entities.Person.Shawn.State);
+        var shawn = new Person(_entities.Person.Shawn.State);
         
         _logger.LogInformation("State changed from {oldState} to {newState}", oldState, newState);
 
@@ -36,30 +36,11 @@ public class MacBookAudioInput
         
         if (newState == HaCommonState.Active.ToString())
         {
-            HandleActiveState();
+            _entities.Switch.NetdaemonShawnroomDndSwitch.TurnOn();
         }
         else if (newState == HaCommonState.InActive.ToString())
         {
-            HandleInactiveState();
-        }
-    }
-
-    private void HandleActiveState()
-    {
-        LastKnownLightAttributes = _entities.Light.HuePlayRight.Attributes;
-        _entities.Light.HuePlayRight.TurnOn(colorName: "Red");
-    }
-
-    private void HandleInactiveState()
-    {
-        if (LastKnownLightAttributes == null)
-        {
-            _logger.LogWarning("The last known light attributes did not save. Turning light off instead.");
-            _entities.Light.HuePlayRight.TurnOff();
-        }
-        else
-        {
-            _entities.Light.HuePlayRight.TurnOn(hsColor: LastKnownLightAttributes.HsColor);
+            _entities.Switch.NetdaemonShawnroomDndSwitch.TurnOff();
         }
     }
 }
