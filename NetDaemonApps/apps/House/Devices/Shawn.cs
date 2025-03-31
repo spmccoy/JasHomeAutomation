@@ -1,7 +1,7 @@
-using NetDaemon.HassModel.Entities;
+using NetDaemonApps.apps.House.Controls;
 using NetDaemonApps.Interfaces;
 
-namespace NetDaemonApps.apps.House;
+namespace NetDaemonApps.apps.House.Devices;
 
 [NetDaemonApp]
 public class Shawn
@@ -23,12 +23,12 @@ public class Shawn
 
         if (!shawn.IsHome)
         {
-            _entities.Switch.NetdaemonShawnroomMain.TurnOff();
+            _entities.Switch.ShawnroomMainNetdaemon.TurnOff();
         }
 
-        if (!_personService.IsAnyoneHome())
+        if (_personService.IsNoOneHome())
         {
-            // TODO: set the house to away
+            _entities.Select.HouseStateNetdaemon.SelectOption(HouseState.Away);
         }
     }
 }

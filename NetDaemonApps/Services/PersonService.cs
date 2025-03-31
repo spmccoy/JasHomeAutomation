@@ -11,4 +11,9 @@ public class PersonService(Entities entities) : IPersonService
 
         return shawn.IsHome || justin.IsHome;
     }
+
+    public bool IsNoOneHome()
+    {
+        return !IsAnyoneHome();
+    }
 }

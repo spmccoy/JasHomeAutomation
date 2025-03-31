@@ -1,7 +1,7 @@
-namespace NetDaemonApps.apps.ShawnRoom;
+namespace NetDaemonApps.apps.ShawnRoom.Controls;
 
 public class DndSwitch(Entities entities, ILogger<DndSwitch> logger) 
-    : MqttSwitch("ShawnRoom", "dnd_switch", "Shawn's not disturb switch")
+    : MqttSwitch("ShawnRoom", "dnd", "Shawn's not disturb switch")
 {
     private LightAttributes? LastKnownLightAttributes { get; set; }
     

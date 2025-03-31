@@ -1,6 +1,6 @@
 using NetDaemon.HassModel.Entities;
 
-namespace NetDaemonApps.apps.ShawnRoom;
+namespace NetDaemonApps.apps.ShawnRoom.Devices;
 
 [NetDaemonApp]
 public class MotionSensor
@@ -20,6 +20,6 @@ public class MotionSensor
     private void HandleOn()
     {
         _entities.Switch.ShawnOfficeHueMotionSensorMotionSensorEnabled.TurnOff();
-        _entities.Switch.NetdaemonShawnroomMain.TurnOn();
+        _entities.Switch.ShawnroomMainNetdaemon.TurnOn();
     }
 }
