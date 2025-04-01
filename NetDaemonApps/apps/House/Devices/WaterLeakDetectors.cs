@@ -10,7 +10,7 @@ public class WaterLeakDetectors
     public WaterLeakDetectors(ISensorService sensorService, Entities entities)
     {
         _entities = entities;
-        foreach (var leakSensor in sensorService.GetWaterLeakSensors())
+        foreach (var leakSensor in sensorService.GetAllWaterLeakSensors())
         {
             leakSensor
                 .StateChanges()

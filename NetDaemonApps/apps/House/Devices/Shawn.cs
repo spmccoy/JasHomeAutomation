@@ -28,7 +28,7 @@ public class Shawn
 
         if (_personService.IsNoOneHome())
         {
-            _entities.Select.HouseStateNetdaemon.SelectOption(HouseState.Away);
+            _entities.Select.HouseStateNetdaemon.SelectOption(HouseStateSelect.Away);
         }
     }
 }

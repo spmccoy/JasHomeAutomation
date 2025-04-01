@@ -5559,6 +5559,11 @@
           "cSharpName": "GarageSirenOnEvent"
         },
         {
+          "id": "switch.house_camera_notifications_netdaemon",
+          "friendlyName": "Camera notifications",
+          "cSharpName": "HouseCameraNotificationsNetdaemon"
+        },
+        {
           "id": "switch.house_water_leak_detected_netdaemon",
           "friendlyName": "Water Leak detected",
           "cSharpName": "HouseWaterLeakDetectedNetdaemon"

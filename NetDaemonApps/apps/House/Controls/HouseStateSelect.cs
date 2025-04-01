@@ -1,24 +1,30 @@
 namespace NetDaemonApps.apps.House.Controls;
 
 [NetDaemonApp]
-public class HouseState : MqttSelect
+public class HouseStateSelect : MqttSelect
 {
     private readonly Entities _entities;
-    public const string Home = "Home";
+    public const string HomeSecure = "Home Secure";
+    public const string HomeUnsecured = "Home Unsecured";
     public const string Away = "Away";
     public const string Sleep = "Sleep";
     
-    public HouseState(Entities entities) 
+    public HouseStateSelect(Entities entities) 
         : base("House", "state", "House State")
     {
         _entities = entities;
         
-        AddOption(Home, HandleHome);
+        AddOption(HomeSecure, HandleHomeSecure);
+        AddOption(HomeUnsecured, HandleHomeUnsecured);
         AddOption(Away, HandleAway);
         AddOption(Sleep, HandleSleep);
     }
 
-    private void HandleHome()
+    private void HandleHomeSecure()
+    {
+    }
+    
+    private void HandleHomeUnsecured()
     {
     }
     

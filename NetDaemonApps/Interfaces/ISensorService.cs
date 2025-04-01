@@ -5,5 +5,5 @@ namespace NetDaemonApps.Interfaces;
 
 public interface ISensorService
 {
-    IEnumerable<Entity> GetWaterLeakSensors();
+    IEnumerable<Entity> GetAllWaterLeakSensors();
 }

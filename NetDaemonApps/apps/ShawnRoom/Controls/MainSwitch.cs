@@ -8,14 +8,14 @@ public class MainSwitch(Entities entities)
 {
     protected override void HandleOff()
     {
-        entities.Select.ShawnroomStateNetdaemon.SelectOption(ShawnsRoomState.Off);
+        entities.Select.ShawnroomStateNetdaemon.SelectOption(ShawnsRoomStateSelect.Off);
     }
 
     protected override void HandleOn()
     {
         var sun = new Sun(entities.Sun.Sun.State);
         entities.Select.ShawnroomStateNetdaemon.SelectOption(sun.CurrentState == Sun.State.Day
-            ? ShawnsRoomState.Day
-            : ShawnsRoomState.Night);
+            ? ShawnsRoomStateSelect.Day
+            : ShawnsRoomStateSelect.Night);
     }
 }
