@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetDaemon.Extensions.MqttEntityManager;
+using NetDaemon.Extensions.Scheduler;
 using NetDaemon.Runtime;
 using NetDaemonApps;
 using NetDaemonApps.DomainEntities;
@@ -25,6 +26,7 @@ var host = Host.CreateDefaultBuilder()
         services.AddServices();
         services.AddHomeAssistantGenerated();
         services.AddMqttEntities();
+        services.AddNetDaemonScheduler();
     })
     .Build();
 

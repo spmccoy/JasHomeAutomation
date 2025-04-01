@@ -38,6 +38,11 @@ public class MqttEntityStateManager : IAsyncInitializable
     {
         foreach (var mqttEntity in _mqttEntities)
         {
+            if (mqttEntity.InitialValue is not null)
+            {
+                await _mqttEntityManager.SetStateAsync(mqttEntity.Id, mqttEntity.InitialValue).ConfigureAwait(false);   
+            }
+            
             await HandleMqttEntityState(mqttEntity);
         }
     }

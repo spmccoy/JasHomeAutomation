@@ -8,7 +8,7 @@ namespace NetDaemonApps.apps.ShawnRoom.Controls;
 /// Applies room settings for a given state.
 /// </summary>
 [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-public class ShawnsRoomState : MqttSelect
+public class ShawnsRoomStateSelect : MqttSelect
 {
     private readonly Entities _entities;
     private readonly ILightService _lightService;
@@ -19,7 +19,7 @@ public class ShawnsRoomState : MqttSelect
     public const string Gaming = "Gaming";
     public const string SimRacing = "Sim Racing";
     
-    public ShawnsRoomState(Entities entities, ILightService lightService) 
+    public ShawnsRoomStateSelect(Entities entities, ILightService lightService) 
         : base("ShawnRoom", "state", "Shawn's Room State")
     {
         _entities = entities;
