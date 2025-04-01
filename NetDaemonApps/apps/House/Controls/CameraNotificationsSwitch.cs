@@ -3,7 +3,7 @@ using System.Reactive.Concurrency;
 namespace NetDaemonApps.apps.House.Controls;
 
 public class CameraNotificationsSwitch(IScheduler scheduler, Entities entities) 
-    : MqttSwitch("House", "camera-notifications", "Camera notifications", HaCommonState.On.ToString())
+    : MqttSwitch("House", "camera-notifications", "Camera notifications", On)
 {
     private const int TurnBackOnInMinutes = 30;
     private IDisposable? _schedulerSubscription;

@@ -6493,6 +6493,41 @@
       "domain": "input_boolean",
       "entities": [
         {
+          "id": "input_boolean.dev_netdaemon_mqtt_entity_state_manager",
+          "friendlyName": "dev_netdaemon_mqtt_entity_state_manager",
+          "cSharpName": "DevNetdaemonMqttEntityStateManager"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_controls_house_state_select",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_controls_house_state_select",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseControlsHouseStateSelect"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_cameras",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_cameras",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesCameras"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_shawn",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_shawn",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesShawn"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_water_leak_detectors",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_water_leak_detectors",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesWaterLeakDetectors"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_mac_book_pro",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_mac_book_pro",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesMacBookPro"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_motion_sensor",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_motion_sensor",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesMotionSensor"
+        },
+        {
           "id": "input_boolean.netdaemon_app_model_hello_yaml_app",
           "friendlyName": "netdaemon_app_model_hello_yaml_app",
           "cSharpName": "NetdaemonAppModelHelloYamlApp"

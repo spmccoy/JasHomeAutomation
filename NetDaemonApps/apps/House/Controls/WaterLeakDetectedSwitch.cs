@@ -1,10 +1,12 @@
 using System.Reactive.Concurrency;
+using System.Threading;
+using System.Threading.Tasks;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.apps.House.Controls;
 
-public class WaterLeakDetectedSwitch(INotificationService notificationService, IScheduler scheduler) 
-    : MqttSwitch("House", "water-leak-detected", "Water Leak detected", HaCommonState.Off.ToString())
+public class WaterLeakDetectedSwitch(INotificationService notificationService, IScheduler scheduler, Entities entities) 
+    : MqttSwitch("House", "water-leak-detected", "Water Leak detected", Off)
 {
     private IDisposable? _schedulerSubscription;
     private const int NotifyEverySeconds = 30;
@@ -16,20 +18,15 @@ public class WaterLeakDetectedSwitch(INotificationService notificationService, I
 
     protected override void HandleOn()
     {
+        Helpers.CancelSchedule(_schedulerSubscription);
         Notify();
+        _schedulerSubscription = scheduler.SchedulePeriodic(
+            TimeSpan.FromSeconds(NotifyEverySeconds),
+            Notify);
     }
 
     private void Notify()
     {
-        if (_schedulerSubscription != null)
-        {
-            return;
-        }
-        
         notificationService.Notify(notificationService.AllDevices, "⚠️🚰 WATER LEAK DETECTED", "Warning! water leak detected.");
-        
-        _schedulerSubscription = scheduler.Schedule(
-            TimeSpan.FromSeconds(NotifyEverySeconds), 
-            Notify);
     }
 }

@@ -7,8 +7,8 @@ namespace NetDaemonApps.DomainEntities;
 public abstract class MqttSwitch(string groupName, string entityName, string displayName, string? initialValue = null)
     : MqttEntity(HaEntityType.Switch, groupName, entityName, displayName, initialValue)
 {
-    private const string On = "ON";
-    private const string Off = "OFF";
+    public const string On = "ON";
+    public const string Off = "OFF";
     
     public override void HandleStateChange(string? state)
     {
