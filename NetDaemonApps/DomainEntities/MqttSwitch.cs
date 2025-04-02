@@ -1,14 +1,19 @@
+using System.Security.Cryptography;
+
 namespace NetDaemonApps.DomainEntities;
 
 /// <summary>
 /// Represents an abstract MQTT switch that can handle state changes and provides
 /// specific behavior for "on" and "off" states through overridden methods.
 /// </summary>
-public abstract class MqttSwitch(string groupName, string entityName, string displayName, string? initialValue = null)
-    : MqttEntity(HaEntityType.Switch, groupName, entityName, displayName, initialValue)
+public abstract class MqttSwitch(string groupName, string entityName, string displayName)
+    : MqttEntity(HaEntityType.Switch, groupName, entityName, displayName)
 {
     public const string On = "ON";
     public const string Off = "OFF";
+    public const string Unknown = "unknown";
+
+    public bool PersistState { get; set; } = true;
     
     public override void HandleStateChange(string? state)
     {
@@ -16,7 +21,8 @@ public abstract class MqttSwitch(string groupName, string entityName, string dis
         {
             On => HandleOn,
             Off => HandleOff,
-            _ => throw new ArgumentException($"Unknown state {state}")
+            Unknown => () => { },
+        _ => throw new ArgumentException($"Unknown state {state}")
         };
 
         action();

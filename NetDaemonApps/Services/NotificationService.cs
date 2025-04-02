@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using NetDaemonApps.Interfaces;
 
@@ -7,9 +8,10 @@ namespace NetDaemonApps.Services;
 /// The NotificationService class provides functionality to send notifications to specified devices.
 /// Implements the <see cref="INotificationService"/> interface for managing notifications.
 /// </summary>
-public class NotificationService(IHaContext ha) : INotificationService
+public class NotificationService(IHaContext ha, IPersonService personService, ILogger<NotificationService> logger) : INotificationService
 {
     private const string HaDomain = "notify";
+    private const string AlexaService = "alexa_media";
     
     /// <inheritdoc/>
     public NotifiableDevice[] AllDevices =>
@@ -55,15 +57,31 @@ public class NotificationService(IHaContext ha) : INotificationService
     /// <param name="message">The message to send as TTS content to the specified Alexa device. Can be null or an empty string if no message is provided.</param>
     private void NotifyAlexaDevice(NotifiableDevice notifiableDevice, string? message)
     {
-        const string haService = "alexa_media";
-        
-        var data = new
+        if (ShouldSkipNotification(notifiableDevice, out var reason))
+        {
+            logger.LogDebug($"Skipping notification to {notifiableDevice.Id} because {reason}.");
+            return; // Early return prevents unnecessary processing.
+        }
+
+        var notificationData = new
         {
             target = notifiableDevice.Id,
-            data = new { type = "tts"},
+            data = new { type = "tts" },
             message
         };
-        
-        ha.CallService(HaDomain, haService, data: data);
+
+        ha.CallService(HaDomain, AlexaService, data: notificationData);
+    }
+
+    private bool ShouldSkipNotification(NotifiableDevice notifiableDevice, out string reason)
+    {
+        if (notifiableDevice == NotifiableDevice.ShawnOffice() && personService.DontDisturbShawn)
+        {
+            reason = "Shawn's Do Not Disturb mode is enabled.";
+            return true;
+        }
+
+        reason = string.Empty;
+        return false;
     }
 }

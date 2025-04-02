@@ -4,4 +4,6 @@ public interface IPersonService
 {
     bool IsAnyoneHome();
     bool IsNoOneHome();
+
+    bool DontDisturbShawn { get; }
 }
