@@ -1,15 +1,17 @@
 namespace NetDaemonApps.DomainEntities;
 
-public abstract class MqttEntity(HaEntityType entityType, string groupName, string entityName, string displayName, string? initialValue = null)
+public abstract class MqttEntity(HaEntityType entityType, string groupName, string entityName, string displayName)
 {
-    public string? InitialValue { get; } = initialValue;
-    private const string suffix = "netDaemon";
+    private const string Suffix = "netDaemon";
+    
     public readonly string DisplayName = displayName;
     public readonly string Id = GenerateId(entityType, groupName, entityName);
 
+    public string? InitialValue { get; protected init; }
+    
     private static string GenerateId(HaEntityType entityType, string groupName, string entityName)
     {
-        return $"{entityType}.{groupName}-{entityName}-{suffix}";
+        return $"{entityType}.{groupName}-{entityName}-{Suffix}";
     }
     
     public abstract void HandleStateChange(string? state);

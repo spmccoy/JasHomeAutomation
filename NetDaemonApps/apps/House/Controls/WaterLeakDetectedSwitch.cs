@@ -5,10 +5,21 @@ using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.apps.House.Controls;
 
-public class WaterLeakDetectedSwitch(INotificationService notificationService, IScheduler scheduler, Entities entities) 
-    : MqttSwitch("House", "water-leak-detected", "Water Leak detected", Off)
+public class WaterLeakDetectedSwitch : MqttSwitch
 {
     private IDisposable? _schedulerSubscription;
+    private readonly INotificationService _notificationService;
+    private readonly IScheduler _scheduler;
+
+    public WaterLeakDetectedSwitch(INotificationService notificationService, IScheduler scheduler) 
+        : base("House", "water-leak-detected", "Water Leak detected")
+    {
+        _notificationService = notificationService;
+        _scheduler = scheduler;
+
+        InitialValue = Off;
+    }
+
     private const int NotifyEverySeconds = 30;
     
     protected override void HandleOff()
@@ -20,13 +31,13 @@ public class WaterLeakDetectedSwitch(INotificationService notificationService, I
     {
         Helpers.CancelSchedule(_schedulerSubscription);
         Notify();
-        _schedulerSubscription = scheduler.SchedulePeriodic(
+        _schedulerSubscription = _scheduler.SchedulePeriodic(
             TimeSpan.FromSeconds(NotifyEverySeconds),
             Notify);
     }
 
     private void Notify()
     {
-        notificationService.Notify(notificationService.AllDevices, "⚠️🚰 WATER LEAK DETECTED", "Warning! water leak detected.");
+        _notificationService.Notify(_notificationService.AllDevices, "⚠️🚰 WATER LEAK DETECTED", "Warning! water leak detected.");
     }
 }

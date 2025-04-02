@@ -16,4 +16,6 @@ public class PersonService(Entities entities) : IPersonService
     {
         return !IsAnyoneHome();
     }
+
+    public bool DontDisturbShawn => entities.Switch.ShawnroomDndNetdaemon.State == HaCommonState.On.ToString();
 }
