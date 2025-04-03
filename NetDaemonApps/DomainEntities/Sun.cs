@@ -3,36 +3,98 @@ using System.Collections.Generic;
 namespace NetDaemonApps.DomainEntities;
 
 /// <summary>
-/// The <c>Sun</c> class represents the state of the sun in terms of day, night, unknown, or unavailable.
-/// It maps states received as input into predefined enums that can be used for further processing.
+/// Represents the Sun entity, providing information regarding solar position and illumination state.
 /// </summary>
 public class Sun
 {
-    private readonly Dictionary<string, State> _stateMappings = new Dictionary<string, State>
+    private const int WarningTimeInHours = -1; // Represents the alert window in hours before events
+
+    private static readonly Dictionary<string, SolarPosition> StateMappings = new()
     {
-        {"above_horizon", State.Day},
-        {"unknown", State.Unknown},
-        {"below_horizon", State.Night},
-        {"unavailable", State.Unavailable}
+        {"above_horizon", SolarPosition.AboveHorizon},
+        {"unknown", SolarPosition.Unknown},
+        {"below_horizon", SolarPosition.BelowHorizon},
+        {"unavailable", SolarPosition.Unavailable}
     };
 
-    public enum State
+    public enum SolarPosition
     {
         Unknown,
         Unavailable,
-        Day,
-        Night
+        AboveHorizon,
+        BelowHorizon
     }
-    
-    public Sun(string? sunsState)
+
+    public enum SolarIllumination
     {
-        if (!_stateMappings.TryGetValue(sunsState ?? string.Empty, out var currentState))
+        Unknown,
+        Day,
+        Night,
+        Dawn,
+        Dusk
+    }
+
+    public Sun(SunEntity sunEntityUtc, DateTime currentDateTimeUtc)
+    {
+        NextDawn = sunEntityUtc.Attributes?.NextDawn;
+        NextDusk = sunEntityUtc.Attributes?.NextDusk;
+        NextRising = sunEntityUtc.Attributes?.NextRising;
+        NextSetting = sunEntityUtc.Attributes?.NextSetting;
+        CurrentDateTimeUtc = currentDateTimeUtc;
+        SunState = sunEntityUtc.State;
+
+        UpdateSolarStates();
+    }
+
+    public SolarPosition CurrentSolarPosition { get; private set; }
+    public SolarIllumination CurrentSolarIllumination { get; private set; }
+
+    private string? NextDawn { get; }
+    private string? NextDusk { get; }
+    private string? NextRising { get; }
+    private string? NextSetting { get; }
+    private string? SunState { get; set; }
+    private DateTime CurrentDateTimeUtc { get; set; }
+
+    private void UpdateSolarStates()
+    {
+        CurrentSolarPosition = DetermineSolarPosition(SunState);
+        CurrentSolarIllumination = DetermineSolarIllumination();
+    }
+
+    private SolarPosition DetermineSolarPosition(string? state)
+    {
+        if (string.IsNullOrEmpty(state)) return SolarPosition.Unknown;
+
+        return StateMappings.TryGetValue(state, out var position)
+            ? position
+            : throw new ArgumentOutOfRangeException(state, "Invalid sun state");
+    }
+
+    private SolarIllumination DetermineSolarIllumination()
+    {
+        if (!TryParseDate(NextDusk, out var nextDusk) ||
+            !TryParseDate(NextRising, out var nextRising))
         {
-            throw new ArgumentOutOfRangeException(sunsState, "Invalid sun state");
+            return SolarIllumination.Unknown;
         }
 
-        CurrentState = currentState;
+        var isDusk = IsEventNear(nextDusk);
+        var isDawn = IsEventNear(nextRising);
+
+        return isDusk ? SolarIllumination.Dusk
+            : isDawn ? SolarIllumination.Dawn
+            : CurrentSolarPosition == SolarPosition.AboveHorizon ? SolarIllumination.Day
+            : SolarIllumination.Night;
     }
 
-    public State CurrentState { get; private set; }
+    private bool IsEventNear(DateTime eventTime)
+    {
+        return CurrentDateTimeUtc > eventTime.AddHours(WarningTimeInHours);
+    }
+
+    private static bool TryParseDate(string? date, out DateTime parsedDate)
+    {
+        return DateTime.TryParse(date, out parsedDate);
+    }
 }

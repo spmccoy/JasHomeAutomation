@@ -18,6 +18,7 @@ public class MqttEntityStateManager : IAsyncInitializable
 {
     private readonly IMqttEntityManager _mqttEntityManager;
     private readonly IEnumerable<MqttEntity> _mqttEntities;
+    private readonly Entities _entities;
 
     /// <summary>
     /// Represents an application-level subscriber for managing MQTT entity services, including
@@ -25,14 +26,18 @@ public class MqttEntityStateManager : IAsyncInitializable
     /// </summary>
     public MqttEntityStateManager(
         IMqttEntityManager mqttEntityManager,
-        IEnumerable<MqttEntity> mqttEntities)
+        IEnumerable<MqttEntity> mqttEntities,
+        Entities entities)
     {
         _mqttEntityManager = mqttEntityManager;
         _mqttEntities = mqttEntities;
+        _entities = entities;
     }
     
     public async Task InitializeAsync(CancellationToken cancellationToken)
     {
+        var sun = new Sun(_entities.Sun.Sun, DateTime.UtcNow);
+        
         foreach (var mqttEntity in _mqttEntities)
         {
             if (mqttEntity.InitialValue is not null)
