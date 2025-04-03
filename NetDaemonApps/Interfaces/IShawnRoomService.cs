@@ -1,6 +1,6 @@
 namespace NetDaemonApps.Services;
 
-public interface IMainRoomService
+public interface IShawnRoomService
 {
     void DetermineAndSetRoomState();
 }

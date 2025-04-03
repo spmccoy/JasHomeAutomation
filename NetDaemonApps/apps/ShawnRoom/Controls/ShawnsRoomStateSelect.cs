@@ -13,22 +13,16 @@ public class ShawnsRoomStateSelect : MqttSelect
     private readonly Entities _entities;
     private readonly ILightService _lightService;
     
-    public const string Off = "Off";
-    public const string Day = "Day";
-    public const string Night = "Night";
-    public const string Gaming = "Gaming";
-    public const string SimRacing = "Sim Racing";
-    
     public ShawnsRoomStateSelect(Entities entities, ILightService lightService) 
         : base("ShawnRoom", "state", "Shawn's Room State Select")
     {
         _entities = entities;
         _lightService = lightService;
-        AddOption(Off, HandleOff);
-        AddOption(Day, HandleDay);
-        AddOption(Night, HandleNight);
-        AddOption(Gaming, HandleGaming);
-        AddOption(SimRacing, HandleSimRacing);
+        AddOption(RoomState.Off, HandleOff);
+        AddOption(RoomState.Day, HandleDay);
+        AddOption(RoomState.Night, HandleNight);
+        AddOption(RoomState.Gaming, HandleGaming);
+        AddOption(RoomState.SimRacing, HandleSimRacing);
     }
     
     private void HandleOff()

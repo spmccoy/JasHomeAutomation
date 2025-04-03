@@ -32,6 +32,6 @@ public class MainRoomStateSwitch : MqttSwitch
 
     protected override void HandleOn()
     {
-        _mainRoomService.ApplyStateBasedOnSolarIllumination();
+        _mainRoomService.DetermineAndSetRoomState();
     }
 }
