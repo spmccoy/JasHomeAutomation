@@ -1,4 +1,4 @@
-using NetDaemonApps.apps.MainRoom.Controls;
+using NetDaemonApps.apps.ShawnRoom.Controls;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.Services;
@@ -6,7 +6,7 @@ namespace NetDaemonApps.Services;
 public class MainRoomService(Entities entities, ISunService sunService, ILogger<MainRoomService> logger) : IMainRoomService
 {
     private readonly SelectEntity _select = entities.Select.MainroomStateSelectNetdaemon;
-    public void ApplyStateBasedOnSolarIllumination()
+    public void DetermineAndSetRoomState()
     {
         var illumination = sunService.GetCurrentSunState().CurrentSolarIllumination;
         
