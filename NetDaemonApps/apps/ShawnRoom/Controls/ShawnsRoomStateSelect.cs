@@ -20,7 +20,7 @@ public class ShawnsRoomStateSelect : MqttSelect
     public const string SimRacing = "Sim Racing";
     
     public ShawnsRoomStateSelect(Entities entities, ILightService lightService) 
-        : base("ShawnRoom", "state", "Shawn's Room State")
+        : base("ShawnRoom", "state", "Shawn's Room State Select")
     {
         _entities = entities;
         _lightService = lightService;

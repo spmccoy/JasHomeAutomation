@@ -2986,17 +2986,17 @@
         },
         {
           "id": "scene.main_before_sunrise",
-          "friendlyName": "Main - Sunrise",
+          "friendlyName": "Main sunrise",
           "cSharpName": "MainBeforeSunrise"
         },
         {
           "id": "scene.main_before_sunset",
-          "friendlyName": "Main - Sunset",
+          "friendlyName": "Main sunset",
           "cSharpName": "MainBeforeSunset"
         },
         {
           "id": "scene.main_night",
-          "friendlyName": "Main - Calming",
+          "friendlyName": "Main night",
           "cSharpName": "MainNight"
         },
         {
@@ -3346,6 +3346,11 @@
           "cSharpName": "MainPurifierNightLightLevel"
         },
         {
+          "id": "select.mainroom_state_select_netdaemon",
+          "friendlyName": "Main Room State Select",
+          "cSharpName": "MainroomStateSelectNetdaemon"
+        },
+        {
           "id": "select.reolink_chime_motion_ringtone",
           "friendlyName": "Reolink Chime Motion ringtone",
           "cSharpName": "ReolinkChimeMotionRingtone"
@@ -3392,7 +3397,7 @@
         },
         {
           "id": "select.shawnroom_state_netdaemon",
-          "friendlyName": "Shawn\u0027s Room State",
+          "friendlyName": "Shawn\u0027s Room State Select",
           "cSharpName": "ShawnroomStateNetdaemon"
         },
         {
@@ -5704,6 +5709,11 @@
           "cSharpName": "MainSirenOnEvent"
         },
         {
+          "id": "switch.mainroom_state_switch_netdaemon",
+          "friendlyName": "Main Room State Switch",
+          "cSharpName": "MainroomStateSwitchNetdaemon"
+        },
+        {
           "id": "switch.master_bath_do_not_disturb_switch",
           "friendlyName": "Master Bath do not disturb switch",
           "cSharpName": "MasterBathDoNotDisturbSwitch"
@@ -5847,6 +5857,11 @@
           "id": "switch.shawnroom_main_netdaemon",
           "friendlyName": "Shawn\u0027s Room Switch",
           "cSharpName": "ShawnroomMainNetdaemon"
+        },
+        {
+          "id": "switch.shawnroom_state_netdaemon",
+          "friendlyName": "Shawn\u0027s Room State Switch",
+          "cSharpName": "ShawnroomStateNetdaemon"
         },
         {
           "id": "switch.this_device_do_not_disturb_switch",

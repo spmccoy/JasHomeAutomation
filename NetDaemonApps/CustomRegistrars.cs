@@ -14,6 +14,7 @@ public static class CustomRegistrars
         services.AddScoped<ILightService, LightService>();
         services.AddScoped<IPersonService, PersonService>();
         services.AddScoped<ISensorService, SensorService>();
+        services.AddScoped<ILightService, LightService>();
         return services;
     }
 

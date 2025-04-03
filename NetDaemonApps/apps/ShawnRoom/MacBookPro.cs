@@ -18,8 +18,6 @@ public class MacBookPro
             .Subscribe(ProcessStateChange);
     }
 
-    private LightAttributes? LastKnownLightAttributes { get; set; }
-
     private void ProcessStateChange(StateChange<SensorEntity, EntityState<SensorAttributes>> stateChange)
     {
         var newState = stateChange.New?.State;
