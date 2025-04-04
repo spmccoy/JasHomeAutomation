@@ -1,5 +1,4 @@
-using NetDaemonApps.apps.House.Controls;
-using NetDaemonApps.Interfaces;
+using NetDaemonApps.Services;
 
 namespace NetDaemonApps.apps.House.Devices;
 
@@ -7,28 +6,30 @@ namespace NetDaemonApps.apps.House.Devices;
 public class Shawn
 {
     private readonly Entities _entities;
-    private readonly IPersonService _personService;
+    private readonly IHouseService _houseService;
 
-    public Shawn(Entities entities, IPersonService personService)
+    public Shawn(Entities entities, IHouseService houseService)
     {
         _entities = entities;
-        _personService = personService;
+        _houseService = houseService;
+        
         entities.Person.Shawn.StateChanges()
-            .Subscribe(s => ProcessStateChange(s.New?.State));
+            .Where(w => w.New?.State == HaState.Away)
+            .Subscribe(_ => HandleAway());
+        
+        entities.Person.Shawn.StateChanges()
+            .Where(w => w.New?.State == HaState.Home)
+            .Subscribe(_ => HandleHome());
     }
 
-    private void ProcessStateChange(string? newState)
+    private void HandleAway()
     {
-        var shawn = new Person(newState);
+        _entities.Switch.ShawnroomMainNetdaemon.TurnOff();
+        _entities.Cover.Ratgdov25i0a070cDoor.CloseCover();
+    }
 
-        if (!shawn.IsHome)
-        {
-            _entities.Switch.ShawnroomMainNetdaemon.TurnOff();
-        }
-
-        if (_personService.IsNoOneHome())
-        {
-            _entities.Select.HouseStateNetdaemon.SelectOption(HouseStateSelect.Away);
-        }
+    private void HandleHome()
+    {
+        _entities.Cover.Ratgdov25i0a070cDoor.OpenCover();
     }
 }

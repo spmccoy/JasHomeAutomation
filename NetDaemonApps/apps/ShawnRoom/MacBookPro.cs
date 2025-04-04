@@ -32,11 +32,11 @@ public class MacBookPro
             return;
         }
         
-        if (newState == HaCommonState.Active.ToString())
+        if (newState == HaState.Active.ToString())
         {
             _entities.Switch.ShawnroomDndNetdaemon.TurnOn();
         }
-        else if (newState == HaCommonState.InActive.ToString())
+        else if (newState == HaState.InActive.ToString())
         {
             _entities.Switch.ShawnroomDndNetdaemon.TurnOff();
         }
