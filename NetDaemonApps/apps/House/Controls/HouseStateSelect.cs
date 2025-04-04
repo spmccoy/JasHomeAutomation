@@ -1,36 +1,46 @@
+using NetDaemonApps.Interfaces;
+using NetDaemonApps.Services;
+
 namespace NetDaemonApps.apps.House.Controls;
 
 [NetDaemonApp]
 public class HouseStateSelect : MqttSelect
 {
     private readonly Entities _entities;
-    public const string HomeSecure = "Home Secure";
-    public const string HomeUnsecured = "Home Unsecured";
-    public const string Away = "Away";
-    public const string Sleep = "Sleep";
-    
-    public HouseStateSelect(Entities entities) 
+    private readonly IHouseService _houseService;
+
+
+    public HouseStateSelect(Entities entities, IHouseService houseService) 
         : base("House", "state", "House State")
     {
         _entities = entities;
-        
-        AddOption(HomeSecure, HandleHomeSecure);
-        AddOption(HomeUnsecured, HandleHomeUnsecured);
-        AddOption(Away, HandleAway);
-        AddOption(Sleep, HandleSleep);
+        _houseService = houseService;
+
+        AddOption(RoomState.HomeSecure, HandleHomeSecure);
+        AddOption(RoomState.HomeUnsecured, HandleHomeUnsecured);
+        AddOption(RoomState.Away, HandleAway);
+        AddOption(RoomState.Sleep, HandleSleep);
     }
 
     private void HandleHomeSecure()
     {
+        _entities.Cover.Ratgdov25i0a070cDoor.CloseCover();
+        _entities.Lock.HomeConnect620ConnectedSmartLock.Lock();
+        _houseService.DetermineAndSetOutsideLights();
     }
     
     private void HandleHomeUnsecured()
     {
+        _houseService.DetermineAndSetOutsideLights();
     }
     
     private void HandleAway()
     {
         _entities.Switch.ShawnroomMainNetdaemon.TurnOff();
+        _entities.Switch.MainroomStateSwitchNetdaemon.TurnOff();
+        _entities.Cover.Ratgdov25i0a070cDoor.CloseCover();
+        _entities.Lock.HomeConnect620ConnectedSmartLock.Lock();
+        _houseService.DetermineAndSetOutsideLights();
     }
 
     private void HandleSleep()

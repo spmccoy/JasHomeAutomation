@@ -40,7 +40,7 @@ public class Cameras
         {
             alertingCamera
                 .StateChanges()
-                .Where(w => w.New?.State == HaCommonState.On.ToString())
+                .Where(w => w.New?.State == HaState.On.ToString())
                 .Subscribe(_ => HandleDetectedPerson());
         }
         
@@ -48,7 +48,7 @@ public class Cameras
         {
             alertingCamera
                 .StateChanges()
-                .Where(w => w.New?.State == HaCommonState.On.ToString())
+                .Where(w => w.New?.State == HaState.On.ToString())
                 .Subscribe(_ => HandleDetectedVehicle());
         }
     }
@@ -67,7 +67,7 @@ public class Cameras
 
     private void Notify(string text, string tts)
     {
-        if (_schedulerSubscription != null || _entities.Switch.HouseCameraNotificationsNetdaemon.State == HaCommonState.Off.ToString())
+        if (_schedulerSubscription != null || _entities.Switch.HouseCameraNotificationsNetdaemon.State == HaState.Off.ToString())
         {
             return;
         }

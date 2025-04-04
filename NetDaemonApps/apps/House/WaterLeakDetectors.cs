@@ -1,6 +1,6 @@
 using NetDaemonApps.Interfaces;
 
-namespace NetDaemonApps.apps.House.Devices;
+namespace NetDaemonApps.apps.House;
 
 [NetDaemonApp]
 public class WaterLeakDetectors
@@ -14,7 +14,7 @@ public class WaterLeakDetectors
         {
             leakSensor
                 .StateChanges()
-                .Where(w => w.New?.State == HaCommonState.On.ToString())
+                .Where(w => w.New?.State == HaState.On)
                 .Subscribe(_ => HandleOn());
         }
     }

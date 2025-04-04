@@ -18,6 +18,7 @@ public class HaEntityType
     public static readonly HaEntityType Sensor = new("sensor");
     public static readonly HaEntityType BinarySensor = new("binary_sensor");
     public static readonly HaEntityType Button = new("button");
+    public static readonly HaEntityType Cover = new("cover");
 
     public string Value { get; }
 
