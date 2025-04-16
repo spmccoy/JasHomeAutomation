@@ -5,4 +5,3 @@ global using Microsoft.Extensions.Logging;
 global using NetDaemon.AppModel;
 global using NetDaemon.HassModel;
 global using HomeAssistantGenerated;
-global using NetDaemonApps.DomainEntities;

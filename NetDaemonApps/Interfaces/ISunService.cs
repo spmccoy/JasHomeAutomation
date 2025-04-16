@@ -1,3 +1,5 @@
+using Domain.Entities;
+
 namespace NetDaemonApps.Interfaces;
 
 public interface ISunService

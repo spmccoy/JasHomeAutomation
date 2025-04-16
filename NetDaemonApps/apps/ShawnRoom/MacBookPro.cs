@@ -1,3 +1,4 @@
+using Domain.Entities;
 using NetDaemon.HassModel.Entities;
 
 namespace NetDaemonApps.apps.ShawnRoom.Devices;
@@ -32,11 +33,11 @@ public class MacBookPro
             return;
         }
         
-        if (newState == HaState.Active.ToString())
+        if (newState == HaState.Active)
         {
             _entities.Switch.ShawnroomDndNetdaemon.TurnOn();
         }
-        else if (newState == HaState.InActive.ToString())
+        else if (newState == HaState.InActive)
         {
             _entities.Switch.ShawnroomDndNetdaemon.TurnOff();
         }

@@ -1,29 +1,41 @@
+using Domain.Entities;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.Services;
 
-public class HouseService(Entities entities, IPersonService personService, ISunService sunService) : IHouseService
+public class HouseService(
+    IPersonService personService, 
+    ISunService sunService,
+    LightEntities lights,
+    SceneEntities scenes,
+    LockEntities locks,
+    IShawnRoomService shawnRoomService,
+    IMainRoomService mainRoomService,
+    SelectEntities selects,
+    CoverEntities covers) : IHouseService
 {
-    private readonly SelectEntity _select = entities.Select.HouseStateNetdaemon;
+    public SelectEntity Select => selects.HouseStateNetdaemon;
 
-    public bool HouseSecure => entities.Cover.Ratgdov25i0a070cDoor.State == HaState.Closed &&
-                               entities.Lock.HomeConnect620ConnectedSmartLock.State == HaState.Locked;
+    public bool HouseSecure => covers.Ratgdov25i0a070cDoor.State == HaState.Closed &&
+                               locks.HomeConnect620ConnectedSmartLock.State == HaState.Locked;
+    
+    public RoomState CurrentRoomState => RoomStates.FromString(Select.State);
     
     public void DetermineAndSetHouseState()
     {
         if (personService.IsNoOneHome())
         {
-            _select.SelectOption(RoomState.Away);
+            Select.SelectOption(RoomStates.Away.ToString());
             return;
         }
 
         switch (HouseSecure)
         {
             case true:
-                _select.SelectOption(RoomState.HomeSecure);
+                Select.SelectOption(RoomStates.HomeSecure.ToString());
                 return;
             case false:
-                _select.SelectOption(RoomState.HomeUnsecured);
+                Select.SelectOption(RoomStates.HomeUnsecured.ToString());
                 break;
         }
     }
@@ -31,26 +43,47 @@ public class HouseService(Entities entities, IPersonService personService, ISunS
     public void DetermineAndSetOutsideLights()
     {
         var now = DateTime.Now;
-        // if it is not dark or past midnight turn off the lights, if on
+        // if it is not dark or past midnight turn off the lights
         if (!sunService.IsDark || now > now.Date.AddHours(0))
         {
-            if (entities.Light.PermanentLights.State == HaState.On)
-            {
-                entities.Light.PermanentLights.TurnOff();
-            }
-
+            lights.PermanentLights.TurnOff();
             return;
         }
 
-        var currentState = _select.State;
-
-        if (currentState == RoomState.HomeUnsecured)
+        if (CurrentRoomState == RoomStates.HomeUnsecured)
         {
-            entities.Scene.GoveeToMqttOneClickDefaultPermanentDefault.TurnOn();
+            scenes.GoveeToMqttOneClickDefaultPermanentDefault.TurnOn();
         }
         else
         {
-            entities.Scene.GoveeToMqttOneClickDefaultPermanentIntruder.TurnOn();
+            scenes.GoveeToMqttOneClickDefaultPermanentIntruder.TurnOn();
         }
+    }
+    
+    public void HandleHomeSecure()
+    {
+        covers.HouseGarageDoorNetdaemon.CloseCover();
+        locks.HomeConnect620ConnectedSmartLock.Lock();
+        DetermineAndSetOutsideLights();
+    }
+    
+    public void HandleHomeUnsecured()
+    {
+        DetermineAndSetOutsideLights();
+    }
+    
+    public void HandleAway()
+    {
+        shawnRoomService.Switch.TurnOff();
+        mainRoomService.Switch.TurnOff();
+        covers.HouseGarageDoorNetdaemon.CloseCover();
+        locks.HomeConnect620ConnectedSmartLock.Lock();
+        DetermineAndSetOutsideLights();
+    }
+
+    public void HandleSleep()
+    {
+        shawnRoomService.Switch.TurnOff();
+        mainRoomService.Switch.TurnOff();
     }
 }

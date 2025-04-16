@@ -1,3 +1,4 @@
+using Domain.Entities;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.Services;
@@ -8,6 +9,13 @@ public class SunService(Entities entities) : ISunService
     
     public Sun GetCurrentSunState()
     {
-        return new Sun(entities.Sun.Sun, DateTime.UtcNow);
+        var sunAttr = entities.Sun.Sun.Attributes;
+        return new Sun(
+            sunAttr?.NextDawn,
+            sunAttr?.NextDusk,
+            sunAttr?.NextRising,
+            sunAttr?.NextSetting,
+            entities.Sun.Sun.State,
+            DateTime.UtcNow);
     }
 }

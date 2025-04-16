@@ -1,4 +1,5 @@
 using System.Reactive.Concurrency;
+using Domain.Entities;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.apps.House.Devices;
@@ -8,39 +9,43 @@ public class Cameras
 {
     private const int SilenceNotificationsForSeconds = 30;
     
-    private readonly Entities _entities;
     private readonly INotificationService _notificationService;
     private readonly IScheduler _scheduler;
+    private readonly SwitchEntities _switches;
 
-    public Cameras(Entities entities, INotificationService notificationService, IScheduler scheduler)
+    public Cameras(
+        INotificationService notificationService, 
+        IScheduler scheduler,
+        BinarySensorEntities binarySensors,
+        SwitchEntities switches)
     {
-        _entities = entities;
         _notificationService = notificationService;
         _scheduler = scheduler;
+        _switches = switches;
 
         BinarySensorEntity[] alertToPerson = 
         [
-            entities.BinarySensor.BackPerson,
-            entities.BinarySensor.DoorbellPerson,
-            entities.BinarySensor.FrontPerson,
-            entities.BinarySensor.EastSidePerson,
-            entities.BinarySensor.WestSidePerson
+            binarySensors.BackPerson,
+            binarySensors.DoorbellPerson,
+            binarySensors.FrontPerson,
+            binarySensors.EastSidePerson,
+            binarySensors.WestSidePerson
         ];
 
         BinarySensorEntity[] alertToVehicle =
         [
-            entities.BinarySensor.BackVehicle,
-            entities.BinarySensor.DoorbellVehicle,
-            entities.BinarySensor.FrontVehicle,
-            entities.BinarySensor.EastSideVehicle,
-            entities.BinarySensor.WestSideVehicle,
+            binarySensors.BackVehicle,
+            binarySensors.DoorbellVehicle,
+            binarySensors.FrontVehicle,
+            binarySensors.EastSideVehicle,
+            binarySensors.WestSideVehicle,
         ];
 
         foreach (var alertingCamera in alertToPerson)
         {
             alertingCamera
                 .StateChanges()
-                .Where(w => w.New?.State == HaState.On.ToString())
+                .Where(w => w.New?.State == HaState.On)
                 .Subscribe(_ => HandleDetectedPerson());
         }
         
@@ -48,7 +53,7 @@ public class Cameras
         {
             alertingCamera
                 .StateChanges()
-                .Where(w => w.New?.State == HaState.On.ToString())
+                .Where(w => w.New?.State == HaState.On)
                 .Subscribe(_ => HandleDetectedVehicle());
         }
     }
@@ -67,7 +72,7 @@ public class Cameras
 
     private void Notify(string text, string tts)
     {
-        if (_schedulerSubscription != null || _entities.Switch.HouseCameraNotificationsNetdaemon.State == HaState.Off.ToString())
+        if (_schedulerSubscription != null || _switches.HouseCameraNotificationsNetdaemon.State == HaState.Off)
         {
             return;
         }

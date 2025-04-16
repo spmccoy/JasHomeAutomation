@@ -15,27 +15,10 @@ public static class CustomRegistrars
         services.AddScoped<IPersonService, PersonService>();
         services.AddScoped<ISensorService, SensorService>();
         services.AddScoped<ILightService, LightService>();
+        services.AddScoped<ISunService, SunService>();
         services.AddScoped<IShawnRoomService, ShawnRoomService>();
-        return services;
-    }
-
-    public static IServiceCollection AddMqttEntities(this IServiceCollection services)
-    {
-        const string containingNamespace = $"{nameof(NetDaemonApps)}.{nameof(NetDaemonApps.apps)}";
-        var baseType = typeof(MqttEntity);
-        var assembly = Assembly.Load(nameof(NetDaemonApps));
-
-        var mqttEntityTypes = assembly.GetTypes()
-            .Where(t =>
-                t.IsSubclassOf(baseType) &&
-                !t.IsAbstract &&
-                t.Namespace!.StartsWith(containingNamespace));
-
-        foreach (var type in mqttEntityTypes)
-        {
-            services.AddScoped(baseType, type);
-        }
-
+        services.AddScoped<IMainRoomService, MainRoomService>();
+        services.AddScoped<IHouseService, HouseService>();
         return services;
     }
 }

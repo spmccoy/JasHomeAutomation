@@ -1684,6 +1684,11 @@
           "cSharpName": "GoveeToMqttPurgeCaches"
         },
         {
+          "id": "button.h6022_5741_request_platform_api_state",
+          "friendlyName": "H6022_5741 Request Platform API State",
+          "cSharpName": "H60225741RequestPlatformApiState"
+        },
+        {
           "id": "button.home_connect_620_connected_smart_lock_identify",
           "friendlyName": "Home Connect 620 Connected Smart Lock Identify",
           "cSharpName": "HomeConnect620ConnectedSmartLockIdentify"
@@ -2174,6 +2179,11 @@
     {
       "domain": "cover",
       "entities": [
+        {
+          "id": "cover.house_garage_door_netdaemon",
+          "friendlyName": "Garage Door",
+          "cSharpName": "HouseGarageDoorNetdaemon"
+        },
         {
           "id": "cover.ratgdov25i_0a070c_door",
           "friendlyName": "ratgdov2.5i 0a070c Door",
@@ -3591,6 +3601,11 @@
           "id": "sensor.govee_to_mqtt_version",
           "friendlyName": "Govee to MQTT Version",
           "cSharpName": "GoveeToMqttVersion"
+        },
+        {
+          "id": "sensor.h6022_5741_status",
+          "friendlyName": "H6022_5741 Status",
+          "cSharpName": "H60225741Status"
         },
         {
           "id": "sensor.house_occupied",
@@ -5854,11 +5869,6 @@
           "cSharpName": "ShawnroomDndNetdaemon"
         },
         {
-          "id": "switch.shawnroom_main_netdaemon",
-          "friendlyName": "Shawn\u0027s Room Switch",
-          "cSharpName": "ShawnroomMainNetdaemon"
-        },
-        {
           "id": "switch.shawnroom_state_netdaemon",
           "friendlyName": "Shawn\u0027s Room State Switch",
           "cSharpName": "ShawnroomStateNetdaemon"
@@ -6507,41 +6517,6 @@
     {
       "domain": "input_boolean",
       "entities": [
-        {
-          "id": "input_boolean.dev_netdaemon_mqtt_entity_state_manager",
-          "friendlyName": "dev_netdaemon_mqtt_entity_state_manager",
-          "cSharpName": "DevNetdaemonMqttEntityStateManager"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_controls_house_state_select",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_controls_house_state_select",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseControlsHouseStateSelect"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_cameras",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_cameras",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesCameras"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_shawn",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_shawn",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesShawn"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_water_leak_detectors",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_water_leak_detectors",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesWaterLeakDetectors"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_mac_book_pro",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_mac_book_pro",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesMacBookPro"
-        },
-        {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_motion_sensor",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_motion_sensor",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesMotionSensor"
-        },
         {
           "id": "input_boolean.netdaemon_app_model_hello_yaml_app",
           "friendlyName": "netdaemon_app_model_hello_yaml_app",
