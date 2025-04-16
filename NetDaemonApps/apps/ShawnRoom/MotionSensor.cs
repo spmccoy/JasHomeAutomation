@@ -28,7 +28,7 @@ public class MotionSensor
         Helpers.CancelSchedule(_schedulerSubscription);
         
         _entities.Switch.ShawnOfficeHueMotionSensorMotionSensorEnabled.TurnOff();
-        _entities.Switch.ShawnroomMainNetdaemon.TurnOn();
+        _entities.Switch.ShawnroomStateNetdaemon.TurnOn();
         
         _schedulerSubscription = _scheduler.Schedule(
             TimeSpan.FromMinutes(CycleOnEveryMinutes),

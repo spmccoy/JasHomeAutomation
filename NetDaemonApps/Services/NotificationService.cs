@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Entities;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.Services;
@@ -16,21 +17,34 @@ public class NotificationService(IHaContext ha, IPersonService personService, IL
     /// <inheritdoc/>
     public NotifiableDevice[] AllDevices =>
     [
-        NotifiableDevice.ShawnOffice(),
-        NotifiableDevice.ShawnPhone()
+        NotifiableDevice.ShawnOfficeAlexa,
+        NotifiableDevice.ShawnPhone,
+        NotifiableDevice.GarageAlexa
     ];
-
     
     /// <inheritdoc/>
     public void Notify(NotifiableDevice[] notifiableDevices, string? text = null, string? tts = null, string? title = null)
     {
-        notifiableDevices.Where(w => w.NotificationType == NotifiableDevice.AlexaNotification)
-            .ToList()
-            .ForEach(notifiableDevice => NotifyAlexaDevice(notifiableDevice, tts));
+        foreach (var notifiableDevice in notifiableDevices)
+        {
+            Notify(notifiableDevice, text, tts, title);
+        }
+    }
+
+    public void Notify(NotifiableDevice notifiableDevice, string? text = null, string? tts = null, string? title = null)
+    {
+        var isTextToSpeech = !string.IsNullOrWhiteSpace(tts);
+        var isText = !string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(text);
+
+        if (isTextToSpeech && notifiableDevice.NotificationType == NotifiableDevice.NotificationTypeAlexa)
+        {
+            NotifyAlexaDevice(notifiableDevice, tts);
+        }
         
-        notifiableDevices.Where(w => w.NotificationType == NotifiableDevice.HomeAssistantNotification)
-            .ToList()
-            .ForEach(notifiableDevice => NotifyHomeAssistantDevice(notifiableDevice, text, title));
+        if (isText && notifiableDevice.NotificationType == NotifiableDevice.NotificationTypeHomeAssistant)
+        {
+            NotifyHomeAssistantDevice(notifiableDevice, text, title);
+        }
     }
 
     /// <summary>
@@ -60,7 +74,7 @@ public class NotificationService(IHaContext ha, IPersonService personService, IL
         if (ShouldSkipNotification(notifiableDevice, out var reason))
         {
             logger.LogDebug($"Skipping notification to {notifiableDevice.Id} because {reason}.");
-            return; // Early return prevents unnecessary processing.
+            return;
         }
 
         var notificationData = new
@@ -75,7 +89,7 @@ public class NotificationService(IHaContext ha, IPersonService personService, IL
 
     private bool ShouldSkipNotification(NotifiableDevice notifiableDevice, out string reason)
     {
-        if (notifiableDevice == NotifiableDevice.ShawnOffice() && personService.DontDisturbShawn)
+        if (notifiableDevice == NotifiableDevice.ShawnOfficeAlexa && personService.DontDisturbShawn)
         {
             reason = "Shawn's Do Not Disturb mode is enabled.";
             return true;

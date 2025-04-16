@@ -1,11 +1,22 @@
+using System.Threading.Tasks;
+using Domain.Entities;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.Services;
 
-public class ShawnRoomService(Entities entities, ISunService sunService, ILogger<ShawnRoomService> logger) : IShawnRoomService
+public class ShawnRoomService(
+    ISunService sunService, 
+    ILogger<ShawnRoomService> logger,
+    SelectEntities selects,
+    FanEntities fans,
+    SwitchEntities switches,
+    SceneEntities scenes,
+    ILightService lightService,
+    RemoteEntities remotes) : IShawnRoomService
 {
-    private readonly SelectEntity _select = entities.Select.ShawnroomStateNetdaemon;
-
+    public SelectEntity Select => selects.ShawnroomStateNetdaemon;
+    public SwitchEntity Switch => switches.ShawnroomStateNetdaemon;
+    
     public void DetermineAndSetRoomState()
     {
         var position = sunService.GetCurrentSunState().CurrentSolarPosition;
@@ -13,16 +24,84 @@ public class ShawnRoomService(Entities entities, ISunService sunService, ILogger
         {
             case Sun.SolarPosition.Unknown or Sun.SolarPosition.Unavailable:
                 logger.LogWarning("Current solar position is unknown. Switching to 'Off' state.");
-                _select.SelectOption(RoomState.Off);
+                selects.ShawnroomStateNetdaemon.SelectOption(RoomStates.Off.ToString());
                 break;
             case Sun.SolarPosition.AboveHorizon:
-                _select.SelectOption(RoomState.Day);
+                selects.ShawnroomStateNetdaemon.SelectOption(RoomStates.Day.ToString());
                 break;
             case Sun.SolarPosition.BelowHorizon:
-                _select.SelectOption(RoomState.Night);
+                selects.ShawnroomStateNetdaemon.SelectOption(RoomStates.Night.ToString());
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(position), $"Unexpected solar position: {position}");
+        }
+    }
+
+    public async Task HandleOffAsync()
+    {
+        fans.ShawnPurifier.SetPercentage(100);
+        lightService.TurnOffAreaLights(HaArea.ShawnRoom);
+        remotes.ShawnSOfficeTv.TurnOff();
+        await Task.Delay(2000);
+        switches.ShawnOfficeHueMotionSensorMotionSensorEnabled.TurnOn();
+    }
+    
+    public void HandleDay()
+    {
+        fans.ShawnPurifier.SetPercentage(33);
+        scenes.ShawnSOfficeDay.TurnOn();
+    }
+    
+    public void HandleNight()
+    {
+        fans.ShawnPurifier.SetPercentage(33);
+        scenes.ShawnsOfficeNight.TurnOn();
+    }
+    
+    public void HandleSimRacing()
+    {
+        Switch.TurnOn();
+    }
+
+    public void HandleGaming()
+    {
+        Switch.TurnOn();
+    }
+
+    public void HandleSwitch()
+    {
+        if (AreSwitchAndSelectStatesInSync())
+        {
+            return;
+        }
+                
+        switch (Switch.State)
+        {
+            case HaState.On:
+                DetermineAndSetRoomState();
+                break;
+
+            case HaState.Off:
+                Select.SelectOption(RoomStates.Off.ToString());
+                break;
+        }
+    }
+    
+    public bool AreSwitchAndSelectStatesInSync()
+    {
+        return (Switch.State == HaState.Off && Select.State == RoomStates.Off.ToString()) ||
+               (Switch.State != HaState.Off && Select.State != RoomStates.Off.ToString());
+    }
+
+    public void SyncSwitchToSelect()
+    {
+        if (Select.State == RoomStates.Off.ToString())
+        {
+            Switch.TurnOff();
+        }
+        else
+        {
+            Switch.TurnOn();
         }
     }
 }

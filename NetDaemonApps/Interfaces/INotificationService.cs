@@ -1,4 +1,4 @@
-using NetDaemonApps.DomainEntities;
+using Domain.Entities;
 
 namespace NetDaemonApps.Interfaces;
 
@@ -37,4 +37,6 @@ public interface INotificationService
     /// via Alexa or Home Assistant based on their notification type.
     /// </summary>
     NotifiableDevice[] AllDevices { get; }
+
+    void Notify(NotifiableDevice notifiableDevice, string? text = null, string? tts = null, string? title = null);
 }

@@ -38,4 +38,8 @@
         <PackageReference Include="NetDaemon.Extensions.Logging" Version="25.10.0" />
         <PackageReference Include="NetDaemon.Extensions.Tts" Version="25.10.0" />
     </ItemGroup>
+        
+    <ItemGroup>
+      <ProjectReference Include="..\MqttEntities\MqttEntities.csproj" />
+    </ItemGroup>
 </Project>

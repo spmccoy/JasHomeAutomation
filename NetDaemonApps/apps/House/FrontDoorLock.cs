@@ -1,3 +1,5 @@
+using Domain.Entities;
+using NetDaemonApps.Interfaces;
 using NetDaemonApps.Services;
 
 namespace NetDaemonApps.apps.House.Devices;
@@ -5,16 +7,16 @@ namespace NetDaemonApps.apps.House.Devices;
 [NetDaemonApp]
 public class FrontDoorLock
 {
-    public FrontDoorLock(Entities entities, IHouseService houseService)
+    public FrontDoorLock(LockEntities locks, IHouseService houseService)
     {
-        entities.Lock.HomeConnect620ConnectedSmartLock.StateChanges()
+        locks.HomeConnect620ConnectedSmartLock.StateChanges()
             .Where(w => w.New?.State == HaState.Locked)
             .Subscribe(_ =>
             {
                 houseService.DetermineAndSetHouseState();
             });
         
-        entities.Lock.HomeConnect620ConnectedSmartLock.StateChanges()
+        locks.HomeConnect620ConnectedSmartLock.StateChanges()
             .Where(w => w.New?.State == HaState.Unlocked)
             .Subscribe(_ =>
             {

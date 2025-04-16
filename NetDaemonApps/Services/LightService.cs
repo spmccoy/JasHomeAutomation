@@ -1,4 +1,5 @@
 using System.Linq;
+using Domain.Entities;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.Services;

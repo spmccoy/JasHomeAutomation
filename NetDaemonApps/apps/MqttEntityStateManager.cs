@@ -3,8 +3,10 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using NetDaemon.Extensions.MqttEntityManager;
+using NetDaemon.HassModel.Entities;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.apps;
@@ -18,7 +20,6 @@ public class MqttEntityStateManager : IAsyncInitializable
 {
     private readonly IMqttEntityManager _mqttEntityManager;
     private readonly IEnumerable<MqttEntity> _mqttEntities;
-    private readonly Entities _entities;
 
     /// <summary>
     /// Represents an application-level subscriber for managing MQTT entity services, including
@@ -27,17 +28,15 @@ public class MqttEntityStateManager : IAsyncInitializable
     public MqttEntityStateManager(
         IMqttEntityManager mqttEntityManager,
         IEnumerable<MqttEntity> mqttEntities,
-        Entities entities)
+        Entities entities,
+        IHaContext haContext)
     {
         _mqttEntityManager = mqttEntityManager;
         _mqttEntities = mqttEntities;
-        _entities = entities;
     }
     
     public async Task InitializeAsync(CancellationToken cancellationToken)
     {
-        var sun = new Sun(_entities.Sun.Sun, DateTime.UtcNow);
-        
         foreach (var mqttEntity in _mqttEntities)
         {
             if (mqttEntity.InitialValue is not null)
@@ -55,17 +54,17 @@ public class MqttEntityStateManager : IAsyncInitializable
             // ReSharper disable once AsyncVoidLambda
             .Subscribe(async state =>
             {
-                switch (mqttEntity)
-                {
-                    case MqttSwitch { PersistState: false }:
-                        await _mqttEntityManager.SetStateAsync(mqttEntity.Id, MqttSwitch.Unknown).ConfigureAwait(false);
-                        break;
-                    default:
-                        await _mqttEntityManager.SetStateAsync(mqttEntity.Id, state).ConfigureAwait(false);
-                        break;
-                }
-                
-                mqttEntity.HandleStateChange(state);
+                await _mqttEntityManager.SetStateAsync(mqttEntity.Id, state).ConfigureAwait(false);
+                // switch (mqttEntity)
+                // {
+                //     case MqttSwitch { PersistState: false }:
+                //         await _mqttEntityManager.SetStateAsync(mqttEntity.Id, MqttSwitch.Unknown).ConfigureAwait(false);
+                //         mqttEntity.HandleStateChange(state);
+                //         break;
+                //     default:
+                //         await _mqttEntityManager.SetStateAsync(mqttEntity.Id, state).ConfigureAwait(false);
+                //         break;
+                // }
             });
     }
 }

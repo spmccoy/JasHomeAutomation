@@ -1,3 +1,4 @@
+using Domain.Entities;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.Services;
@@ -17,5 +18,5 @@ public class PersonService(Entities entities) : IPersonService
         return !IsAnyoneHome();
     }
 
-    public bool DontDisturbShawn => entities.Switch.ShawnroomDndNetdaemon.State == HaState.On.ToString();
+    public bool DontDisturbShawn => entities.Switch.ShawnroomDndNetdaemon.State == HaState.On;
 }
