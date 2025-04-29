@@ -20,10 +20,10 @@ if (mqttEntityManager is null)
     throw new NullReferenceException($"{nameof(IMqttEntityManager)} is null");
 }
 
-var entities = GetSubtypeInstancesOfMqttEntity();
+var entities = MqttEntityManager.GetSubtypeInstancesOfMqttEntity();
 foreach (var e in entities)
 {
-    await CreateMqttEntityAsync(mqttEntityManager, e as MqttEntity);
+    await CreateMqttEntityAsync(mqttEntityManager, e);
 }
 
 return;
@@ -52,37 +52,13 @@ async Task CreateMqttEntityAsync(IMqttEntityManager entityManager, MqttEntity? e
             break;
         
         case MqttCover mqttCover:
-            await entityManager.CreateAsync(mqttCover.Id, new EntityCreationOptions(Name: mqttCover.DisplayName));
+            await entityManager.CreateAsync(
+                mqttCover.Id, 
+                new EntityCreationOptions(Name: mqttCover.DisplayName),
+                new { state_open = "OPEN", state_closed = "CLOSED" });
             break;
         
         default:
             throw new InvalidOperationException("Unknown entity type");
     }
-}
-
-static object[] GetSubtypeInstancesOfMqttEntity()
-{
-    var mqttEntitySubtypes = Assembly.GetExecutingAssembly()
-        .GetTypes()
-        .Where(t => t.IsSubclassOf(typeof(MqttEntity)) && !t.IsAbstract) // Find all non-abstract subclasses
-        .ToArray();
-
-    var instances = new List<object>();
-    foreach (var type in mqttEntitySubtypes)
-    {
-        try
-        {
-            var instance = Activator.CreateInstance(type);
-            if (instance != null)
-            {
-                instances.Add(instance); // Add the instance as the specific type
-            }
-        }
-        catch
-        {
-            Console.WriteLine($"Could not instantiate type: {type.FullName}");
-        }
-    }
-
-    return instances.ToArray();
 }
