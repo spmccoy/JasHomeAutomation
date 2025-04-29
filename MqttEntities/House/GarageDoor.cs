@@ -1,4 +1,5 @@
 using Domain.Entities;
+using MqttEntities.Common;
 
 namespace MqttEntities.House;
 

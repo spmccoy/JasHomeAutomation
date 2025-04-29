@@ -1,12 +1,9 @@
-
-
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities;
 using NetDaemon.HassModel.Entities;
 using NetDaemonApps.Interfaces;
 
-namespace NetDaemonApps.apps.ShawnRoom.Devices;
+namespace NetDaemonApps.apps.ShawnRoom;
 
 [NetDaemonApp]
 public class ShawnsRoomState

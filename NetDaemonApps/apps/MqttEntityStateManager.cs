@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using MqttEntities.Common;
 using NetDaemon.Extensions.MqttEntityManager;
 using NetDaemon.HassModel.Entities;
 using NetDaemonApps.Interfaces;

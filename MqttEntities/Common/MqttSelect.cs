@@ -1,6 +1,8 @@
 
 
-namespace Domain.Entities;
+using Domain.Entities;
+
+namespace MqttEntities.Common;
 
 /// <summary>
 /// Represents an MQTT-based select component in a Home Automation context.
