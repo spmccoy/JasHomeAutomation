@@ -19,7 +19,6 @@ namespace NetDaemonApps.apps;
 public class MqttEntityStateManager : IAsyncInitializable
 {
     private readonly IMqttEntityManager _mqttEntityManager;
-    private readonly IEnumerable<MqttEntity> _mqttEntities;
 
     /// <summary>
     /// Represents an application-level subscriber for managing MQTT entity services, including
@@ -27,17 +26,16 @@ public class MqttEntityStateManager : IAsyncInitializable
     /// </summary>
     public MqttEntityStateManager(
         IMqttEntityManager mqttEntityManager,
-        IEnumerable<MqttEntity> mqttEntities,
         Entities entities,
         IHaContext haContext)
     {
         _mqttEntityManager = mqttEntityManager;
-        _mqttEntities = mqttEntities;
     }
     
     public async Task InitializeAsync(CancellationToken cancellationToken)
     {
-        foreach (var mqttEntity in _mqttEntities)
+        var mqttEntities = MqttEntityManager.GetSubtypeInstancesOfMqttEntity();
+        foreach (var mqttEntity in mqttEntities)
         {
             if (mqttEntity.InitialValue is not null)
             {
@@ -55,16 +53,6 @@ public class MqttEntityStateManager : IAsyncInitializable
             .Subscribe(async state =>
             {
                 await _mqttEntityManager.SetStateAsync(mqttEntity.Id, state).ConfigureAwait(false);
-                // switch (mqttEntity)
-                // {
-                //     case MqttSwitch { PersistState: false }:
-                //         await _mqttEntityManager.SetStateAsync(mqttEntity.Id, MqttSwitch.Unknown).ConfigureAwait(false);
-                //         mqttEntity.HandleStateChange(state);
-                //         break;
-                //     default:
-                //         await _mqttEntityManager.SetStateAsync(mqttEntity.Id, state).ConfigureAwait(false);
-                //         break;
-                // }
             });
     }
 }

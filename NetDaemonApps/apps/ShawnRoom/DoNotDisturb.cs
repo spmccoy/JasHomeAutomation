@@ -6,39 +6,37 @@ namespace NetDaemonApps.apps.ShawnRoom.Devices;
 [NetDaemonApp]
 public class DoNotDisturb
 {
-    private readonly Entities _entities;
-    private readonly ILogger<DoNotDisturb> _logger;
     private LightAttributes? LastKnownLightAttributes { get; set; }
     
-    public DoNotDisturb(SwitchEntities switchEntities, Entities entities, ILogger<DoNotDisturb> logger)
+    public DoNotDisturb(SwitchEntities switchEntities, LightEntities lights, ILogger<DoNotDisturb> logger)
     {
-        _entities = entities;
-        _logger = logger;
         switchEntities.ShawnroomDndNetdaemon.StateChanges()
             .Where(w => w.New?.State == HaState.On)
-            .Subscribe(_ => HandleOn());
+            .Subscribe(_ =>
+            {
+                LastKnownLightAttributes = lights.HuePlayRight.Attributes;
+                lights.HuePlayRight.TurnOn(colorName: "Red");
+            });
         
         switchEntities.ShawnroomDndNetdaemon.StateChanges()
-            .Where(w => w.New?.State == HaState.On)
-            .Subscribe(_ => HandleOff());
-    }
-    
-    private void HandleOff()
-    {
-        if (LastKnownLightAttributes == null)
-        {
-            _logger.LogWarning("The last known light attributes did not save. Turning light off instead.");
-            _entities.Light.HuePlayRight.TurnOff();
-        }
-        else
-        {
-            _entities.Light.HuePlayRight.TurnOn(hsColor: LastKnownLightAttributes.HsColor);
-        }
-    }
-
-    private void HandleOn()
-    {
-        LastKnownLightAttributes = _entities.Light.HuePlayRight.Attributes;
-        _entities.Light.HuePlayRight.TurnOn(colorName: "Red");
+            .Where(w => w.New?.State == HaState.Off)
+            .Subscribe(_ =>
+            {
+                if (LastKnownLightAttributes == null)
+                {
+                    logger.LogWarning("The last known light attributes did not save. Turning light off instead.");
+                    lights.HuePlayRight.TurnOff();
+                }
+                else
+                {
+                    if (lights.HuePlayRight.Attributes?.ColorMode != "xy")
+                    {
+                        logger.LogError("The lights do not have the proper color mode. Turning light off instead.");
+                        lights.HuePlayRight.TurnOff();
+                        return;
+                    }
+                    lights.HuePlayRight.TurnOn(xyColor: LastKnownLightAttributes.XyColor);
+                }
+            });
     }
 }
