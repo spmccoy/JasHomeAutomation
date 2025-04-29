@@ -12,7 +12,8 @@ public class HouseService(
     IShawnRoomService shawnRoomService,
     IMainRoomService mainRoomService,
     SelectEntities selects,
-    CoverEntities covers) : IHouseService
+    CoverEntities covers,
+    ButtonEntities buttons) : IHouseService
 {
     public SelectEntity Select => selects.HouseStateNetdaemon;
 
@@ -62,7 +63,7 @@ public class HouseService(
     
     public void HandleHomeSecure()
     {
-        covers.HouseGarageDoorNetdaemon.CloseCover();
+        buttons.HouseGarageDoorCloseNetdaemon.Press();
         locks.HomeConnect620ConnectedSmartLock.Lock();
         DetermineAndSetOutsideLights();
     }
@@ -76,7 +77,7 @@ public class HouseService(
     {
         shawnRoomService.Switch.TurnOff();
         mainRoomService.Switch.TurnOff();
-        covers.HouseGarageDoorNetdaemon.CloseCover();
+        buttons.HouseGarageDoorCloseNetdaemon.Press();
         locks.HomeConnect620ConnectedSmartLock.Lock();
         DetermineAndSetOutsideLights();
     }

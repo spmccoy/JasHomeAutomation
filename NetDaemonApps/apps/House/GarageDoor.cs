@@ -11,7 +11,12 @@ public class GarageDoor
     private readonly LightEntities _lights;
     private readonly INotificationService _notificationService;
 
-    public GarageDoor(CoverEntities covers, LightEntities lights, INotificationService notificationService, IHouseService houseService)
+    public GarageDoor(
+        CoverEntities covers, 
+        LightEntities lights, 
+        ButtonEntities buttons,
+        INotificationService notificationService,
+        IHouseService houseService)
     {
         _covers = covers;
         _lights = lights;
@@ -21,7 +26,6 @@ public class GarageDoor
             .Where(w => w.New?.State == HaState.Open)
             .Subscribe(_ =>
             {
-                covers.HouseGarageDoorNetdaemon.OpenCover();
                 houseService.DetermineAndSetHouseState();
             });
         
@@ -29,22 +33,13 @@ public class GarageDoor
             .Where(w => w.New?.State == HaState.Closed)
             .Subscribe(_ =>
             {
-                covers.HouseGarageDoorNetdaemon.CloseCover();
                 houseService.DetermineAndSetHouseState();
             });
 
-        covers.HouseGarageDoorNetdaemon.StateChanges()
-            .Where(w => w.New?.State == HaState.Open)
-            .Subscribe(_ =>
-            {
-                if (covers.Ratgdov25i0a070cDoor.State == HaState.Closed)
-                {
-                    covers.Ratgdov25i0a070cDoor.OpenCover();
-                }
-            });
+        buttons.HouseGarageDoorOpenNetdaemon.StateChanges()
+            .Subscribe(_ => covers.Ratgdov25i0a070cDoor.OpenCover());
         
-        covers.HouseGarageDoorNetdaemon.StateChanges()
-            .Where(w => w.New?.State == HaState.Closed)
+        buttons.HouseGarageDoorCloseNetdaemon.StateChanges()
             .SubscribeAsync(_ => GarageCloseDelayAndWarning());
     }
 

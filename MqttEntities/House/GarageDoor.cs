@@ -2,4 +2,5 @@ using Domain.Entities;
 
 namespace MqttEntities.House;
 
-public class GarageDoor() : MqttCover("House", "Garage-Door", "Garage Door");
+public class OpenGarageDoor() : MqttButton("House", "Garage-Door-Open", "Garage Door Open");
+public class CloseGarageDoor() : MqttButton("House", "Garage-Door-Close", "Garage Door Close");
