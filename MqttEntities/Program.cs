@@ -3,6 +3,7 @@ using Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MqttEntities.Common;
 using NetDaemon.Extensions.MqttEntityManager;
 
 var host = Host.CreateDefaultBuilder()

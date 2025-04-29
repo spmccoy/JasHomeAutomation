@@ -1,6 +1,8 @@
 
 
-namespace Domain.Entities;
+using Domain.Entities;
+
+namespace MqttEntities.Common;
 
 public abstract class MqttSensor(string groupName, string entityName, string displayName)
     : MqttEntity(HaEntityType.Sensor, groupName, entityName, displayName)

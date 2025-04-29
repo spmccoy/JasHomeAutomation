@@ -1,8 +1,7 @@
 using Domain.Entities;
 using NetDaemonApps.Interfaces;
-using NetDaemonApps.Services;
 
-namespace NetDaemonApps.apps.House.Devices;
+namespace NetDaemonApps.apps.House;
 
 [NetDaemonApp]
 public class FrontDoorLock

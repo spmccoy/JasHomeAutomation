@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Domain.Entities;
+using MqttEntities.Common;
 
 namespace MqttEntities.MainRoom;
 
