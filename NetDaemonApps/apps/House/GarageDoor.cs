@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using NetDaemonApps.Interfaces;
 
-namespace NetDaemonApps.apps.House.Devices;
+namespace NetDaemonApps.apps.House;
 
 [NetDaemonApp]
 public class GarageDoor

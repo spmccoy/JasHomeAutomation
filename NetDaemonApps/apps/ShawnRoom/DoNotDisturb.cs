@@ -1,7 +1,6 @@
 using Domain.Entities;
-using NetDaemon.HassModel.Entities;
 
-namespace NetDaemonApps.apps.ShawnRoom.Devices;
+namespace NetDaemonApps.apps.ShawnRoom;
 
 [NetDaemonApp]
 public class DoNotDisturb

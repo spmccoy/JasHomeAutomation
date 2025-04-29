@@ -1,7 +1,7 @@
 using System.Reactive.Concurrency;
 using NetDaemon.HassModel.Entities;
 
-namespace NetDaemonApps.apps.ShawnRoom.Devices;
+namespace NetDaemonApps.apps.ShawnRoom;
 
 [NetDaemonApp]
 public class MotionSensor

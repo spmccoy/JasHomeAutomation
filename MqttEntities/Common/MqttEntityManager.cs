@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace Domain.Entities;
+namespace MqttEntities.Common;
 
 public class MqttEntityManager
 {

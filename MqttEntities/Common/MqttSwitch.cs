@@ -1,6 +1,8 @@
 
 
-namespace Domain.Entities;
+using Domain.Entities;
+
+namespace MqttEntities.Common;
 
 /// <summary>
 /// Represents an abstract MQTT switch that can handle state changes and provides
