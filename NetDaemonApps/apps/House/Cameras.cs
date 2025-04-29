@@ -25,7 +25,6 @@ public class Cameras
 
         BinarySensorEntity[] alertToPerson = 
         [
-            binarySensors.BackPerson,
             binarySensors.DoorbellPerson,
             binarySensors.FrontPerson,
             binarySensors.EastSidePerson,

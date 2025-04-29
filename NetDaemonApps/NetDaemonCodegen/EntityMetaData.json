@@ -3286,6 +3286,11 @@
           "cSharpName": "BackDayNightMode"
         },
         {
+          "id": "select.bedroom_state_netdaemon",
+          "friendlyName": "Bedroom Room State Select",
+          "cSharpName": "BedroomStateNetdaemon"
+        },
+        {
           "id": "select.doorbell_auto_quick_reply_message",
           "friendlyName": "Doorbell Auto quick reply message",
           "cSharpName": "DoorbellAutoQuickReplyMessage"
@@ -3344,6 +3349,11 @@
           "id": "select.justin_purifier_night_light_level",
           "friendlyName": "Justin Purifier Night light level",
           "cSharpName": "JustinPurifierNightLightLevel"
+        },
+        {
+          "id": "select.justinroom_state_netdaemon",
+          "friendlyName": "Justin\u0027s Room State Select",
+          "cSharpName": "JustinroomStateNetdaemon"
         },
         {
           "id": "select.lanai_day_night_mode",

@@ -24,7 +24,7 @@ public class HouseService(
     
     public void DetermineAndSetHouseState()
     {
-        if (personService.IsNoOneHome())
+        if (!personService.AnyoneHome)
         {
             Select.SelectOption(RoomStates.Away.ToString());
             return;
