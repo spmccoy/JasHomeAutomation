@@ -1,20 +1,23 @@
 using Domain.Entities;
 using NetDaemon.HassModel.Entities;
+using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.apps.ShawnRoom.Devices;
 
 [NetDaemonApp]
 public class MacBookPro
 {
-    private readonly Entities _entities;
+    private readonly IPersonService _personService;
+    private readonly SwitchEntities _switches;
     private readonly ILogger _logger;
 
-    public MacBookPro(Entities entities, ILogger<MacBookPro> logger)
+    public MacBookPro(IPersonService personService, SensorEntities sensors, SwitchEntities switches, ILogger<MacBookPro> logger)
     {
-        _entities = entities;
+        _personService = personService;
+        _switches = switches;
         _logger = logger;
 
-        entities.Sensor.ShawnsMacbookProActiveAudioInput
+        sensors.ShawnsMacbookProActiveAudioInput
             .StateChanges()
             .Subscribe(ProcessStateChange);
     }
@@ -23,11 +26,10 @@ public class MacBookPro
     {
         var newState = stateChange.New?.State;
         var oldState = stateChange.Old?.State;
-        var shawn = new Person(_entities.Person.Shawn.State);
         
         _logger.LogInformation("State changed from {oldState} to {newState}", oldState, newState);
 
-        if (!shawn.IsHome)
+        if (!_personService.ShawnHome)
         {
             _logger.LogDebug("Short circuit, shawn is not home");
             return;
@@ -35,11 +37,11 @@ public class MacBookPro
         
         if (newState == HaState.Active)
         {
-            _entities.Switch.ShawnroomDndNetdaemon.TurnOn();
+            _switches.ShawnroomDndNetdaemon.TurnOn();
         }
         else if (newState == HaState.InActive)
         {
-            _entities.Switch.ShawnroomDndNetdaemon.TurnOff();
+            _switches.ShawnroomDndNetdaemon.TurnOff();
         }
     }
 }
