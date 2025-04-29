@@ -1719,6 +1719,16 @@
           "cSharpName": "HomeConnect620ConnectedSmartLockIdlePowerManagementPowerStatus"
         },
         {
+          "id": "button.house_garage_door_close_netdaemon",
+          "friendlyName": "Garage Door Close",
+          "cSharpName": "HouseGarageDoorCloseNetdaemon"
+        },
+        {
+          "id": "button.house_garage_door_open_netdaemon",
+          "friendlyName": "Garage Door Open",
+          "cSharpName": "HouseGarageDoorOpenNetdaemon"
+        },
+        {
           "id": "button.justins_office_start_dimmer",
           "friendlyName": "Justin\u2019s Office Start Dimmer",
           "cSharpName": "JustinsOfficeStartDimmer"
@@ -2179,11 +2189,6 @@
     {
       "domain": "cover",
       "entities": [
-        {
-          "id": "cover.house_garage_door_netdaemon",
-          "friendlyName": "Garage Door",
-          "cSharpName": "HouseGarageDoorNetdaemon"
-        },
         {
           "id": "cover.ratgdov25i_0a070c_door",
           "friendlyName": "ratgdov2.5i 0a070c Door",
@@ -6517,6 +6522,66 @@
     {
       "domain": "input_boolean",
       "entities": [
+        {
+          "id": "input_boolean.dev_netdaemon_mqtt_entity_state_manager",
+          "friendlyName": "dev_netdaemon_mqtt_entity_state_manager",
+          "cSharpName": "DevNetdaemonMqttEntityStateManager"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_camera_notifications",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_camera_notifications",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseCameraNotifications"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_cameras",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_cameras",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesCameras"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_front_door_lock",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_front_door_lock",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesFrontDoorLock"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_garage_door",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_garage_door",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesGarageDoor"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_shawn",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_shawn",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesShawn"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_water_leak_detectors",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_water_leak_detectors",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseWaterLeakDetectors"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_main_room_main_room_state",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_main_room_main_room_state",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsMainRoomMainRoomState"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_do_not_disturb",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_do_not_disturb",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesDoNotDisturb"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_mac_book_pro",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_mac_book_pro",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesMacBookPro"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_motion_sensor",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_motion_sensor",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesMotionSensor"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_shawns_room_state",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_shawns_room_state",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesShawnsRoomState"
+        },
         {
           "id": "input_boolean.netdaemon_app_model_hello_yaml_app",
           "friendlyName": "netdaemon_app_model_hello_yaml_app",

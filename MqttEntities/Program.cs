@@ -32,12 +32,6 @@ async Task CreateMqttEntityAsync(IMqttEntityManager entityManager, MqttEntity? e
 {
     switch (entity)
     {
-        case MqttSwitch mqttSwitch:
-            await entityManager.CreateAsync(
-                mqttSwitch.Id,
-                new EntityCreationOptions(Name: mqttSwitch.DisplayName));
-            break;
-
         case MqttSelect mqttSelect:
             await entityManager.CreateAsync(
                 mqttSelect.Id,
@@ -45,20 +39,15 @@ async Task CreateMqttEntityAsync(IMqttEntityManager entityManager, MqttEntity? e
                 new { options = mqttSelect.Options.Select(option => option).ToArray() });
             break;
         
-        case MqttSensor mqttSensor:
-            await entityManager.CreateAsync(
-                mqttSensor.Id,
-                new EntityCreationOptions(Name: mqttSensor.DisplayName));
-            break;
-        
-        case MqttCover mqttCover:
-            await entityManager.CreateAsync(
-                mqttCover.Id, 
-                new EntityCreationOptions(Name: mqttCover.DisplayName),
-                new { state_open = "OPEN", state_closed = "CLOSED" });
-            break;
-        
         default:
-            throw new InvalidOperationException("Unknown entity type");
+            if (entity is null)
+            {
+                throw new NullReferenceException();
+            }
+            
+            await entityManager.CreateAsync(
+                entity.Id,
+                new EntityCreationOptions(Name: entity.DisplayName));
+            break;
     }
 }
