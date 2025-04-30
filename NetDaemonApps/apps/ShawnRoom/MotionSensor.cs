@@ -1,4 +1,5 @@
 using System.Reactive.Concurrency;
+using Domain.Entities;
 using NetDaemon.HassModel.Entities;
 
 namespace NetDaemonApps.apps.ShawnRoom;
@@ -18,9 +19,9 @@ public class MotionSensor
         _scheduler = scheduler;
 
         entities.BinarySensor.ShawnOfficeHueMotionSensorMotion
-            .StateChanges()
-            .Where(e => e.New.IsOn())
-            .Subscribe(_ => HandleOn());
+             .StateChanges()
+             .Where(e => e.New?.State == HaState.On)
+             .Subscribe(_ => HandleOn());
     }
 
     private void HandleOn()

@@ -43,9 +43,8 @@ public class HouseService(
 
     public void DetermineAndSetOutsideLights()
     {
-        var now = DateTime.Now;
         // if it is not dark or past midnight turn off the lights
-        if (!sunService.IsDark || now > now.Date.AddHours(0))
+        if (!sunService.IsDark || DateTime.Now.Hour < 16)
         {
             lights.PermanentLights.TurnOff();
             return;
@@ -53,11 +52,11 @@ public class HouseService(
 
         if (CurrentRoomState == RoomStates.HomeUnsecured)
         {
-            scenes.GoveeToMqttOneClickDefaultPermanentDefault.TurnOn();
+            scenes.GoveeToMqttOneClickDefaultPermanentIntruder.TurnOn();
         }
         else
         {
-            scenes.GoveeToMqttOneClickDefaultPermanentIntruder.TurnOn();
+            scenes.GoveeToMqttOneClickDefaultPermanentDefault.TurnOn();
         }
     }
     

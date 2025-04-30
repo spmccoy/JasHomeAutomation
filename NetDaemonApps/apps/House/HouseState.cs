@@ -3,11 +3,12 @@ using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.apps.House;
 
+[NetDaemonApp]
 public class HouseState
 {
-    public HouseState(IHouseService houseService)
+    public HouseState(IHouseService houseService, SelectEntities selects)
     {
-        houseService.Select.StateChanges()
+        selects.HouseStateNetdaemon.StateChanges()
             .Where(w => RoomStates.FromString(w.New?.State) == RoomStates.HomeSecure)
             .Subscribe(_ => houseService.HandleHomeSecure());
         
