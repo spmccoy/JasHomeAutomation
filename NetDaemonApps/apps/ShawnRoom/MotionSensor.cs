@@ -20,11 +20,11 @@ public class MotionSensor
 
         entities.BinarySensor.ShawnOfficeHueMotionSensorMotion
              .StateChanges()
-             .Where(e => e.New?.State == HaState.On)
-             .Subscribe(_ => HandleOn());
+             .Where(e => e.New?.State == HaState.On && e.Old?.State == HaState.Off)
+             .Subscribe(_ => HandleMotion());
     }
 
-    private void HandleOn()
+    private void HandleMotion()
     {
         Helpers.CancelSchedule(_schedulerSubscription);
         
