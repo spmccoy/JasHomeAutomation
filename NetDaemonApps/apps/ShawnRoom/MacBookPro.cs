@@ -1,3 +1,4 @@
+using System.Reactive.Concurrency;
 using Domain.Entities;
 using NetDaemon.HassModel.Entities;
 using NetDaemonApps.Interfaces;
@@ -7,33 +8,24 @@ namespace NetDaemonApps.apps.ShawnRoom;
 [NetDaemonApp]
 public class MacBookPro
 {
-    public MacBookPro(IPersonService personService, BinarySensorEntities binarySensors, SwitchEntities switches, ILogger<MacBookPro> logger)
+    public MacBookPro(IPersonService personService, BinarySensorEntities binarySensors, SwitchEntities switches, IScheduler scheduler, ILogger<MacBookPro> logger)
     {
+        // when audio input is on for half a second
         binarySensors.ShawnsMacbookProAudioInputInUse
             .StateChanges()
-            .Subscribe(stateChange =>
+            .WhenStateIsFor(s => s?.State == HaState.On, TimeSpan.FromMilliseconds(500), scheduler)
+            .Subscribe(_ =>
             {
-                var newState = stateChange.New?.State;
-                var oldState = stateChange.Old?.State;
+                switches.ShawnroomDndNetdaemon.TurnOn();
+            });
         
-                logger.LogInformation("State changed from {oldState} to {newState}", oldState, newState);
-
-                if (!personService.ShawnHome)
-                {
-                    logger.LogDebug("Short circuit, shawn is not home");
-                    return;
-                }
-        
-                switch (newState)
-                {
-                    case HaState.On:
-                        switches.ShawnroomDndNetdaemon.TurnOn();
-                        break;
-                    
-                    case HaState.Off:
-                        switches.ShawnroomDndNetdaemon.TurnOff();
-                        break;
-                }
+        // when audio input is off for half a second
+        binarySensors.ShawnsMacbookProAudioInputInUse
+            .StateChanges()
+            .WhenStateIsFor(s => s?.State == HaState.Off, TimeSpan.FromMilliseconds(500), scheduler)
+            .Subscribe(_ =>
+            {
+                switches.ShawnroomDndNetdaemon.TurnOff();
             });
     }
 }
