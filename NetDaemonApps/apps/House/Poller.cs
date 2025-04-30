@@ -7,8 +7,12 @@ namespace NetDaemonApps.apps.House;
 [NetDaemonApp]
 public class Poller
 {
-    public Poller(IScheduler scheduler, IHouseService houseService)
+    public Poller(IScheduler scheduler, IHouseService houseService, ILogger<Poller> logger)
     {
-        scheduler.ScheduleCron("*/15 * * * *", houseService.DetermineAndSetOutsideLights);
+        scheduler.ScheduleCron("*/15 * * * *", () =>
+        {
+            logger.LogInformation("Determining and setting the outside lights.");
+            houseService.DetermineAndSetOutsideLights();
+        });
     }
 }
