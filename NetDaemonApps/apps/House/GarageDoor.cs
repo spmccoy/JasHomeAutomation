@@ -45,6 +45,11 @@ public class GarageDoor
 
     private async Task GarageCloseDelayAndWarning()
     {
+        if (_covers.Ratgdov25i0a070cDoor.State == HaState.Closed)
+        {
+            return;
+        }
+        
         // Task for sending notifications
         var notificationTask = Task.Run(async () =>
         {
@@ -52,7 +57,7 @@ public class GarageDoor
             {
                 var notification = new Notification
                 {
-                    Tts = "WARNING: Garage door preparing to close"
+                    Tts = "Garage door is closing"
                 };
                 notification.Devices.Add(_notificationService.GarageAlexa);
                 
