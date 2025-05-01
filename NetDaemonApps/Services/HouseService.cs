@@ -14,6 +14,7 @@ public class HouseService(
     SelectEntities selects,
     CoverEntities covers,
     ButtonEntities buttons,
+    SwitchEntities switches,
     SunEntities suns) : IHouseService
 {
     public SelectEntity Select => selects.HouseStateNetdaemon;
@@ -68,11 +69,13 @@ public class HouseService(
         buttons.HouseGarageDoorCloseNetdaemon.Press();
         locks.HomeConnect620ConnectedSmartLock.Lock();
         DetermineAndSetOutsideLights();
+        switches.HouseCameraNotificationsNetdaemon.TurnOn();
     }
     
     public void HandleHomeUnsecured()
     {
         DetermineAndSetOutsideLights();
+        switches.HouseCameraNotificationsNetdaemon.TurnOff();
     }
     
     public void HandleAway()
@@ -82,11 +85,13 @@ public class HouseService(
         buttons.HouseGarageDoorCloseNetdaemon.Press();
         locks.HomeConnect620ConnectedSmartLock.Lock();
         DetermineAndSetOutsideLights();
+        switches.HouseCameraNotificationsNetdaemon.TurnOn();
     }
 
     public void HandleSleep()
     {
         shawnRoomService.Switch.TurnOff();
         mainRoomService.Switch.TurnOff();
+        switches.HouseCameraNotificationsNetdaemon.TurnOn();
     }
 }
