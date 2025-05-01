@@ -5,28 +5,21 @@ namespace NetDaemonApps.Models;
 /// </summary>
 public class NotifiableDevice
 {
-    public const string NotificationTypeAlexa = "Alexa";
-    
-    public const string NotificationTypeHomeAssistant = "HomeAssistant";
-    
-    private NotifiableDevice(string id, string notificationType)
+    public NotifiableDevice(string name, string id, NotificationDeviceType notificationDeviceType)
     {
         Id = id;
-        NotificationType = notificationType;
+        Name = name;
     }
     
-    public string Id { get; private init; }
+    public string Id { get; init; }
     
-    public string NotificationType { get; private set; }
-
-    public static NotifiableDevice KitchenAlexa => CreateDevice("alexa_media_kitchen", NotificationTypeAlexa);
+    public string Name { get; init; }
     
-    public static NotifiableDevice ShawnOfficeAlexa => CreateDevice("alexa_media_front_office_dot", NotificationTypeAlexa);
+    public NotificationDeviceType DeviceType { get; init; }
     
-    public static NotifiableDevice ShawnPhone => CreateDevice("mobile_app_shawns_iphone", NotificationTypeHomeAssistant);
-    
-    public static NotifiableDevice GarageAlexa => CreateDevice("alexa_media_garage_echo", NotificationTypeAlexa);
-    
-    
-    private static NotifiableDevice CreateDevice(string id, string notificationType) => new NotifiableDevice(id, notificationType);
+    public enum NotificationDeviceType
+    {
+        Alexa,
+        HomeAssistant
+    }
 }

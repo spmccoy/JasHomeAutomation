@@ -9,45 +9,57 @@ namespace NetDaemonApps.Services;
 /// The NotificationService class provides functionality to send notifications to specified devices.
 /// Implements the <see cref="INotificationService"/> interface for managing notifications.
 /// </summary>
-public class NotificationService(IHaContext ha, IPersonService personService, NotifyServices n, ILogger<NotificationService> logger) : INotificationService
+public class NotificationService(IHaContext ha, IPersonService personService, ILogger<NotificationService> logger) : INotificationService
 {
     private const string HaDomain = "notify";
-    private const string AlexaService = "alexa_media";
     
-    /// <inheritdoc/>
-    public NotifiableDevice[] AllDevices =>
+    public NotifiableDevice ShawnOfficeAlexa { get; } = new(
+            "Shawn's Office Alexa", 
+            "alexa_media_front_office_dot",
+            NotifiableDevice.NotificationDeviceType.Alexa);
+
+    public NotifiableDevice GarageAlexa { get; } = new(
+        "Garage Alexa",
+        "alexa_media_garage_echo",
+        NotifiableDevice.NotificationDeviceType.Alexa);
+
+    public NotifiableDevice KitchenAlexa { get; } = new(
+        "Kitchen Alexa",
+        "alexa_media_kitchen",
+        NotifiableDevice.NotificationDeviceType.Alexa);
+
+    public NotifiableDevice ShawnPhone { get; } = new(
+        "Shawn's Phone",
+        "mobile_app_shawns_iphone",
+        NotifiableDevice.NotificationDeviceType.HomeAssistant);
+    
+    public NotifiableDevice[] GetAllDevices =>
     [
-        NotifiableDevice.ShawnOfficeAlexa,
-        NotifiableDevice.ShawnPhone,
-        NotifiableDevice.GarageAlexa,
-        NotifiableDevice.KitchenAlexa,
+        ShawnOfficeAlexa,
+        KitchenAlexa,
+        ShawnPhone,
+        GarageAlexa,
     ];
+
+    public void Notify(Notification notification)
+    {
+        foreach (var notifiableDevice in notification.Devices)
+        {
+            switch (notifiableDevice.DeviceType)
+            {
+                case NotifiableDevice.NotificationDeviceType.Alexa when notification.HasTts:
+                    NotifyAlexaDevice(notifiableDevice, notification.Tts);
+                    break;
+                
+                case NotifiableDevice.NotificationDeviceType.HomeAssistant when notification.HasText:
+                    NotifyHomeAssistantDevice(notifiableDevice, notification.Text, notification.Title);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
     
-    /// <inheritdoc/>
-    public void Notify(NotifiableDevice[] notifiableDevices, string? text = null, string? tts = null, string? title = null)
-    {
-        foreach (var notifiableDevice in notifiableDevices)
-        {
-            Notify(notifiableDevice, text, tts, title);
-        }
-    }
-
-    public void Notify(NotifiableDevice notifiableDevice, string? text = null, string? tts = null, string? title = null)
-    {
-        var isTextToSpeech = !string.IsNullOrWhiteSpace(tts);
-        var isText = !string.IsNullOrWhiteSpace(title) || !string.IsNullOrWhiteSpace(text);
-
-        if (isTextToSpeech && notifiableDevice.NotificationType == NotifiableDevice.NotificationTypeAlexa)
-        {
-            NotifyAlexaDevice(notifiableDevice, tts);
-        }
-        
-        if (isText && notifiableDevice.NotificationType == NotifiableDevice.NotificationTypeHomeAssistant)
-        {
-            NotifyHomeAssistantDevice(notifiableDevice, text, title);
-        }
-    }
-
     /// <summary>
     /// Sends a notification to a specific device using Home Assistant service.
     /// </summary>
@@ -88,13 +100,16 @@ public class NotificationService(IHaContext ha, IPersonService personService, No
 
     private bool ShouldSkipNotification(NotifiableDevice notifiableDevice, out string reason)
     {
-        if (notifiableDevice.Id == NotifiableDevice.ShawnOfficeAlexa.Id && personService.DontDisturbShawn)
+        var shouldSkip = false;
+        var reasons = new List<string>();
+        
+        if (notifiableDevice == ShawnOfficeAlexa && personService.DontDisturbShawn)
         {
-            reason = "Shawn's Do Not Disturb mode is enabled.";
-            return true;
+            reasons.Add("Shawn's Do Not Disturb mode is enabled.");
+            shouldSkip = true;
         }
 
-        reason = string.Empty;
-        return false;
+        reason = string.Join(", ", reasons);
+        return shouldSkip;
     }
 }

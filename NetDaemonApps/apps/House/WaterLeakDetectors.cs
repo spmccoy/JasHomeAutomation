@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Reactive.Concurrency;
 using NetDaemonApps.Interfaces;
 using NetDaemonApps.Models;
@@ -56,6 +57,12 @@ public class WaterLeakDetectors
 
     private void Notify()
     {
-        _notificationService.Notify(_notificationService.AllDevices, "⚠️🚰 WATER LEAK DETECTED", "Warning! water leak detected.");
+        var notification = new Notification
+        {
+            Tts = "Warning! water leak detected.",
+            Text = "⚠️🚰 WATER LEAK DETECTED",
+            Devices = _notificationService.GetAllDevices.ToList()
+        };
+        _notificationService.Notify(notification);
     }
 }

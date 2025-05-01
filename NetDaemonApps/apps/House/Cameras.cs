@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Reactive.Concurrency;
 using NetDaemon.HassModel.Entities;
 using NetDaemonApps.Interfaces;
@@ -66,8 +67,15 @@ public class Cameras
         {
             return;
         }
+
+        var notification = new Notification
+        {
+            Text = text,
+            Tts = tts,
+            Devices = _notificationService.GetAllDevices.ToList()
+        };
         
-        _notificationService.Notify(_notificationService.AllDevices, text, tts);
+        _notificationService.Notify(notification);
         _notificationTimoutEnabled = true;
         _ = _scheduler.Schedule(
             TimeSpan.FromSeconds(SilenceNotificationsForSeconds),
