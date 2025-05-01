@@ -1,5 +1,6 @@
 using System.Reactive.Concurrency;
 using Domain.Entities;
+using NetDaemon.HassModel.Entities;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.apps.House;
@@ -13,6 +14,8 @@ public class Cameras
     private readonly IScheduler _scheduler;
     private readonly SwitchEntities _switches;
 
+    private bool _notificationTimoutEnabled;
+
     public Cameras(
         INotificationService notificationService, 
         IScheduler scheduler,
@@ -23,62 +26,60 @@ public class Cameras
         _scheduler = scheduler;
         _switches = switches;
 
-        BinarySensorEntity[] alertToPerson = 
+        (BinarySensorEntity entity, string name)[] alertToPerson =
         [
-            binarySensors.DoorbellPerson,
-            binarySensors.FrontPerson,
-            binarySensors.EastSidePerson,
-            binarySensors.WestSidePerson
+            new (binarySensors.DoorbellPerson, "Doorbell"),
+            new (binarySensors.FrontPerson, "Front"),
+            new (binarySensors.EastSidePerson, "North Side"),
+            new (binarySensors.WestSidePerson, "South Side")
         ];
 
-        BinarySensorEntity[] alertToVehicle =
+        (BinarySensorEntity entity, string name)[] alertToVehicle =
         [
-            binarySensors.BackVehicle,
-            binarySensors.DoorbellVehicle,
-            binarySensors.FrontVehicle,
-            binarySensors.EastSideVehicle,
-            binarySensors.WestSideVehicle,
+            new (binarySensors.BackVehicle, "Backyard"),
+            new (binarySensors.DoorbellPerson, "Doorbell"),
+            new (binarySensors.FrontPerson, "Front"),
+            new (binarySensors.EastSidePerson, "North Side"),
+            new (binarySensors.WestSidePerson, "South Side")
         ];
 
-        foreach (var alertingCamera in alertToPerson)
+        foreach (var (entity, name) in alertToPerson)
         {
-            alertingCamera
+            entity
                 .StateChanges()
                 .Where(w => w.New?.State == HaState.On)
-                .Subscribe(_ => HandleDetectedPerson());
+                .Subscribe(_ =>
+                {
+                    Notify($"💁🏻‍♂️📸 {name} camera has detected a person", $"{name} camera has detected a person.");
+                });
         }
         
-        foreach (var alertingCamera in alertToVehicle)
+        foreach (var (entity, name) in alertToVehicle)
         {
-            alertingCamera
+            entity
                 .StateChanges()
                 .Where(w => w.New?.State == HaState.On)
-                .Subscribe(_ => HandleDetectedVehicle());
+                .Subscribe(_ =>
+                {
+                    Notify($"🚙️📸 {name} camera has detected a vehicle", $"{name} camera has detected a vehicle.");
+                });
         }
-    }
-
-    private IDisposable? _schedulerSubscription;
-
-    private void HandleDetectedPerson()
-    {
-        Notify("💁🏻‍♂️📸 Person detected", "Person detected");
-    }
-    
-    private void HandleDetectedVehicle()
-    {
-        Notify("🚙️📸 Vehicle detected", "Vehicle detected");
     }
 
     private void Notify(string text, string tts)
     {
-        if (_schedulerSubscription != null || _switches.HouseCameraNotificationsNetdaemon.State == HaState.Off)
+        if (_notificationTimoutEnabled || _switches.HouseCameraNotificationsNetdaemon.State == HaState.Off)
         {
             return;
         }
         
         _notificationService.Notify(_notificationService.AllDevices, text, tts);
-        _schedulerSubscription = _scheduler.Schedule(
-            TimeSpan.FromSeconds(SilenceNotificationsForSeconds), 
-            () => { });
+        _notificationTimoutEnabled = true;
+        _ = _scheduler.Schedule(
+            TimeSpan.FromSeconds(SilenceNotificationsForSeconds),
+            () =>
+            {
+                _notificationTimoutEnabled = false;
+            });
     }
 }

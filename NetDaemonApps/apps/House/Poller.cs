@@ -11,7 +11,7 @@ public class Poller
     {
         scheduler.ScheduleCron("*/15 * * * *", () =>
         {
-            logger.LogInformation("Determining and setting the outside lights.");
+            logger.LogDebug("Determining and setting the outside lights.");
             houseService.DetermineAndSetOutsideLights();
         });
     }

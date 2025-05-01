@@ -19,11 +19,13 @@ public class NotifiableDevice
     
     public string NotificationType { get; private set; }
 
-    public static NotifiableDevice ShawnOfficeAlexa => CreateDevice("media_player.alexa_media_front_office_dot", NotificationTypeAlexa);
+    public static NotifiableDevice KitchenAlexa => CreateDevice("alexa_media_kitchen", NotificationTypeAlexa);
+    
+    public static NotifiableDevice ShawnOfficeAlexa => CreateDevice("alexa_media_front_office_dot", NotificationTypeAlexa);
     
     public static NotifiableDevice ShawnPhone => CreateDevice("mobile_app_shawns_iphone", NotificationTypeHomeAssistant);
     
-    public static NotifiableDevice GarageAlexa => CreateDevice("media_player.garage_echo", NotificationTypeHomeAssistant);
+    public static NotifiableDevice GarageAlexa => CreateDevice("alexa_media_garage_echo", NotificationTypeAlexa);
     
     
     private static NotifiableDevice CreateDevice(string id, string notificationType) => new NotifiableDevice(id, notificationType);
