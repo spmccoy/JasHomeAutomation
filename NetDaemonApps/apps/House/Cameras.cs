@@ -1,7 +1,7 @@
 using System.Reactive.Concurrency;
-using Domain.Entities;
 using NetDaemon.HassModel.Entities;
 using NetDaemonApps.Interfaces;
+using NetDaemonApps.Models;
 
 namespace NetDaemonApps.apps.House;
 
@@ -19,49 +19,43 @@ public class Cameras
     public Cameras(
         INotificationService notificationService, 
         IScheduler scheduler,
-        BinarySensorEntities binarySensors,
-        SwitchEntities switches)
+        SwitchEntities switches,
+        ICameraService cameraService)
     {
         _notificationService = notificationService;
         _scheduler = scheduler;
         _switches = switches;
 
-        (BinarySensorEntity entity, string name)[] alertToPerson =
-        [
-            new (binarySensors.DoorbellPerson, "Doorbell"),
-            new (binarySensors.FrontPerson, "Front"),
-            new (binarySensors.EastSidePerson, "North Side"),
-            new (binarySensors.WestSidePerson, "South Side")
-        ];
-
-        (BinarySensorEntity entity, string name)[] alertToVehicle =
-        [
-            new (binarySensors.BackVehicle, "Backyard"),
-            new (binarySensors.DoorbellPerson, "Doorbell"),
-            new (binarySensors.FrontPerson, "Front"),
-            new (binarySensors.EastSidePerson, "North Side"),
-            new (binarySensors.WestSidePerson, "South Side")
-        ];
-
-        foreach (var (entity, name) in alertToPerson)
+        foreach (var camera in cameraService.GetAllMonitoringForPeople())
         {
-            entity
+            camera.PersonSensorEntity?
                 .StateChanges()
                 .Where(w => w.New?.State == HaState.On)
                 .Subscribe(_ =>
                 {
-                    Notify($"💁🏻‍♂️📸 {name} camera has detected a person", $"{name} camera has detected a person.");
+                    Notify($"💁🏻‍♂️📸 {camera.Name} camera has detected a person", $"{camera.Name} camera has detected a person.");
                 });
         }
         
-        foreach (var (entity, name) in alertToVehicle)
+        foreach (var camera in cameraService.GetAllMonitoringForVehicles())
         {
-            entity
+            camera.VehicleSensorEntity?
                 .StateChanges()
                 .Where(w => w.New?.State == HaState.On)
                 .Subscribe(_ =>
                 {
-                    Notify($"🚙️📸 {name} camera has detected a vehicle", $"{name} camera has detected a vehicle.");
+                    Notify($"🚙️📸 {camera.Name} camera has detected a vehicle", $"{camera.Name} camera has detected a vehicle.");
+                });
+        }
+
+        foreach (var camera in cameraService.GetAllMonitoringForAnimals())
+        {
+            camera.AnimalSensorEntity?
+                .StateChanges()
+                .Where(w => w.New?.State == HaState.On)
+                .Subscribe(_ =>
+                {
+                    Notify($"🐶📸 {camera.Name} camera has detected an animal", $"{camera.Name} camera has detected an animal.");
                 });
         }
     }

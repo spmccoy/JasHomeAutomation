@@ -1,4 +1,4 @@
-using Domain.Entities;
+using MqttEntities.Models;
 using NetDaemonApps.Interfaces;
 
 namespace NetDaemonApps.apps.House;

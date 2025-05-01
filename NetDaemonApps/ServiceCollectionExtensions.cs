@@ -1,12 +1,10 @@
-using System.Linq;
-using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using NetDaemonApps.Interfaces;
 using NetDaemonApps.Services;
 
 namespace NetDaemonApps;
 
-public static class CustomRegistrars
+public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
@@ -19,6 +17,7 @@ public static class CustomRegistrars
         services.AddScoped<IShawnRoomService, ShawnRoomService>();
         services.AddScoped<IMainRoomService, MainRoomService>();
         services.AddScoped<IHouseService, HouseService>();
+        services.AddScoped<ICameraService, CameraService>();
         return services;
     }
 }

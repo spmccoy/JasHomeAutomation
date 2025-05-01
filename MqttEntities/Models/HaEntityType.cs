@@ -1,4 +1,4 @@
-namespace Domain.Entities;
+namespace MqttEntities.Models;
 
 /// <summary>
 /// Represents a specific type of HA (Home Assistant) entity that defines the behavior

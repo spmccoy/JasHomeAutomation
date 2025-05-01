@@ -1,6 +1,6 @@
 using System.Reactive.Concurrency;
-using Domain.Entities;
 using NetDaemon.HassModel.Entities;
+using NetDaemonApps.Models;
 
 namespace NetDaemonApps.apps.ShawnRoom;
 

@@ -1,4 +1,4 @@
-namespace Domain.Entities;
+namespace NetDaemonApps.Models;
 
 public static class HaState
 {

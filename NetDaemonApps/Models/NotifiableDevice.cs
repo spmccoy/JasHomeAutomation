@@ -1,4 +1,4 @@
-namespace Domain.Entities;
+namespace NetDaemonApps.Models;
 
 /// <summary>
 /// Represents a device capable of receiving notifications, with specific types of notifications based on the device.

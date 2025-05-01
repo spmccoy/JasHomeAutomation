@@ -1,6 +1,4 @@
-
-
-using Domain.Entities;
+using MqttEntities.Models;
 
 namespace MqttEntities.Common;
 

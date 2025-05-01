@@ -1,4 +1,4 @@
-using Domain.Entities;
+using NetDaemonApps.Models;
 
 namespace NetDaemonApps.Interfaces;
 

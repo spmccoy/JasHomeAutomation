@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using Domain.Entities;
 using NetDaemonApps.Interfaces;
+using NetDaemonApps.Models;
 
 namespace NetDaemonApps.apps.House;
 

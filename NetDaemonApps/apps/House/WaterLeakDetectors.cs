@@ -1,6 +1,6 @@
 using System.Reactive.Concurrency;
-using Domain.Entities;
 using NetDaemonApps.Interfaces;
+using NetDaemonApps.Models;
 
 namespace NetDaemonApps.apps.House;
 

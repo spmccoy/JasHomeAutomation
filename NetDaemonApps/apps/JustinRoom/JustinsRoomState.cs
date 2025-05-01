@@ -1,8 +1,9 @@
 using System.Threading.Tasks;
-using Domain.Entities;
+using MqttEntities.Models;
 using MQTTnet.Server;
 using NetDaemon.HassModel.Entities;
 using NetDaemonApps.Interfaces;
+using NetDaemonApps.Models;
 
 namespace NetDaemonApps.apps.JustinRoom;
 
