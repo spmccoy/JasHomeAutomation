@@ -6,20 +6,22 @@ namespace NetDaemonApps.Services;
 
 public class MainRoomService(
     Entities entities, 
-    ISunService sunService,
     ILogger<MainRoomService> logger,
     FanEntities fans,
     SceneEntities scenes,
     MediaPlayerEntities players,
-    ILightService lightService) 
+    ILightService lightService,
+    SunEntities sunEntities) 
     : IMainRoomService
 {
     public SelectEntity Select => entities.Select.MainroomStateSelectNetdaemon;
     public SwitchEntity Switch => entities.Switch.MainroomStateSwitchNetdaemon;
+
+    private readonly Sun _sun = new(sunEntities.Sun);
     
     public void DetermineAndSetRoomState()
     {
-        var illumination = sunService.GetCurrentSunState().CurrentSolarIllumination;
+        var illumination = _sun.CurrentSolarIllumination;
         
         switch (illumination)
         {

@@ -6,21 +6,23 @@ using NetDaemonApps.Models;
 namespace NetDaemonApps.Services;
 
 public class ShawnRoomService(
-    ISunService sunService, 
     ILogger<ShawnRoomService> logger,
     SelectEntities selects,
     FanEntities fans,
     SwitchEntities switches,
     SceneEntities scenes,
     ILightService lightService,
-    RemoteEntities remotes) : IShawnRoomService
+    RemoteEntities remotes,
+    SunEntities sunEntities) : IShawnRoomService
 {
     public SelectEntity Select => selects.ShawnroomStateNetdaemon;
     public SwitchEntity Switch => switches.ShawnroomStateNetdaemon;
+
+    private readonly Sun _sun = new(sunEntities.Sun);
     
     public void DetermineAndSetRoomState()
     {
-        var position = sunService.GetCurrentSunState().CurrentSolarPosition;
+        var position = _sun.CurrentSolarPosition;
         switch (position)
         {
             case Sun.SolarPosition.Unknown or Sun.SolarPosition.Unavailable:

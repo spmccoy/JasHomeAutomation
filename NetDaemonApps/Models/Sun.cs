@@ -34,26 +34,22 @@ public class Sun
         Dusk
     }
 
-    public Sun(
-        string? nextDawnUtc,
-        string? nextDuskUtc,
-        string? nextRisingUtc,
-        string? nextSettingUtc,
-        string? position,
-        DateTime currentDateTimeUtc)
+    public Sun(SunEntity sunEntity)
     {
-        NextDawn = nextDawnUtc;
-        NextDusk = nextDawnUtc;
-        NextRising = nextRisingUtc;
-        NextSetting = nextSettingUtc;
-        CurrentDateTimeUtc = currentDateTimeUtc;
-        SunState = position;
+        NextDawn = sunEntity.Attributes?.NextDawn;
+        NextDusk = sunEntity.Attributes?.NextDusk;
+        NextRising = sunEntity.Attributes?.NextRising;
+        NextSetting = sunEntity.Attributes?.NextSetting;
+        CurrentDateTimeUtc = DateTime.UtcNow;
+        SunState = sunEntity.State;
 
         UpdateSolarStates();
     }
 
     public SolarPosition CurrentSolarPosition { get; private set; }
     public SolarIllumination CurrentSolarIllumination { get; private set; }
+    
+    public bool IsDark => CurrentSolarPosition == SolarPosition.BelowHorizon;
 
     private string? NextDawn { get; }
     private string? NextDusk { get; }
