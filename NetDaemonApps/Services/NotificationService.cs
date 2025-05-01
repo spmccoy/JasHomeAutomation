@@ -33,12 +33,18 @@ public class NotificationService(IHaContext ha, IPersonService personService, IL
         "mobile_app_shawns_iphone",
         NotifiableDevice.NotificationDeviceType.HomeAssistant);
     
+    public NotifiableDevice JustinPhone { get; } = new(
+        "Justin's Phone",
+        "mobile_app_husbear",
+        NotifiableDevice.NotificationDeviceType.HomeAssistant);
+    
     public NotifiableDevice[] GetAllDevices =>
     [
         ShawnOfficeAlexa,
         KitchenAlexa,
         ShawnPhone,
         GarageAlexa,
+        JustinPhone
     ];
 
     public void Notify(Notification notification)
@@ -52,7 +58,7 @@ public class NotificationService(IHaContext ha, IPersonService personService, IL
                     break;
                 
                 case NotifiableDevice.NotificationDeviceType.HomeAssistant when notification.HasText:
-                    NotifyHomeAssistantDevice(notifiableDevice, notification.Text, notification.Title);
+                    NotifyHomeAssistantDevice(notifiableDevice, notification.Text, notification.Title, notification.Camera);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -60,18 +66,13 @@ public class NotificationService(IHaContext ha, IPersonService personService, IL
         }
     }
     
-    /// <summary>
-    /// Sends a notification to a specific device using Home Assistant service.
-    /// </summary>
-    /// <param name="notifiableDevice">The device to which the notification is sent.</param>
-    /// <param name="message">The message content of the notification. Optional.</param>
-    /// <param name="title">The title of the notification. Optional.</param>
-    private void NotifyHomeAssistantDevice(NotifiableDevice notifiableDevice, string? message, string? title)
+    private void NotifyHomeAssistantDevice(NotifiableDevice notifiableDevice, string? message, string? title, Camera? camera)
     {
         var data = new
         {
             message,
-            title
+            title,
+            data = new { entity_id = camera?.CameraEntity.EntityId }
         };
         
         ha.CallService(HaDomain, notifiableDevice.Id, data: data);

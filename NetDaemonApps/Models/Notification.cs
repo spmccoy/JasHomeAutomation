@@ -17,4 +17,6 @@ public class Notification
     public string? Tts { get; init; }
 
     public bool HasTts => !string.IsNullOrWhiteSpace(Tts);
+    
+    public Camera? Camera { get; init; }
 }

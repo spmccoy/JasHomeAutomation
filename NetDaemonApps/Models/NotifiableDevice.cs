@@ -5,6 +5,12 @@ namespace NetDaemonApps.Models;
 /// </summary>
 public class NotifiableDevice
 {
+    public enum NotificationDeviceType
+    {
+        Alexa,
+        HomeAssistant
+    }
+    
     public NotifiableDevice(string name, string id, NotificationDeviceType notificationDeviceType)
     {
         Id = id;
@@ -17,10 +23,4 @@ public class NotifiableDevice
     public string Name { get; init; }
     
     public NotificationDeviceType DeviceType { get; init; }
-    
-    public enum NotificationDeviceType
-    {
-        Alexa,
-        HomeAssistant
-    }
 }

@@ -34,7 +34,7 @@ public class Cameras
                 .Where(w => w.New?.State == HaState.On)
                 .Subscribe(_ =>
                 {
-                    Notify($"💁🏻‍♂️📸 {camera.Name} camera has detected a person", $"{camera.Name} camera has detected a person.");
+                    Notify($"💁🏻‍♂️📸 {camera.Name} camera has detected a person", $"{camera.Name} camera has detected a person.", camera);
                 });
         }
         
@@ -45,7 +45,7 @@ public class Cameras
                 .Where(w => w.New?.State == HaState.On)
                 .Subscribe(_ =>
                 {
-                    Notify($"🚙️📸 {camera.Name} camera has detected a vehicle", $"{camera.Name} camera has detected a vehicle.");
+                    Notify($"🚙️📸 {camera.Name} camera has detected a vehicle", $"{camera.Name} camera has detected a vehicle.", camera);
                 });
         }
 
@@ -56,12 +56,12 @@ public class Cameras
                 .Where(w => w.New?.State == HaState.On)
                 .Subscribe(_ =>
                 {
-                    Notify($"🐶📸 {camera.Name} camera has detected an animal", $"{camera.Name} camera has detected an animal.");
+                    Notify($"🐶📸 {camera.Name} camera has detected an animal", $"{camera.Name} camera has detected an animal.", camera);
                 });
         }
     }
 
-    private void Notify(string text, string tts)
+    private void Notify(string text, string tts, Camera camera)
     {
         if (_notificationTimoutEnabled || _switches.HouseCameraNotificationsNetdaemon.State == HaState.Off)
         {
@@ -72,7 +72,8 @@ public class Cameras
         {
             Text = text,
             Tts = tts,
-            Devices = _notificationService.GetAllDevices.ToList()
+            Devices = _notificationService.GetAllDevices.ToList(),
+            Camera = camera
         };
         
         _notificationService.Notify(notification);
