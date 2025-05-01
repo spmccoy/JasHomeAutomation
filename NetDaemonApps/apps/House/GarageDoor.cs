@@ -50,7 +50,14 @@ public class GarageDoor
         {
             for (var i = 0; i < 3; i++)
             {
-                _notificationService.Notify(NotifiableDevice.GarageAlexa, tts: "WARNING: Garage door preparing to close");
+                var notification = new Notification
+                {
+                    Tts = "WARNING: Garage door preparing to close"
+                };
+                notification.Devices.Add(_notificationService.GarageAlexa);
+                
+                _notificationService.Notify(notification);
+                
                 await Task.Delay(2000); // Use Task.Delay for asynchronous delay
             }
         });
