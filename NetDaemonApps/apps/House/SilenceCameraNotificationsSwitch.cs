@@ -1,9 +1,9 @@
 using System.Reactive.Concurrency;
-using Domain.Entities;
+using NetDaemonApps.Models;
 
 namespace NetDaemonApps.apps.House;
 [NetDaemonApp]
-public class CameraNotifications
+public class SilenceCameraNotificationsSwitch
 {
     private const int TurnBackOnInMinutes = 30;
     
@@ -12,7 +12,7 @@ public class CameraNotifications
     
     private IDisposable? _schedulerSubscription;
     
-    public CameraNotifications(SwitchEntities switches, IScheduler scheduler)
+    public SilenceCameraNotificationsSwitch(SwitchEntities switches, IScheduler scheduler)
     {
         _switches = switches;
         _scheduler = scheduler;

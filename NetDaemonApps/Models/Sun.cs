@@ -1,4 +1,6 @@
-namespace Domain.Entities;
+using System.Collections.Generic;
+
+namespace NetDaemonApps.Models;
 
 /// <summary>
 /// Represents the Sun entity, providing information regarding solar position and illumination state.

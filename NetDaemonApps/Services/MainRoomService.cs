@@ -1,5 +1,6 @@
-using Domain.Entities;
+using MqttEntities.Models;
 using NetDaemonApps.Interfaces;
+using NetDaemonApps.Models;
 
 namespace NetDaemonApps.Services;
 

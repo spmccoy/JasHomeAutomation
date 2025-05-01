@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using Domain.Entities;
 using MqttEntities.Common;
+using MqttEntities.Models;
 
 namespace MqttEntities.JustinsRoom;
 

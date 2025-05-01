@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using Domain.Entities;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MqttEntities.Common;

@@ -19,8 +19,4 @@
       <PackageReference Include="NetDaemon.Extensions.Mqtt" Version="25.10.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Domain\Domain.csproj" />
-    </ItemGroup>
-
 </Project>

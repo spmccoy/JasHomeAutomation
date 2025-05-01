@@ -1,4 +1,4 @@
-namespace Domain.Entities;
+namespace MqttEntities.Models;
 
 public record RoomState(RoomStateValue Value, string Name)
 {
