@@ -13,7 +13,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPersonService, PersonService>();
         services.AddScoped<ISensorService, SensorService>();
         services.AddScoped<ILightService, LightService>();
-        services.AddScoped<ISunService, SunService>();
         services.AddScoped<IShawnRoomService, ShawnRoomService>();
         services.AddScoped<IMainRoomService, MainRoomService>();
         services.AddScoped<IHouseService, HouseService>();

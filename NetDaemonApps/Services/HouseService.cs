@@ -5,8 +5,7 @@ using NetDaemonApps.Models;
 namespace NetDaemonApps.Services;
 
 public class HouseService(
-    IPersonService personService, 
-    ISunService sunService,
+    IPersonService personService,
     LightEntities lights,
     SceneEntities scenes,
     LockEntities locks,
@@ -14,7 +13,8 @@ public class HouseService(
     IMainRoomService mainRoomService,
     SelectEntities selects,
     CoverEntities covers,
-    ButtonEntities buttons) : IHouseService
+    ButtonEntities buttons,
+    SunEntities suns) : IHouseService
 {
     public SelectEntity Select => selects.HouseStateNetdaemon;
 
@@ -22,6 +22,8 @@ public class HouseService(
                                locks.HomeConnect620ConnectedSmartLock.State == HaState.Locked;
     
     public RoomState CurrentRoomState => RoomStates.FromString(Select.State);
+
+    private readonly Sun _sun = new (suns.Sun);
     
     public void DetermineAndSetHouseState()
     {
@@ -45,7 +47,7 @@ public class HouseService(
     public void DetermineAndSetOutsideLights()
     {
         // if it is not dark or past midnight turn off the lights
-        if (!sunService.IsDark || DateTime.Now.Hour < 16)
+        if (!_sun.IsDark || DateTime.Now.Hour < 16)
         {
             lights.PermanentLights.TurnOff();
             return;
