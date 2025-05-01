@@ -8,13 +8,13 @@ public class Notification
     
     public string? Title { get; init; }
     
+    public bool HasTitle => !string.IsNullOrWhiteSpace(Title);
+    
     public string? Text { get; init; }
+    
+    public bool HasText => !string.IsNullOrWhiteSpace(Text);
     
     public string? Tts { get; init; }
 
-    public bool HasTitle => string.IsNullOrWhiteSpace(Title);
-    
-    public bool HasText => string.IsNullOrWhiteSpace(Text);
-    
-    public bool HasTts => string.IsNullOrWhiteSpace(Tts);
+    public bool HasTts => !string.IsNullOrWhiteSpace(Tts);
 }

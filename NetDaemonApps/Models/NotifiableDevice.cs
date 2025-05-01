@@ -9,6 +9,7 @@ public class NotifiableDevice
     {
         Id = id;
         Name = name;
+        DeviceType = notificationDeviceType;
     }
     
     public string Id { get; init; }
