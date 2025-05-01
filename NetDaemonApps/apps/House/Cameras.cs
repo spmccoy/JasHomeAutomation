@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Reactive.Concurrency;
+using MqttEntities.Models;
 using NetDaemon.HassModel.Entities;
 using NetDaemonApps.Interfaces;
 using NetDaemonApps.Models;
@@ -21,7 +22,10 @@ public class Cameras
         INotificationService notificationService, 
         IScheduler scheduler,
         SwitchEntities switches,
-        ICameraService cameraService)
+        ICameraService cameraService,
+        BinarySensorEntities binarySensors,
+        IMainRoomService mainRoomService,
+        SelectEntities selects)
     {
         _notificationService = notificationService;
         _scheduler = scheduler;
@@ -59,6 +63,22 @@ public class Cameras
                     Notify($"🐶📸 {camera.Name} camera has detected an animal", $"{camera.Name} camera has detected an animal.", camera);
                 });
         }
+
+        binarySensors.MainPerson
+            .StateChanges()
+            .WhenStateIsFor(s => s?.State == HaState.On, TimeSpan.FromMicroseconds(500), scheduler)
+            .Subscribe(_ =>
+            {
+                mainRoomService.DetermineAndSetRoomState();
+
+                if (selects.HouseStateNetdaemon.State == RoomStates.Sleep.ToString())
+                {
+                    scheduler.Schedule(TimeSpan.FromMinutes(20), () =>
+                    {
+                        selects.MainroomStateSelectNetdaemon.SelectOption(RoomStates.Off.ToString());
+                    });
+                }
+            });
     }
 
     private void Notify(string text, string tts, Camera camera)

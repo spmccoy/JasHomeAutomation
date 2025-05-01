@@ -1,3 +1,4 @@
+using System.Reactive.Concurrency;
 using MqttEntities.Models;
 using NetDaemonApps.Interfaces;
 using NetDaemonApps.Models;
@@ -15,8 +16,12 @@ public class HouseService(
     CoverEntities covers,
     ButtonEntities buttons,
     SwitchEntities switches,
-    SunEntities suns) : IHouseService
+    SunEntities suns,
+    ClimateEntities thermostats,
+    IScheduler scheduler) : IHouseService
 {
+    private const int SecondsToBufferThermostatChanges = 30;
+    
     public SelectEntity Select => selects.HouseStateNetdaemon;
 
     public bool HouseSecure => covers.Ratgdov25i0a070cDoor.State == HaState.Closed &&
@@ -70,12 +75,14 @@ public class HouseService(
         locks.HomeConnect620ConnectedSmartLock.Lock();
         DetermineAndSetOutsideLights();
         switches.HouseCameraNotificationsNetdaemon.TurnOn();
+        SetThermostatNormal();
     }
     
     public void HandleHomeUnsecured()
     {
         DetermineAndSetOutsideLights();
         switches.HouseCameraNotificationsNetdaemon.TurnOff();
+        SetThermostatNormal();
     }
     
     public void HandleAway()
@@ -86,6 +93,7 @@ public class HouseService(
         locks.HomeConnect620ConnectedSmartLock.Lock();
         DetermineAndSetOutsideLights();
         switches.HouseCameraNotificationsNetdaemon.TurnOn();
+        SetThermostatNormal();
     }
 
     public void HandleSleep()
@@ -93,5 +101,32 @@ public class HouseService(
         shawnRoomService.Switch.TurnOff();
         mainRoomService.Switch.TurnOff();
         switches.HouseCameraNotificationsNetdaemon.TurnOn();
+        SetThermostatColder();
+    }
+
+    private void SetThermostatColder()
+    {
+        scheduler.Schedule(TimeSpan.FromSeconds(SecondsToBufferThermostatChanges), () =>
+        {
+            thermostats.T6ProZWaveProgrammableThermostat.SetTemperature(new ClimateSetTemperatureParameters
+            {
+                TargetTempHigh = 72,
+                TargetTempLow = 70,
+                HvacMode = "heat_cool"
+            });
+        });
+    }
+    
+    private void SetThermostatNormal()
+    {
+        scheduler.Schedule(TimeSpan.FromSeconds(SecondsToBufferThermostatChanges), () =>
+        {
+            thermostats.T6ProZWaveProgrammableThermostat.SetTemperature(new ClimateSetTemperatureParameters
+            {
+                TargetTempHigh = 74,
+                TargetTempLow = 72,
+                HvacMode = "heat_cool"
+            });
+        });
     }
 }
