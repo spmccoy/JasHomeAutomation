@@ -63,22 +63,6 @@ public class Cameras
                     Notify($"🐶📸 {camera.Name} camera has detected an animal", $"{camera.Name} camera has detected an animal.", camera);
                 });
         }
-
-        binarySensors.MainPerson
-            .StateChanges()
-            .WhenStateIsFor(s => s?.State == HaState.On, TimeSpan.FromMicroseconds(500), scheduler)
-            .Subscribe(_ =>
-            {
-                mainRoomService.DetermineAndSetRoomState();
-
-                if (selects.HouseStateNetdaemon.State == RoomStates.Sleep.ToString())
-                {
-                    scheduler.Schedule(TimeSpan.FromMinutes(20), () =>
-                    {
-                        selects.MainroomStateSelectNetdaemon.SelectOption(RoomStates.Off.ToString());
-                    });
-                }
-            });
     }
 
     private void Notify(string text, string tts, Camera camera)

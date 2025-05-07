@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using MqttEntities.Models;
 using MQTTnet.Server;
 using NetDaemon.HassModel.Entities;
+using NetDaemonApps.Extensions;
 using NetDaemonApps.Interfaces;
 using NetDaemonApps.Models;
 
@@ -41,11 +42,11 @@ public class JustinsRoomState
                 switch (newState)
                 {
                     case HaState.On when personService.JustinHome:
-                        selects.JustinroomStateNetdaemon.SelectOption(RoomStates.Day.ToString());
+                        selects.JustinroomStateNetdaemon.SelectDay();
                         break;
                     
                     case HaState.Off:
-                        selects.JustinroomStateNetdaemon.SelectOption(RoomStates.Off.ToString());
+                        selects.JustinroomStateNetdaemon.SelectOff();
                         break;
                 }
             });

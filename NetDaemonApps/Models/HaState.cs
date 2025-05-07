@@ -10,6 +10,6 @@ public static class HaState
     public const string Open = "open";
     public const string Locked = "locked";
     public const string Unlocked = "unlocked";
-    public const string Away = "away";
+    public const string Away = "not_home";
     public const string Home = "home";
 }
