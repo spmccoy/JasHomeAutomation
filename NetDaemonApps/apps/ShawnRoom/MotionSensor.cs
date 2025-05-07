@@ -1,5 +1,6 @@
 using System.Reactive.Concurrency;
 using NetDaemon.HassModel.Entities;
+using NetDaemonApps.Interfaces;
 using NetDaemonApps.Models;
 
 namespace NetDaemonApps.apps.ShawnRoom;
@@ -7,32 +8,40 @@ namespace NetDaemonApps.apps.ShawnRoom;
 [NetDaemonApp]
 public class MotionSensor
 {
-    private const int CycleOnEveryMinutes = 30;
+    private DateTime? _lastMotionDateTime;
     
-    private readonly Entities _entities;
-    private readonly IScheduler _scheduler;
-    private IDisposable? _schedulerSubscription;
-
-    public MotionSensor(Entities entities, IScheduler scheduler)
+    public MotionSensor(
+        BinarySensorEntities binarySensors, 
+        IScheduler scheduler, 
+        SwitchEntities switches,
+        IShawnRoomService shawnRoomService)
     {
-        _entities = entities;
-        _scheduler = scheduler;
-
-        entities.BinarySensor.ShawnOfficeHueMotionSensorMotion
+        binarySensors.ShawnOfficeHueMotionSensorMotion
              .StateChanges()
              .Where(e => e.New?.State == HaState.On && e.Old?.State == HaState.Off)
-             .Subscribe(_ => HandleMotion());
-    }
+             .Subscribe(_ =>
+             {
+                 _lastMotionDateTime = DateTime.Now;
+                 switches.ShawnroomStateNetdaemon.TurnOn();
+             });
+        
+        scheduler.Schedule(TimeSpan.FromMinutes(60), () =>
+        {
+            if (_lastMotionDateTime == null || switches.ShawnroomStateNetdaemon.IsOff())
+            {
+                return;
+            }
+            
+            var timeDifferenceInSeconds = (DateTime.Now - _lastMotionDateTime.Value).TotalMinutes;
 
-    private void HandleMotion()
-    {
-        Helpers.CancelSchedule(_schedulerSubscription);
-        
-        _entities.Switch.ShawnOfficeHueMotionSensorMotionSensorEnabled.TurnOff();
-        _entities.Switch.ShawnroomStateNetdaemon.TurnOn();
-        
-        _schedulerSubscription = _scheduler.Schedule(
-            TimeSpan.FromMinutes(CycleOnEveryMinutes),
-            () => _entities.Switch.ShawnOfficeHueMotionSensorMotionSensorEnabled.TurnOn());
+            if (timeDifferenceInSeconds > 60)
+            {
+                switches.ShawnroomStateNetdaemon.TurnOff();
+            }
+            else
+            {
+                shawnRoomService.DetermineAndSetRoomState();
+            }
+        });
     }
 }

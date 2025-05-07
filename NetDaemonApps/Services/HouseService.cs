@@ -1,5 +1,6 @@
 using System.Reactive.Concurrency;
 using MqttEntities.Models;
+using NetDaemonApps.Extensions;
 using NetDaemonApps.Interfaces;
 using NetDaemonApps.Models;
 
@@ -29,23 +30,21 @@ public class HouseService(
     
     public RoomState CurrentRoomState => RoomStates.FromString(Select.State);
 
-    private readonly Sun _sun = new (suns.Sun);
-    
     public void DetermineAndSetHouseState()
     {
         if (!personService.AnyoneHome)
         {
-            Select.SelectOption(RoomStates.Away.ToString());
+            Select.SelectAway();
             return;
         }
 
         switch (HouseSecure)
         {
             case true:
-                Select.SelectOption(RoomStates.HomeSecure.ToString());
+                Select.SelectHomeSecure();
                 return;
             case false:
-                Select.SelectOption(RoomStates.HomeUnsecured.ToString());
+                Select.SelectHomeUnSecure();
                 break;
         }
     }
@@ -53,7 +52,7 @@ public class HouseService(
     public void DetermineAndSetOutsideLights()
     {
         // if it is not dark or past midnight turn off the lights
-        if (!_sun.IsDark || DateTime.Now.Hour < 16)
+        if (!suns.Sun.IsDark() || DateTime.Now.Hour < 16)
         {
             lights.PermanentLights.TurnOff();
             return;
@@ -87,7 +86,7 @@ public class HouseService(
     
     public void HandleAway()
     {
-        shawnRoomService.Switch.TurnOff();
+        switches.ShawnroomStateNetdaemon.TurnOff();
         mainRoomService.Switch.TurnOff();
         buttons.HouseGarageDoorCloseNetdaemon.Press();
         locks.HomeConnect620ConnectedSmartLock.Lock();
@@ -98,7 +97,7 @@ public class HouseService(
 
     public void HandleSleep()
     {
-        shawnRoomService.Switch.TurnOff();
+        switches.ShawnroomStateNetdaemon.TurnOff();
         mainRoomService.Switch.TurnOff();
         switches.HouseCameraNotificationsNetdaemon.TurnOn();
         SetThermostatColder();

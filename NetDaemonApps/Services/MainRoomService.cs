@@ -1,4 +1,5 @@
 using MqttEntities.Models;
+using NetDaemonApps.Extensions;
 using NetDaemonApps.Interfaces;
 using NetDaemonApps.Models;
 
@@ -17,29 +18,27 @@ public class MainRoomService(
     public SelectEntity Select => entities.Select.MainroomStateSelectNetdaemon;
     public SwitchEntity Switch => entities.Switch.MainroomStateSwitchNetdaemon;
 
-    private readonly Sun _sun = new(sunEntities.Sun);
-    
     public void DetermineAndSetRoomState()
     {
-        var illumination = _sun.CurrentSolarIllumination;
+        var illumination = sunEntities.Sun.CurrentSolarIllumination();
         
         switch (illumination)
         {
             case Sun.SolarIllumination.Unknown:
                 logger.LogWarning("Current solar illumination is unknown. Switching to 'Off' state.");
-                Select.SelectOption(RoomStates.Off.ToString());
+                Select.SelectOff();
                 break;
             case Sun.SolarIllumination.Day:
-                Select.SelectOption(RoomStates.Day.ToString());
+                Select.SelectDay();
                 break;
             case Sun.SolarIllumination.Night:
-                Select.SelectOption(RoomStates.Night.ToString());
+                Select.SelectNight();
                 break;
             case Sun.SolarIllumination.Dawn:
-                Select.SelectOption(RoomStates.Dawn.ToString());
+                Select.SelectDawn();
                 break;
             case Sun.SolarIllumination.Dusk:
-                Select.SelectOption(RoomStates.Dusk.ToString());
+                Select.SelectDusk();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(illumination), $"Unexpected solar illumination: {illumination}");
@@ -96,7 +95,7 @@ public class MainRoomService(
                 break;
 
             case HaState.Off:
-                Select.SelectOption(RoomStates.Off.ToString());
+                Select.SelectOff();
                 break;
         }
     }

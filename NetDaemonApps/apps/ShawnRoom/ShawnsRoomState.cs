@@ -1,7 +1,9 @@
 using System.Threading.Tasks;
 using MqttEntities.Models;
 using NetDaemon.HassModel.Entities;
+using NetDaemonApps.Extensions;
 using NetDaemonApps.Interfaces;
+using NetDaemonApps.Models;
 
 namespace NetDaemonApps.apps.ShawnRoom;
 
@@ -9,54 +11,94 @@ namespace NetDaemonApps.apps.ShawnRoom;
 public class ShawnsRoomState
 {
     private readonly IShawnRoomService _shawnRoomService;
-    
-    public ShawnsRoomState(IShawnRoomService shawnRoomService)
+    private readonly SwitchEntities _switches;
+
+    public ShawnsRoomState(
+        IShawnRoomService shawnRoomService, 
+        SelectEntities selects,
+        FanEntities fans,
+        ILightService lightService,
+        RemoteEntities remotes,
+        SceneEntities scenes,
+        SwitchEntities switches)
     {
         _shawnRoomService = shawnRoomService;
-        
-        shawnRoomService.Select.StateChanges()
-            .SubscribeAsyncConcurrent(ProcessSelectChangeAsync);
+        _switches = switches;
 
-        shawnRoomService.Switch.StateChanges()
-            .Subscribe(_ => shawnRoomService.HandleSwitch());
+        selects.ShawnroomStateNetdaemon.StateChanges()
+            .Subscribe(stateChange =>
+            {
+                var newRoomState = RoomStates.FromString(stateChange.New?.State);
+
+                switch (newRoomState.Value)
+                {
+                    case RoomStateValue.Off:
+                        fans.ShawnPurifier.SetPercentage(100);
+                        lightService.TurnOffAreaLights(HaArea.ShawnRoom);
+                        remotes.ShawnSOfficeTv.TurnOff();
+                        EnsureSwitchOff();
+                        break;
+
+                    case RoomStateValue.Day:
+                        fans.ShawnPurifier.SetPercentage(33);
+                        scenes.ShawnSOfficeDay.TurnOn();
+                        EnsureSwitchOn();
+                        break;
+
+                    case RoomStateValue.Night:
+                        fans.ShawnPurifier.SetPercentage(33);
+                        scenes.ShawnsOfficeNight.TurnOn();
+                        EnsureSwitchOn();
+                        break;
+
+                    case RoomStateValue.Gaming:
+                        EnsureSwitchOn();
+                        break;
+
+                    case RoomStateValue.SimRacing:
+                        EnsureSwitchOn();
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException(
+                            stateChange.New?.State, 
+                            $"Unexpected RoomState: {stateChange.New?.State}"
+                        );
+                }
+            });
+
+        switches.ShawnroomStateNetdaemon.StateChanges()
+            .Subscribe(stateChange =>
+            {
+                var newState = stateChange.New?.State;
+                var oldState = stateChange.Old?.State;
+                
+                switch (newState)
+                {
+                    case HaState.On when oldState == HaState.Off:
+                        shawnRoomService.DetermineAndSetRoomState();
+                        break;
+
+                    case HaState.Off:
+                        selects.ShawnroomStateNetdaemon.SelectOff();
+                        break;
+                }
+            });
     }
 
-    private async Task ProcessSelectChangeAsync(StateChange<SelectEntity, EntityState<SelectAttributes>> stateChange)
+    private void EnsureSwitchOff()
     {
-        if (!_shawnRoomService.AreSwitchAndSelectStatesInSync())
+        if (_switches.ShawnroomStateNetdaemon.State != HaState.Off)
         {
-            _shawnRoomService.SyncSwitchToSelect();
+            _switches.ShawnroomStateNetdaemon.TurnOff();
         }
-
-        var roomState = RoomStates.FromString(stateChange.New?.State);
-        
-        switch (roomState.Value)
+    }
+    
+    private void EnsureSwitchOn()
+    {
+        if (_switches.ShawnroomStateNetdaemon.State != HaState.On)
         {
-            case RoomStateValue.Off:
-                await _shawnRoomService.HandleOffAsync();
-                break;
-
-            case RoomStateValue.Day:
-                _shawnRoomService.HandleDay();
-                break;
-
-            case RoomStateValue.Night:
-                _shawnRoomService.HandleNight();
-                break;
-
-            case RoomStateValue.Gaming:
-                _shawnRoomService.HandleGaming();
-                break;
-
-            case RoomStateValue.SimRacing:
-                _shawnRoomService.HandleSimRacing();
-                break;
-
-            default:
-                throw new ArgumentOutOfRangeException(
-                    stateChange.New?.State, 
-                    $"Unexpected RoomState: {stateChange.New?.State}"
-                );
+            _switches.ShawnroomStateNetdaemon.TurnOn();
         }
     }
 }
