@@ -1262,37 +1262,6 @@
         }
       }
     },
-    "mobile_app_cuddle_bear": {
-      "name": "Send a notification via mobile_app_cuddle_bear",
-      "description": "Sends a notification message using the mobile_app_cuddle_bear integration.",
-      "fields": {
-        "message": {
-          "required": true,
-          "example": "The garage door has been open for 10 minutes.",
-          "selector": {
-            "text": null
-          }
-        },
-        "title": {
-          "example": "Your Garage Door Friend",
-          "selector": {
-            "text": null
-          }
-        },
-        "target": {
-          "example": "platform specific",
-          "selector": {
-            "object": null
-          }
-        },
-        "data": {
-          "example": "platform specific",
-          "selector": {
-            "object": null
-          }
-        }
-      }
-    },
     "mobile_app_lyriq": {
       "name": "Send a notification via mobile_app_lyriq",
       "description": "Sends a notification message using the mobile_app_lyriq integration.",
@@ -6518,14 +6487,6 @@
         "optional": true
       }
     },
-    "house_sleepy_time": {
-      "name": "Put house to sleep (remove this)",
-      "description": "",
-      "fields": {},
-      "response": {
-        "optional": true
-      }
-    },
     "notifcationtest": {
       "name": "Prompt Close Garage",
       "description": "",
@@ -6536,14 +6497,6 @@
     },
     "master_scene_depending_on_time_of_day": {
       "name": "Turn master on",
-      "description": "",
-      "fields": {},
-      "response": {
-        "optional": true
-      }
-    },
-    "shawn_off": {
-      "name": "Turn shawn office off",
       "description": "",
       "fields": {},
       "response": {
@@ -6728,6 +6681,22 @@
             ]
           }
         ]
+      }
+    },
+    "shawn_off": {
+      "name": "Turn shawn office off",
+      "description": "",
+      "fields": {},
+      "response": {
+        "optional": true
+      }
+    },
+    "house_sleepy_time": {
+      "name": "House sleep (siri shortcut)",
+      "description": "",
+      "fields": {},
+      "response": {
+        "optional": true
       }
     }
   },

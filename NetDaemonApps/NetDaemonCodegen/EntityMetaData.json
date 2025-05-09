@@ -890,7 +890,7 @@
         {
           "jsonName": "connected_bluetooth",
           "cSharpName": "ConnectedBluetooth",
-          "clrType": null
+          "clrType": "System.String"
         },
         {
           "jsonName": "bluetooth_list",
@@ -1180,11 +1180,6 @@
           "id": "binary_sensor.back_vehicle",
           "friendlyName": "Back Vehicle",
           "cSharpName": "BackVehicle"
-        },
-        {
-          "id": "binary_sensor.cuddle_bear_focus",
-          "friendlyName": "Cuddle Bear Focus",
-          "cSharpName": "CuddleBearFocus"
         },
         {
           "id": "binary_sensor.desktop_tcfukdg_desktop_tcfukdg_namedwindow_diablo_open",
@@ -1495,6 +1490,11 @@
           "id": "binary_sensor.shawns_macbook_pro_focus",
           "friendlyName": "Shawn\u2019s MacBook Pro Focus",
           "cSharpName": "ShawnsMacbookProFocus"
+        },
+        {
+          "id": "binary_sensor.shawnsroom_occupied_netdaemon",
+          "friendlyName": "Shawn\u0027s Room Occupied",
+          "cSharpName": "ShawnsroomOccupiedNetdaemon"
         },
         {
           "id": "binary_sensor.t6_pro_z_wave_programmable_thermostat_ac_mains_re_connected",
@@ -2221,11 +2221,6 @@
     {
       "domain": "device_tracker",
       "entities": [
-        {
-          "id": "device_tracker.cuddle_bear",
-          "friendlyName": "Cuddle Bear",
-          "cSharpName": "CuddleBear"
-        },
         {
           "id": "device_tracker.husbear",
           "friendlyName": "Husbear",
@@ -3145,7 +3140,7 @@
         },
         {
           "id": "script.house_sleepy_time",
-          "friendlyName": "Put house to sleep (remove this)",
+          "friendlyName": "House sleep (siri shortcut)",
           "cSharpName": "HouseSleepyTime"
         },
         {
@@ -3180,7 +3175,7 @@
         },
         {
           "id": "script.shawn_off",
-          "friendlyName": "Turn shawn office off",
+          "friendlyName": "Turn shawn\u0027s office off (siri shortcut)",
           "cSharpName": "ShawnOff"
         },
         {
@@ -3468,64 +3463,9 @@
           "cSharpName": "AnyNamedWindowSensorOn"
         },
         {
-          "id": "sensor.cuddle_bear_activity",
-          "friendlyName": "Cuddle Bear Activity",
-          "cSharpName": "CuddleBearActivity"
-        },
-        {
-          "id": "sensor.cuddle_bear_app_version",
-          "friendlyName": "Cuddle Bear App Version",
-          "cSharpName": "CuddleBearAppVersion"
-        },
-        {
-          "id": "sensor.cuddle_bear_battery_state",
-          "friendlyName": "Cuddle Bear Battery State",
-          "cSharpName": "CuddleBearBatteryState"
-        },
-        {
-          "id": "sensor.cuddle_bear_bssid",
-          "friendlyName": "Cuddle Bear BSSID",
-          "cSharpName": "CuddleBearBssid"
-        },
-        {
-          "id": "sensor.cuddle_bear_connection_type",
-          "friendlyName": "Cuddle Bear Connection Type",
-          "cSharpName": "CuddleBearConnectionType"
-        },
-        {
-          "id": "sensor.cuddle_bear_geocoded_location",
-          "friendlyName": "Cuddle Bear Geocoded Location",
-          "cSharpName": "CuddleBearGeocodedLocation"
-        },
-        {
-          "id": "sensor.cuddle_bear_last_update_trigger",
-          "friendlyName": "Cuddle Bear Last Update Trigger",
-          "cSharpName": "CuddleBearLastUpdateTrigger"
-        },
-        {
-          "id": "sensor.cuddle_bear_location_permission",
-          "friendlyName": "Cuddle Bear Location permission",
-          "cSharpName": "CuddleBearLocationPermission"
-        },
-        {
-          "id": "sensor.cuddle_bear_sim_1",
-          "friendlyName": "Cuddle Bear SIM 1",
-          "cSharpName": "CuddleBearSim1"
-        },
-        {
-          "id": "sensor.cuddle_bear_sim_2",
-          "friendlyName": "Cuddle Bear SIM 2",
-          "cSharpName": "CuddleBearSim2"
-        },
-        {
-          "id": "sensor.cuddle_bear_ssid",
-          "friendlyName": "Cuddle Bear SSID",
-          "cSharpName": "CuddleBearSsid"
-        },
-        {
-          "id": "sensor.cuddle_bear_watch_battery_state",
-          "friendlyName": "Cuddle Bear Watch Battery State",
-          "cSharpName": "CuddleBearWatchBatteryState"
+          "id": "sensor.desktop_tcfukdg_desktop_tcfukdg_lastactive",
+          "friendlyName": "DESKTOP-TCFUKDG DESKTOP-TCFUKDG_lastactive",
+          "cSharpName": "DesktopTcfukdgDesktopTcfukdgLastactive"
         },
         {
           "id": "sensor.desktop_tcfukdg_desktop_tcfukdg_lastsystemstatechange",
@@ -4098,6 +4038,11 @@
           "cSharpName": "ShawnsMacbookProSsid"
         },
         {
+          "id": "sensor.shawnsroom_last_motion_netdaemon",
+          "friendlyName": "Shawn\u0027s Room Last Motion",
+          "cSharpName": "ShawnsroomLastMotionNetdaemon"
+        },
+        {
           "id": "sensor.sun_next_dawn",
           "friendlyName": "Sun Next dawn",
           "cSharpName": "SunNextDawn"
@@ -4605,46 +4550,6 @@
       "domain": "sensor",
       "isNumeric": true,
       "entities": [
-        {
-          "id": "sensor.cuddle_bear_average_active_pace",
-          "friendlyName": "Cuddle Bear Average Active Pace",
-          "cSharpName": "CuddleBearAverageActivePace"
-        },
-        {
-          "id": "sensor.cuddle_bear_battery_level",
-          "friendlyName": "Cuddle Bear Battery Level",
-          "cSharpName": "CuddleBearBatteryLevel"
-        },
-        {
-          "id": "sensor.cuddle_bear_distance",
-          "friendlyName": "Cuddle Bear Distance",
-          "cSharpName": "CuddleBearDistance"
-        },
-        {
-          "id": "sensor.cuddle_bear_floors_ascended",
-          "friendlyName": "Cuddle Bear Floors Ascended",
-          "cSharpName": "CuddleBearFloorsAscended"
-        },
-        {
-          "id": "sensor.cuddle_bear_floors_descended",
-          "friendlyName": "Cuddle Bear Floors Descended",
-          "cSharpName": "CuddleBearFloorsDescended"
-        },
-        {
-          "id": "sensor.cuddle_bear_steps",
-          "friendlyName": "Cuddle Bear Steps",
-          "cSharpName": "CuddleBearSteps"
-        },
-        {
-          "id": "sensor.cuddle_bear_storage",
-          "friendlyName": "Cuddle Bear Storage",
-          "cSharpName": "CuddleBearStorage"
-        },
-        {
-          "id": "sensor.cuddle_bear_watch_battery",
-          "friendlyName": "Cuddle Bear Watch Battery",
-          "cSharpName": "CuddleBearWatchBattery"
-        },
         {
           "id": "sensor.frank_area_cleaned",
           "friendlyName": "Frank Area cleaned",
@@ -5232,11 +5137,6 @@
           "id": "switch.all_cameras_push_notifications",
           "friendlyName": "All cameras push notifications",
           "cSharpName": "AllCamerasPushNotifications"
-        },
-        {
-          "id": "switch.automation_shawn_office_hue_motion_sensor",
-          "friendlyName": "Automation: Shawn office Hue motion sensor",
-          "cSharpName": "AutomationShawnOfficeHueMotionSensor"
         },
         {
           "id": "switch.automation_state_after_streaming",
@@ -6538,29 +6438,49 @@
           "cSharpName": "DevNetdaemonMqttEntityStateManager"
         },
         {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_camera_notifications",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_camera_notifications",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseCameraNotifications"
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_bedroom_bedroom_room_state",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_bedroom_bedroom_room_state",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsBedroomBedroomRoomState"
         },
         {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_cameras",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_cameras",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesCameras"
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_cameras",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_cameras",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseCameras"
         },
         {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_front_door_lock",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_front_door_lock",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesFrontDoorLock"
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_front_door_lock",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_front_door_lock",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseFrontDoorLock"
         },
         {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_garage_door",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_garage_door",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesGarageDoor"
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_garage_door",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_garage_door",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseGarageDoor"
         },
         {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_devices_shawn",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_devices_shawn",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseDevicesShawn"
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_house_state",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_house_state",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseHouseState"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_main_room_camera",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_main_room_camera",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseMainRoomCamera"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_people",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_people",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHousePeople"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_silence_camera_notifications_switch",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_silence_camera_notifications_switch",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseSilenceCameraNotificationsSwitch"
+        },
+        {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_timer",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_house_timer",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseTimer"
         },
         {
           "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_house_water_leak_detectors",
@@ -6568,49 +6488,119 @@
           "cSharpName": "DevNetdaemonNetDaemonAppsAppsHouseWaterLeakDetectors"
         },
         {
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_justin_room_justins_room_state",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_justin_room_justins_room_state",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsJustinRoomJustinsRoomState"
+        },
+        {
           "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_main_room_main_room_state",
           "friendlyName": "dev_netdaemon_net_daemon_apps_apps_main_room_main_room_state",
           "cSharpName": "DevNetdaemonNetDaemonAppsAppsMainRoomMainRoomState"
         },
         {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_do_not_disturb",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_do_not_disturb",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesDoNotDisturb"
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_do_not_disturb",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_do_not_disturb",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDoNotDisturb"
         },
         {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_mac_book_pro",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_mac_book_pro",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesMacBookPro"
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_mac_book_pro",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_mac_book_pro",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomMacBookPro"
         },
         {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_motion_sensor",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_motion_sensor",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesMotionSensor"
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_motion_sensor",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_motion_sensor",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomMotionSensor"
         },
         {
-          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_shawns_room_state",
-          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_devices_shawns_room_state",
-          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomDevicesShawnsRoomState"
+          "id": "input_boolean.dev_netdaemon_net_daemon_apps_apps_shawn_room_shawns_room_state",
+          "friendlyName": "dev_netdaemon_net_daemon_apps_apps_shawn_room_shawns_room_state",
+          "cSharpName": "DevNetdaemonNetDaemonAppsAppsShawnRoomShawnsRoomState"
         },
         {
-          "id": "input_boolean.netdaemon_app_model_hello_yaml_app",
-          "friendlyName": "netdaemon_app_model_hello_yaml_app",
-          "cSharpName": "NetdaemonAppModelHelloYamlApp"
+          "id": "input_boolean.netdaemon_mqtt_entity_state_manager",
+          "friendlyName": "netdaemon_mqtt_entity_state_manager",
+          "cSharpName": "NetdaemonMqttEntityStateManager"
         },
         {
-          "id": "input_boolean.netdaemon_extensions_scheduling_scheduling_app",
-          "friendlyName": "netdaemon_extensions_scheduling_scheduling_app",
-          "cSharpName": "NetdaemonExtensionsSchedulingSchedulingApp"
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_bedroom_bedroom_room_state",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_bedroom_bedroom_room_state",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsBedroomBedroomRoomState"
         },
         {
-          "id": "input_boolean.netdaemon_hass_model_hello_world_app",
-          "friendlyName": "netdaemon_hass_model_hello_world_app",
-          "cSharpName": "NetdaemonHassModelHelloWorldApp"
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_house_cameras",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_house_cameras",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsHouseCameras"
         },
         {
-          "id": "input_boolean.netdaemon_hass_model_light_on_movement",
-          "friendlyName": "netdaemon_hass_model_light_on_movement",
-          "cSharpName": "NetdaemonHassModelLightOnMovement"
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_house_front_door_lock",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_house_front_door_lock",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsHouseFrontDoorLock"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_house_garage_door",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_house_garage_door",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsHouseGarageDoor"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_house_house_state",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_house_house_state",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsHouseHouseState"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_house_main_room_camera",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_house_main_room_camera",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsHouseMainRoomCamera"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_house_people",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_house_people",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsHousePeople"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_house_silence_camera_notifications_switch",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_house_silence_camera_notifications_switch",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsHouseSilenceCameraNotificationsSwitch"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_house_timer",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_house_timer",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsHouseTimer"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_house_water_leak_detectors",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_house_water_leak_detectors",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsHouseWaterLeakDetectors"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_justin_room_justins_room_state",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_justin_room_justins_room_state",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsJustinRoomJustinsRoomState"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_main_room_main_room_state",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_main_room_main_room_state",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsMainRoomMainRoomState"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_shawn_room_do_not_disturb",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_shawn_room_do_not_disturb",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsShawnRoomDoNotDisturb"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_shawn_room_mac_book_pro",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_shawn_room_mac_book_pro",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsShawnRoomMacBookPro"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_shawn_room_motion_sensor",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_shawn_room_motion_sensor",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsShawnRoomMotionSensor"
+        },
+        {
+          "id": "input_boolean.netdaemon_net_daemon_apps_apps_shawn_room_shawns_room_state",
+          "friendlyName": "netdaemon_net_daemon_apps_apps_shawn_room_shawns_room_state",
+          "cSharpName": "NetdaemonNetDaemonAppsAppsShawnRoomShawnsRoomState"
         }
       ],
       "attributes": [

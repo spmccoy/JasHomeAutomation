@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using MqttEntities.ShawnsRoom;
 using NetDaemonApps.Interfaces;
 using NetDaemonApps.Services;
 
@@ -17,6 +18,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IMainRoomService, MainRoomService>();
         services.AddScoped<IHouseService, HouseService>();
         services.AddScoped<ICameraService, CameraService>();
+
+        services.AddScoped<LastMotionInShawnsRoomSensor>();
+        services.AddScoped<ShawnsRoomOccupiedBinarySensor>();
         return services;
     }
 }

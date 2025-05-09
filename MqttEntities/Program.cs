@@ -38,6 +38,12 @@ async Task CreateMqttEntityAsync(IMqttEntityManager entityManager, MqttEntity? e
                 new { options = mqttSelect.Options.Select(option => option).ToArray() });
             break;
         
+        case MqttSensor mqttSensor:
+            await entityManager.CreateAsync(
+                mqttSensor.Id,
+                new EntityCreationOptions(Name: mqttSensor.DisplayName, DeviceClass: mqttSensor.DeviceClass));
+            break;
+        
         default:
             if (entity is null)
             {
