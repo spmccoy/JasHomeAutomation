@@ -1,4 +1,3 @@
-using System.Reactive.Concurrency;
 using MqttEntities.Models;
 using NetDaemonApps.Extensions;
 using NetDaemonApps.Interfaces;
@@ -11,18 +10,14 @@ public class HouseService(
     LightEntities lights,
     SceneEntities scenes,
     LockEntities locks,
-    IShawnRoomService shawnRoomService,
     IMainRoomService mainRoomService,
     SelectEntities selects,
     CoverEntities covers,
     ButtonEntities buttons,
     SwitchEntities switches,
     SunEntities suns,
-    ClimateEntities thermostats,
-    IScheduler scheduler) : IHouseService
+    ClimateEntities thermostats) : IHouseService
 {
-    private const int SecondsToBufferThermostatChanges = 30;
-    
     public SelectEntity Select => selects.HouseStateNetdaemon;
 
     public bool HouseSecure => covers.Ratgdov25i0a070cDoor.State == HaState.Closed &&
@@ -74,14 +69,14 @@ public class HouseService(
         locks.HomeConnect620ConnectedSmartLock.Lock();
         DetermineAndSetOutsideLights();
         switches.HouseCameraNotificationsNetdaemon.TurnOn();
-        SetThermostatNormal();
+        thermostats.T6ProZWaveProgrammableThermostat.SetNormal();
     }
     
     public void HandleHomeUnsecured()
     {
         DetermineAndSetOutsideLights();
         switches.HouseCameraNotificationsNetdaemon.TurnOff();
-        SetThermostatNormal();
+        thermostats.T6ProZWaveProgrammableThermostat.SetNormal();
     }
     
     public void HandleAway()
@@ -92,7 +87,7 @@ public class HouseService(
         locks.HomeConnect620ConnectedSmartLock.Lock();
         DetermineAndSetOutsideLights();
         switches.HouseCameraNotificationsNetdaemon.TurnOn();
-        SetThermostatNormal();
+        thermostats.T6ProZWaveProgrammableThermostat.SetNormal();
     }
 
     public void HandleSleep()
@@ -100,32 +95,6 @@ public class HouseService(
         switches.ShawnroomStateNetdaemon.TurnOff();
         mainRoomService.Switch.TurnOff();
         switches.HouseCameraNotificationsNetdaemon.TurnOn();
-        SetThermostatColder();
-    }
-
-    private void SetThermostatColder()
-    {
-        scheduler.Schedule(TimeSpan.FromSeconds(SecondsToBufferThermostatChanges), () =>
-        {
-            thermostats.T6ProZWaveProgrammableThermostat.SetTemperature(new ClimateSetTemperatureParameters
-            {
-                TargetTempHigh = 72,
-                TargetTempLow = 70,
-                HvacMode = "heat_cool"
-            });
-        });
-    }
-    
-    private void SetThermostatNormal()
-    {
-        scheduler.Schedule(TimeSpan.FromSeconds(SecondsToBufferThermostatChanges), () =>
-        {
-            thermostats.T6ProZWaveProgrammableThermostat.SetTemperature(new ClimateSetTemperatureParameters
-            {
-                TargetTempHigh = 74,
-                TargetTempLow = 72,
-                HvacMode = "heat_cool"
-            });
-        });
+        thermostats.T6ProZWaveProgrammableThermostat.SetColder();
     }
 }
