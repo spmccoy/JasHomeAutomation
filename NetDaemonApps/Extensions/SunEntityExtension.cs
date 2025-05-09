@@ -35,7 +35,7 @@ public static class SunEntityExtension
     
     public static Sun.SolarIllumination CurrentSolarIllumination(this SunEntity sunEntity)
     {
-        var now = DateTime.UtcNow;
+        var now = DateTime.Now;
         var dawn = Dawn(sunEntity);
         var dusk = Dusk(sunEntity);
 
