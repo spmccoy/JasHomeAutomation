@@ -6,7 +6,7 @@ namespace MqttEntities.ShawnsRoom
 {
     public class ShawnsRoomOccupiedBinarySensor : MqttBinarySensor
     {
-        private readonly IMqttEntityManager _mqttEntityManager;
+        private readonly IMqttEntityManager? _mqttEntityManager;
         private const string Room = "ShawnsRoom";
         private const string State = "occupied";
         private const string Description = "Shawn's Room Occupied";

@@ -4,7 +4,7 @@ using NetDaemonApps.Models;
 
 namespace NetDaemonApps.Services;
 
-public class CameraService(IHaRegistry haRegistry, IHaContext haContext, BinarySensorEntities binarySensors, CameraEntities cameras) : ICameraService
+public class CameraService(BinarySensorEntities binarySensors, CameraEntities cameras) : ICameraService
 {
     public Camera[] GetAllCameras()
     {
