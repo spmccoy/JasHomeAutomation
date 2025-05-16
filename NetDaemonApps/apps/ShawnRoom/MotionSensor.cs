@@ -13,10 +13,7 @@ public class MotionSensor
 {
     public MotionSensor(
         BinarySensorEntities binarySensors, 
-        IScheduler scheduler, 
-        SwitchEntities switches,
         IShawnRoomService shawnRoomService,
-        IMqttEntityManager mqttEntityManager,
         LastMotionInShawnsRoomSensor lastMotionSensor)
     {
         binarySensors.ShawnOfficeHueMotionSensorMotion
@@ -24,8 +21,8 @@ public class MotionSensor
              .Where(e => e.New?.State == HaState.On && e.Old?.State == HaState.Off)
              .SubscribeAsync(async _ =>
              {
-                 switches.ShawnroomStateNetdaemon.TurnOn();
                  await lastMotionSensor.UpdateMotionStateAsync();
+                 await shawnRoomService.UpdateOccupancySensorAsync();
              });
     }
 }
