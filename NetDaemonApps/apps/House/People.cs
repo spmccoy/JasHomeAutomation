@@ -15,7 +15,6 @@ public class People
                 switch (newState)
                 {
                     case HaState.Away:
-                        switches.ShawnroomStateNetdaemon.TurnOff();
                         buttons.HouseGarageDoorCloseNetdaemon.Press();
                         break;
 
