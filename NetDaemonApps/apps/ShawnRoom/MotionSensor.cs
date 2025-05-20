@@ -23,6 +23,7 @@ public class MotionSensor
              {
                  await lastMotionSensor.UpdateMotionStateAsync();
                  await shawnRoomService.UpdateOccupancySensorAsync();
+                 shawnRoomService.DetermineAndSetRoomState();
              });
     }
 }
