@@ -13,13 +13,13 @@ public class PersonArrivedHomeUseCase(House house, IDomainEventDispatcher domain
 
     public Task HandleAsync(PersonId personId)
     {
-        PersonId = personId;
+        PersonId = personId ?? throw new ArgumentNullException(nameof(personId));
         return base.HandleAsync();
     }
 
     protected override Task ExecuteCoreLogicAsync()
     {
-        _house.MarkPersonAsHome(PersonId ?? throw new NullReferenceException(nameof(PersonId)));
+        _house.MarkPersonAsHome(PersonId!);
         return Task.CompletedTask;
     }
 }
