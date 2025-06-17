@@ -1,6 +1,5 @@
 using Integrations.HomeDevices.HomeAssistantGenerated;
 using SmartHomeCore.Application.Common;
-using SmartHomeCore.Domain.Covers;
 using SmartHomeCore.Infrastructure.Common;
 
 namespace SmartHomeCore.Infrastructure.Integrations.HomeDevices.Rooms;
@@ -13,7 +12,7 @@ public class Garage(
 {
     public async Task CloseDoorAsync()
     {
-        if (covers.Ratgdov25i0a070cDoor.State.ToCoverState() == CoverState.Closed)
+        if (covers.Ratgdov25i0a070cDoor.State.ToHomeAssistantState() == HomeAssistantState.Closed)
         {
             return;
         }
@@ -45,7 +44,7 @@ public class Garage(
 
     public Task OpenDoorAsync()
     {
-        if (covers.Ratgdov25i0a070cDoor.State.ToCoverState() == CoverState.Open)
+        if (covers.Ratgdov25i0a070cDoor.State.ToHomeAssistantState() == HomeAssistantState.Open)
         {
             return Task.CompletedTask;
         }

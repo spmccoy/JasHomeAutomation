@@ -9,8 +9,14 @@ public class PersonLeftHomeUseCase(House house, IDomainEventDispatcher domainEve
     : UseCase(house, domainEventDispatcher, logger)
 {
     private readonly House _house = house;
-    public PersonId? PersonId { get; set; }
+    private PersonId? PersonId { get; set; }
 
+    public Task HandleAsync(PersonId personId)
+    {
+        PersonId = personId;
+        return base.HandleAsync();
+    }
+    
     protected override Task ExecuteCoreLogicAsync()
     {
         _house.MarkPersonAsAway(PersonId ?? throw new NullReferenceException(nameof(PersonId)));
