@@ -2,13 +2,14 @@ using System.Linq;
 using NetDaemon.HassModel.Entities;
 using SmartHomeCore.Application.UseCases;
 using SmartHomeCore.Domain.HouseEntity;
+using SmartHomeCore.Domain.PersonEntity;
 
 namespace SmartHomeCore.NetDaemonApps.apps;
 
 [NetDaemonApp]
 public class PersonSubscriber
 {
-    private readonly PersonLeftUseCase _personLeftUseCase;
+    private readonly PersonLeftHomeUseCase _personLeftHomeUseCase;
     private readonly PersonArrivedHomeUseCase _personArrivedHomeUseCase;
     private const string Unavailable = "unavailable";
     private const string Unknown = "unknown";
@@ -18,10 +19,10 @@ public class PersonSubscriber
     public PersonSubscriber(
         IHaContext ha, 
         House house, 
-        PersonLeftUseCase personLeftUseCase, 
+        PersonLeftHomeUseCase personLeftHomeUseCase, 
         PersonArrivedHomeUseCase personArrivedHomeUseCase)
     {
-        _personLeftUseCase = personLeftUseCase;
+        _personLeftHomeUseCase = personLeftHomeUseCase;
         _personArrivedHomeUseCase = personArrivedHomeUseCase;
         
         var peopleEntities = ha.GetAllEntities()
@@ -34,6 +35,9 @@ public class PersonSubscriber
         }
     }
 
+    private static bool IgnoreStateChange(string? oldState) => 
+        oldState == Unknown || oldState == Unavailable || string.IsNullOrWhiteSpace(oldState);
+    
     private void Subscribe(Entity peopleEntity)
     {
         peopleEntity.StateChanges()
@@ -50,20 +54,15 @@ public class PersonSubscriber
                 switch (newState)
                 {
                     case Away:
-                        _personLeftUseCase.PersonId = peopleEntity.EntityId;
-                        await _personLeftUseCase.HandleAsync();
+                        _personLeftHomeUseCase.PersonId = PersonId.Create(peopleEntity.EntityId);
+                        await _personLeftHomeUseCase.HandleAsync();
                         break;
                     
                     case Home:
-                        _personArrivedHomeUseCase.PersonId = peopleEntity.EntityId;
+                        _personArrivedHomeUseCase.PersonId = PersonId.Create(peopleEntity.EntityId);
                         await _personArrivedHomeUseCase.HandleAsync();
                         break;
                 }
             });
-    }
-    
-    private static bool IgnoreStateChange(string? oldState)
-    {
-        return oldState == Unknown || oldState == Unavailable || string.IsNullOrWhiteSpace(oldState);
     }
 }

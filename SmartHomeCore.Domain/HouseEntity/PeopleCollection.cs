@@ -21,9 +21,9 @@ public class PeopleCollection
         _people.Add(new Person(personId, name));
     }
     
-    public Person GetPerson(string id)
+    public Person GetPerson(PersonId id)
     {
         return _people.FirstOrDefault(p => p.Id == id)
-            ?? throw new InvalidOperationException($"Person with ID '{id}' does not exist");
+            ?? throw new EntityNotFoundException(nameof(Person), id);
     }
 }

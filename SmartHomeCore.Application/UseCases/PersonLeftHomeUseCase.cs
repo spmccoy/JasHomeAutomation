@@ -5,7 +5,7 @@ using SmartHomeCore.Domain.PersonEntity;
 
 namespace SmartHomeCore.Application.UseCases;
 
-public class PersonArrivedHomeUseCase(House house, IDomainEventDispatcher domainEventDispatcher, ILogger<PersonArrivedHomeUseCase> logger) 
+public class PersonLeftHomeUseCase(House house, IDomainEventDispatcher domainEventDispatcher, ILogger<PersonLeftHomeUseCase> logger) 
     : UseCase(house, domainEventDispatcher, logger)
 {
     private readonly House _house = house;
@@ -13,7 +13,7 @@ public class PersonArrivedHomeUseCase(House house, IDomainEventDispatcher domain
 
     protected override Task ExecuteCoreLogicAsync()
     {
-        _house.MarkPersonAsHome(PersonId ?? throw new NullReferenceException(nameof(PersonId)));
+        _house.MarkPersonAsAway(PersonId ?? throw new NullReferenceException(nameof(PersonId)));
         return Task.CompletedTask;
     }
 }

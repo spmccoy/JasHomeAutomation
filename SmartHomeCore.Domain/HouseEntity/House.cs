@@ -36,28 +36,28 @@ public class House : Entity, IHasState<HouseState>
     public void AddDoor(DoorId doorId, string name, bool openCloseSupported, bool lockSupported) =>
         _doorsCollection.AddDoor(doorId, name, openCloseSupported, lockSupported);
     
-    public void MarkDoorAsOpen(string id)
+    public void MarkDoorAsOpen(DoorId id)
     {
         var door = _doorsCollection.GetDoor(id);
         door.MarkAsOpen();
         ApplyHouseRules();
     }
 
-    public void MarkDoorAsClosed(string id)
+    public void MarkDoorAsClosed(DoorId id)
     {
         var door = _doorsCollection.GetDoor(id);
         door.MarkAsClosed();
         ApplyHouseRules();
     }
 
-    public void MarkDoorAsLocked(string id)
+    public void MarkDoorAsLocked(DoorId id)
     {
         var door = _doorsCollection.GetDoor(id);
         door.MarkAsLocked();
         ApplyHouseRules();
     }
 
-    public void MarkDoorAsUnlocked(string id)
+    public void MarkDoorAsUnlocked(DoorId id)
     {
         var door = _doorsCollection.GetDoor(id);
         door.MarkAsUnlocked();
@@ -65,17 +65,17 @@ public class House : Entity, IHasState<HouseState>
     }
     
     // People management methods
-    public void AddPerson(PersonId personId, string name) => 
-        _peopleCollection.AddPerson(personId, name);
+    public void AddPerson(PersonId personId, string name) => _peopleCollection.AddPerson(personId, name);
+    public Person? GetPerson(PersonId id) => _peopleCollection.GetPerson(id);
     
-    public void MarkPersonAsHome(string id)
+    public void MarkPersonAsHome(PersonId id)
     {
         var person = _peopleCollection.GetPerson(id);
         person.MarkAsHome();
         ApplyHouseRules();
     }
     
-    public void MarkPersonAsAway(string id)
+    public void MarkPersonAsAway(PersonId id)
     {
         var person = _peopleCollection.GetPerson(id);
         person.MarkAsAway();
@@ -100,6 +100,7 @@ public class House : Entity, IHasState<HouseState>
         if (EveryoneIsAway)
         {
             MarkAsEveryoneAway();
+            return;
         }
 
         if (AllDoorsClosed && AllDoorsLocked)

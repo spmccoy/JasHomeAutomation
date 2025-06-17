@@ -45,7 +45,7 @@ public abstract class ValueObject
     /// <summary>
     /// Determines whether two specified instances of ValueObject are equal.
     /// </summary>
-    public static bool operator ==(ValueObject left, ValueObject right)
+    public static bool operator ==(ValueObject? left, ValueObject right)
     {
         if (left is null && right is null)
             return true;
