@@ -21,9 +21,9 @@ public class DoorsCollection
         _doors.Add(new Door(doorId, name, openCloseSupported, lockSupported));
     }
 
-    public Door GetDoor(string id)
+    public Door GetDoor(DoorId id)
     {
         return _doors.FirstOrDefault(d => d.Id == id)
-            ?? throw new InvalidOperationException($"Door with ID '{id}' does not exist");
+            ?? throw new EntityNotFoundException(nameof(Door), id);
     }
 }

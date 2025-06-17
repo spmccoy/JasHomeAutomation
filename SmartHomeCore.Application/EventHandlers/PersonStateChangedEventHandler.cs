@@ -4,7 +4,9 @@ using SmartHomeCore.Domain.PersonEntity;
 
 namespace SmartHomeCore.Application.EventHandlers;
 
-public class PersonStateChangedEventHandler(ILogger<PersonStateChangedEventHandler> logger, IHomeAutomationClient homeAutomationClient) 
+public class PersonStateChangedEventHandler(
+    ILogger<PersonStateChangedEventHandler> logger, 
+    IHomeAutomationClient homeAutomationClient) 
     : IDomainEventHandler<PersonStateChangedEvent>
 {
     public async Task HandleAsync(PersonStateChangedEvent domainEvent)

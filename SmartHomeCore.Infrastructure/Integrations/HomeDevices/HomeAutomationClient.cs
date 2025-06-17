@@ -1,27 +1,16 @@
-using Integrations.HomeDevices.HomeAssistantGenerated;
 using SmartHomeCore.Application.Common;
+using SmartHomeCore.Infrastructure.Common;
 
 namespace SmartHomeCore.Infrastructure.Integrations.HomeDevices;
 
-public class HomeAutomationClient : IHomeAutomationClient
-{
-    private readonly ButtonEntities _buttons;
-
-    public HomeAutomationClient(
-        ButtonEntities buttons)
+public class HomeAutomationClient(IGarage garage, IMainRoom mainRoom) : IHomeAutomationClient
+{   
+    public async Task CloseGarageAsync() => await garage.CloseDoorAsync();
+    public async Task OpenGarageAsync() => await garage.OpenDoorAsync();
+    public async Task LockFrontDoorAsync() => await mainRoom.LockFrontDoorAsync();
+    public async Task SecureAllEntryPointsAsync()
     {
-        _buttons = buttons;
-    }
-    
-    public Task CloseGarageAsync()
-    {
-        _buttons.HouseGarageDoorCloseNetdaemon.Press();
-        return Task.CompletedTask;
-    }
-
-    public Task OpenGarageAsync()
-    {
-        _buttons.HouseGarageDoorOpenNetdaemon.Press();
-        return Task.CompletedTask;
+        await LockFrontDoorAsync();
+        await CloseGarageAsync();
     }
 }
