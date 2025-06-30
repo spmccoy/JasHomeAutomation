@@ -4,10 +4,6 @@ namespace SmartHomeCore.Domain.DoorEntity;
 
 public class Door : Entity
 {
-    public DoorId Id { get; }
-    
-    public string Name { get; }
-
     public Door(DoorId doorId, string name, bool openCloseSupported, bool lockSupported)
     {
         ArgumentNullException.ThrowIfNull(doorId);
@@ -22,6 +18,10 @@ public class Door : Entity
         DoorState = openCloseSupported ? DoorState.Unknown : DoorState.Unsupported;
         LockState = lockSupported ? LockState.Unknown : LockState.Unsupported;
     }
+    
+    public DoorId Id { get; }
+    
+    public string Name { get; }
     
     public DoorState DoorState { get; private set; }
     public LockState LockState { get; private set; }

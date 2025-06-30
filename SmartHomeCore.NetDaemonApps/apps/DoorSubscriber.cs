@@ -8,6 +8,12 @@ using SmartHomeCore.Infrastructure.Integrations.HomeDevices;
 namespace SmartHomeCore.NetDaemonApps.apps;
 
 [NetDaemonApp]
+public class SelectSubscriber : SubscriberBase
+{
+    
+}
+
+[NetDaemonApp]
 public class DoorSubscriber : SubscriberBase
 {
     private readonly Predicate<StateChange> _stateChangedToClose = stateChange =>
@@ -42,19 +48,19 @@ public class DoorSubscriber : SubscriberBase
         {
             doorEntity.StateChanges()
                 .Where(stateChange => _stateChangedToClose(stateChange))
-                .SubscribeAsync(_ => doorClosedUseCase.HandleAsync(DoorId.Create(doorEntity.EntityId)));
+                .SubscribeAsync(_ => doorClosedUseCase.HandleAsync(DoorId.From(doorEntity.EntityId)));
             
             doorEntity.StateChanges()
                 .Where(stateChange => _stateChangedToOpen(stateChange))
-                .SubscribeAsync(_ => doorOpenedUseCase.HandleAsync(DoorId.Create(doorEntity.EntityId)));
+                .SubscribeAsync(_ => doorOpenedUseCase.HandleAsync(DoorId.From(doorEntity.EntityId)));
             
             doorEntity.StateChanges()
                 .Where(stateChange => _stateChangedToLocked(stateChange))
-                .SubscribeAsync(_ => doorLockedUseCase.HandleAsync(DoorId.Create(doorEntity.EntityId)));
+                .SubscribeAsync(_ => doorLockedUseCase.HandleAsync(DoorId.From(doorEntity.EntityId)));
             
             doorEntity.StateChanges()
                 .Where(stateChange => _stateChangedToUnlocked(stateChange))
-                .SubscribeAsync(_ => doorUnLockedUseCase.HandleAsync(DoorId.Create(doorEntity.EntityId)));
+                .SubscribeAsync(_ => doorUnLockedUseCase.HandleAsync(DoorId.From(doorEntity.EntityId)));
         }
     }
 }

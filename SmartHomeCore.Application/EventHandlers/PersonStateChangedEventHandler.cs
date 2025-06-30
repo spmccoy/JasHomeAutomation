@@ -11,7 +11,7 @@ public class PersonStateChangedEventHandler(
 {
     public async Task HandleAsync(PersonStateChangedEvent domainEvent)
     {
-        logger.LogDebug("{Name} state changed: {OldState} -> {NewState}", domainEvent.PersonName, domainEvent.OldState, domainEvent.NewState);
+        logger.LogDebug(EventHandlerConstants.StateChangeLog, domainEvent.PersonName, domainEvent.OldState, domainEvent.NewState);
 
         if (domainEvent.NewState.IsAway())
         {

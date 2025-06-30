@@ -22,11 +22,11 @@ public class DoorId : ValueObject
         Value = value;
     }
 
-    public static DoorId Create(string value) => new(value);
+    public static DoorId From(string value) => new(value);
 
     public static implicit operator string(DoorId personId) => personId.Value;
     
-    public static explicit operator DoorId(string value) => Create(value);
+    public static explicit operator DoorId(string value) => From(value);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

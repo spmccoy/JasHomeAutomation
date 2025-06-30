@@ -7,10 +7,13 @@ namespace SmartHomeCore.Application.UseCases;
 
 public abstract class UseCase(House house, IDomainEventDispatcher domainEventDispatcher, ILogger logger)
 {
-    public async Task HandleAsync()
+    protected async Task HandleAsync()
     {
         try
         {
+            logger.LogInformation("Applying house rules...");
+            house.ApplyHouseRules();
+            
             logger.LogInformation("Executing core logic for {UseCase}", GetType().Name);
             await ExecuteCoreLogicAsync();
 

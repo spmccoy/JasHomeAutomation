@@ -19,4 +19,9 @@
       <PackageReference Include="NetDaemon.Extensions.Mqtt" Version="25.10.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SmartHomeCore.Application\SmartHomeCore.Application.csproj" />
+      <ProjectReference Include="..\SmartHomeCore.Domain\SmartHomeCore.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

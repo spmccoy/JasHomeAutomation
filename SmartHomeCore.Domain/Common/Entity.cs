@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace SmartHomeCore.Domain.Common;
 
 public abstract class Entity
@@ -10,6 +12,14 @@ public abstract class Entity
     {
         _domainEvents.Add(domainEvent);
     }
+
+    protected string GenerateSelectId(string displayName)
+    {
+        var withUnderscores = Regex.Replace(displayName, @"\s+", "_");
+        var cleanedName = Regex.Replace(withUnderscores, @"[^a-zA-Z0-9_]", "");
+        return $"select.{cleanedName}_netdaemon".ToLower();
+    }
+
     
     public void ClearDomainEvents()
     {

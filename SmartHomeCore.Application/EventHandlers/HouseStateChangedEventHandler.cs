@@ -11,7 +11,7 @@ public class HouseStateChangedEventHandler(
 {
     public async Task HandleAsync(HouseStateChangedEvent domainEvent)
     {
-        logger.LogDebug("House state changed: {OldState} -> {NewState}", domainEvent.OldState, domainEvent.NewState);
+        logger.LogDebug(EventHandlerConstants.StateChangeLog, "House", domainEvent.OldState, domainEvent.NewState);
 
         if (domainEvent.NewState.IsSecure())
         {

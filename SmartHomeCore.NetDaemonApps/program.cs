@@ -5,6 +5,7 @@ using NetDaemon.Extensions.Scheduler;
 using NetDaemon.Extensions.Tts;
 using NetDaemon.Runtime;
 using HomeAssistantGenerated;
+using NetDaemon.Extensions.MqttEntityManager;
 using SmartHomeCore.Application;
 using SmartHomeCore.Infrastructure;
 
@@ -19,13 +20,12 @@ try
         .UseNetDaemonTextToSpeech()
         .ConfigureServices((_, services) =>
             services
-                .AddAppsFromAssembly(Assembly.GetExecutingAssembly())
-                .AddNetDaemonStateManager()
-                .AddNetDaemonScheduler()
-                .AddHomeAssistantGenerated()
                 .AddInfrastructureLayer()
                 .AddApplicationLayer()
-        )
+                .AddAppsFromAssembly(Assembly.GetExecutingAssembly())
+                .AddNetDaemonStateManager()
+                .AddNetDaemonScheduler())
+        .UseNetDaemonMqttEntityManagement()
         .Build()
         .RunAsync()
         .ConfigureAwait(false);

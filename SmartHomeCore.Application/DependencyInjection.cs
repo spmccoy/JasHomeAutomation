@@ -4,8 +4,6 @@ using SmartHomeCore.Application.EventHandlers;
 using SmartHomeCore.Application.Services;
 using SmartHomeCore.Application.UseCases;
 using SmartHomeCore.Domain.Common;
-using SmartHomeCore.Domain.HouseEntity;
-using SmartHomeCore.Domain.PersonEntity;
 
 namespace SmartHomeCore.Application;
 
@@ -13,24 +11,12 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
     {
-        RegisterHouse(services);
+        HouseConfig.Register(services);
         RegisterAllDomainEventHandlers(services);
         services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
         RegisterAllUseCases(services);
         
         return services;
-    }
-
-    private static void RegisterHouse(IServiceCollection services)
-    {
-        services.AddSingleton<House>(serviceProvider =>
-        {
-            var house = new House();
-            
-            house.AddPerson(PersonId.Create("shawn"), "Shawn");
-            
-            return house;
-        });
     }
     
     private static void RegisterAllDomainEventHandlers(IServiceCollection services)

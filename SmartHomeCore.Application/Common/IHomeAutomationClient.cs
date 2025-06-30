@@ -6,4 +6,5 @@ public interface IHomeAutomationClient
     Task OpenGarageAsync();
     Task LockFrontDoorAsync();
     Task SecureAllEntryPointsAsync();
+    Task ActivateScene(string sceneId);
 }

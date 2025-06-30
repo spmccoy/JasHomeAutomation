@@ -1,6 +1,7 @@
 using SmartHomeCore.Domain.Common;
 using SmartHomeCore.Domain.DoorEntity;
 using SmartHomeCore.Domain.PersonEntity;
+using SmartHomeCore.Domain.AreaEntity;
 
 namespace SmartHomeCore.Domain.HouseEntity;
 
@@ -8,17 +9,22 @@ public class House : Entity, IHasState<HouseState>
 {
     private readonly PeopleCollection _peopleCollection;
     private readonly DoorsCollection _doorsCollection;
-    
+    private readonly AreasCollection _areasCollection;
+
     public House()
     {
         _peopleCollection = new PeopleCollection();
         _doorsCollection = new DoorsCollection();
+        _areasCollection = new AreasCollection();
     }
     
     public HouseState CurrentState { get; private set; } = HouseState.Unknown;
 
     public IReadOnlyCollection<Person> People => _peopleCollection.People;
     public IReadOnlyCollection<Door> Doors => _doorsCollection.Doors;
+    public IReadOnlyCollection<Area> Areas => _areasCollection.Areas;
+    
+    public string SelectId => GenerateSelectId("House");
 
     // House state properties derived from collections
     public bool EveryoneIsHome => _peopleCollection.EveryoneIsHome;
@@ -40,28 +46,24 @@ public class House : Entity, IHasState<HouseState>
     {
         var door = _doorsCollection.GetDoor(id);
         door.MarkAsOpen();
-        ApplyHouseRules();
     }
 
     public void MarkDoorAsClosed(DoorId id)
     {
         var door = _doorsCollection.GetDoor(id);
         door.MarkAsClosed();
-        ApplyHouseRules();
     }
 
     public void MarkDoorAsLocked(DoorId id)
     {
         var door = _doorsCollection.GetDoor(id);
         door.MarkAsLocked();
-        ApplyHouseRules();
     }
 
     public void MarkDoorAsUnlocked(DoorId id)
     {
         var door = _doorsCollection.GetDoor(id);
         door.MarkAsUnlocked();
-        ApplyHouseRules();
     }
     
     // People management methods
@@ -72,14 +74,12 @@ public class House : Entity, IHasState<HouseState>
     {
         var person = _peopleCollection.GetPerson(id);
         person.MarkAsHome();
-        ApplyHouseRules();
     }
     
     public void MarkPersonAsAway(PersonId id)
     {
         var person = _peopleCollection.GetPerson(id);
         person.MarkAsAway();
-        ApplyHouseRules();
     }
     
     public void ChangeState(HouseState newState)
@@ -95,7 +95,12 @@ public class House : Entity, IHasState<HouseState>
         AddDomainEvent(new HouseStateChangedEvent(oldState, newState));
     }
     
-    private void ApplyHouseRules()
+    // Area management methods
+    public Area AddArea(AreaId areaId, string name) => _areasCollection.AddArea(areaId, name);
+    public Area GetArea(AreaId id) => _areasCollection.GetArea(id);
+    public Area GetAreaBySelectId(string selectId) => _areasCollection.GetAreaBySelectId(selectId);
+    
+    public void ApplyHouseRules()
     {
         if (EveryoneIsAway)
         {

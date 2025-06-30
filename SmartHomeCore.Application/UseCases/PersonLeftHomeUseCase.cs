@@ -9,17 +9,17 @@ public class PersonLeftHomeUseCase(House house, IDomainEventDispatcher domainEve
     : UseCase(house, domainEventDispatcher, logger)
 {
     private readonly House _house = house;
-    private PersonId? PersonId { get; set; }
+    private PersonId _personId = null!;
 
     public Task HandleAsync(PersonId personId)
     {
-        PersonId = personId ?? throw new ArgumentNullException(nameof(personId));
+        _personId = personId ?? throw new ArgumentNullException(nameof(personId));
         return base.HandleAsync();
     }
     
     protected override Task ExecuteCoreLogicAsync()
     {
-        _house.MarkPersonAsAway(PersonId!);
+        _house.MarkPersonAsAway(_personId);
         return Task.CompletedTask;
     }
 }

@@ -9,17 +9,17 @@ public class DoorClosedUseCase(House house, IDomainEventDispatcher domainEventDi
     : UseCase(house, domainEventDispatcher, logger)
 {
     private readonly House _house = house;
-    private DoorId? DoorId { get; set; }
+    private DoorId _doorId = null!;
     
     public Task HandleAsync(DoorId doorId)
     {
-        DoorId = doorId ?? throw new ArgumentNullException(nameof(doorId));
+        _doorId = doorId ?? throw new ArgumentNullException(nameof(doorId));
         return base.HandleAsync();
     }
     
     protected override Task ExecuteCoreLogicAsync()
     {
-        _house.MarkDoorAsClosed(DoorId!);
+        _house.MarkDoorAsClosed(_doorId);
         return Task.CompletedTask;
     }
 }

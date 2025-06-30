@@ -32,11 +32,11 @@ public class PersonSubscriber : SubscriberBase
         {
             peopleEntity.StateChanges()
                 .Where(stateChange => _stateChangedToAway(stateChange))
-                .SubscribeAsync(_ => personLeftHomeUseCase.HandleAsync(PersonId.Create(peopleEntity.EntityId)));
+                .SubscribeAsync(_ => personLeftHomeUseCase.HandleAsync(PersonId.From(peopleEntity.EntityId)));
             
             peopleEntity.StateChanges()
                 .Where(stateChange => _stateChangedToHome(stateChange))
-                .SubscribeAsync(_ => personArrivedHomeUseCase.HandleAsync(PersonId.Create(peopleEntity.EntityId)));
+                .SubscribeAsync(_ => personArrivedHomeUseCase.HandleAsync(PersonId.From(peopleEntity.EntityId)));
         }
     }
 }

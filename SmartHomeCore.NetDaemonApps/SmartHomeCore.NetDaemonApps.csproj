@@ -30,6 +30,7 @@
 
     <ItemGroup>
         <PackageReference Include="NetDaemon.AppModel" Version="25.10.0"/>
+        <PackageReference Include="NetDaemon.Extensions.Mqtt" Version="25.10.0" />
         <PackageReference Include="NetDaemon.Runtime" Version="25.10.0"/>
         <PackageReference Include="NetDaemon.HassModel" Version="25.10.0"/>
         <PackageReference Include="NetDaemon.Client" Version="25.10.0"/>
@@ -39,6 +40,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MqttEntities\MqttEntities.csproj" />
       <ProjectReference Include="..\SmartHomeCore.Application\SmartHomeCore.Application.csproj" />
       <ProjectReference Include="..\SmartHomeCore.Domain\SmartHomeCore.Domain.csproj" />
       <ProjectReference Include="..\SmartHomeCore.Infrastructure\SmartHomeCore.Infrastructure.csproj" />

@@ -4,12 +4,6 @@ namespace SmartHomeCore.Domain.PersonEntity;
 
 public class Person : Entity, IHasState<PersonState>
 {
-    public string Name { get; }
-    
-    public PersonId Id { get; }
-    
-    public PersonState CurrentState { get; private set; } = PersonState.Unknown;
-
     public Person(PersonId personId, string name)
     {
         ArgumentNullException.ThrowIfNull(personId);
@@ -23,6 +17,12 @@ public class Person : Entity, IHasState<PersonState>
         Name = name;
     }
     
+    public string Name { get; }
+    
+    public PersonId Id { get; }
+    
+    public PersonState CurrentState { get; private set; } = PersonState.Unknown;
+
     public void MarkAsHome() => ChangeState(PersonState.Home);
     
     public void MarkAsAway() => ChangeState(PersonState.Away);

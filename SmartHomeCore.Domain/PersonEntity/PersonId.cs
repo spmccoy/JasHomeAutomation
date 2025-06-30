@@ -5,10 +5,8 @@ namespace SmartHomeCore.Domain.PersonEntity;
 
 public class PersonId : ValueObject
 {
-    public const string Prefix = "person.";
+    private const string Prefix = "person.";
     
-    public string Value { get; }
-
     /// <summary>
     /// Represents a value object for a person's unique identifier.
     /// </summary>
@@ -26,12 +24,14 @@ public class PersonId : ValueObject
             
         Value = value;
     }
+    
+    public string Value { get; }
 
-    public static PersonId Create(string value) => new(Prefix + value);
+    public static PersonId From(string value) => new(Prefix + value);
 
     public static implicit operator string(PersonId personId) => personId.Value;
     
-    public static explicit operator PersonId(string value) => Create(value);
+    public static explicit operator PersonId(string value) => From(value);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
